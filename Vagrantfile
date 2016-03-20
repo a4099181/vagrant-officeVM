@@ -12,7 +12,10 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "base"
+    config.vm.provider       "hyperv"
+    config.vm.box          = "seb!/w10-4devs"
+    config.vm.box_url      = "file://z:/Vagrant/w10-4devs/hyperv.box"
+    config.vm.hostname     = "#{ENV['COMPUTERNAME']}-VAGRANT"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -43,7 +46,9 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "hyperv" do |vb|
+
+      vb.vmname = "#{ENV['COMPUTERNAME']}-VAGRANT"
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
