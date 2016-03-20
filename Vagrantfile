@@ -16,6 +16,9 @@ Vagrant.configure(2) do |config|
     config.vm.box          = "seb!/w10-4devs"
     config.vm.box_url      = "file://z:/Vagrant/w10-4devs/hyperv.box"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-VAGRANT"
+    config.vm.communicator = "winrm"
+    config.winrm.username  = "vagrant"
+    config.winrm.password  = "vagrant"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
