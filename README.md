@@ -90,6 +90,19 @@ It reads a list of Visual Studio extensions to install from
 * [VSColorOutput]
 * [VsVim]
 
+### Git repositories
+
+It reads a list of repositories to clone from
+[git-clone.json](../master/sysroot/Users/vagrant/MyProjects/git-clone.json)
+
+* CodeStyles
+
+There is also one another solution to clone git repository
+that need authentication for reading.
+These repositories may be cloned on [first login](#what-will-be-installed-on-first-login).
+
+> Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
+
 ### Drives mappings
 
 There is expected an encrypted file `sysroot-protected`
@@ -120,6 +133,8 @@ This scripts supports file content encryption with a key provided as file.
 ### What will be installed on first login?
 
 * [Babun] - a Windows shell you will love
+* Git repositories that needs authentication for reading.
+  See [git-clone.reg](../master/provision/registry/git-clone.reg)
 
 ### Known issues!
 
