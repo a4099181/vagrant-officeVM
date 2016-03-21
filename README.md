@@ -45,5 +45,9 @@
 ### Your new machine
 
 * has a hostname as your host OS with suffix `-VAGRANT`
+* has assigned 1 CPU less than your host OS has.
+* has declared maximum memory up to 8GB
+
+> These all settings you can tweak as you wish.
 
 [Vagrant]: https://www.vagrantup.com

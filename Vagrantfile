@@ -52,12 +52,22 @@ Vagrant.configure(2) do |config|
   config.vm.provider "hyperv" do |vb|
 
       vb.vmname = "#{ENV['COMPUTERNAME']}-VAGRANT"
+
+      # Number of virtual CPU given to mashine.
+      # Defaults is taken from box image XML.
+      vb.cpus = [1, ENV['NUMBER_OF_PROCESSORS'].to_i - 1 ].max
+
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-  # end
+
+      # Number of MegaBytes maximal allowed to allocate for VM
+      # This parameter is switch on Dynamic Allocation of memory.
+      # Defaults is taken from box image XML.
+      vb.maxmemory = 8192
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
