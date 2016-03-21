@@ -71,6 +71,20 @@ It reads a list of packages to install from
 * Utilities:
   * [unzip]
 
+#### Visual Studio extensions
+
+It reads a list of Visual Studio extensions to install from
+[vs-extensions.txt](../master/provision/vs-extensions.txt)
+
+* [File nesting]
+* [Productivity Power Tools]
+* [ReAttach]
+* [Relative line numbers]
+* [Soneta StudioExt Package]
+* [Visual Studio Spell Checker]
+* [VSColorOutput]
+* [VsVim]
+
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
 [Git]: https://git-scm.com/
@@ -85,3 +99,11 @@ It reads a list of packages to install from
 [Vagrant]: https://www.vagrantup.com
 [Visual Studio]: https://www.visualstudio.com
 
+[File nesting]: http://visualstudiogallery.msdn.microsoft.com/3ebde8fb-26d8-4374-a0eb-1e4e2665070c
+[Productivity Power Tools]: http://visualstudiogallery.msdn.microsoft.com/d0d33361-18e2-46c0-8ff2-4adea1e34fef
+[ReAttach]: http://visualstudiogallery.msdn.microsoft.com/8cccc206-b9de-42ef-8f5a-160ad0f017ae
+[Relative line numbers]: http://visualstudiogallery.msdn.microsoft.com/74d68e2b-ff64-4c51-a2ed-d8b164eee858
+[Soneta StudioExt Package]: http://visualstudiogallery.msdn.microsoft.com/d0a1ac45-15b9-4471-acaf-df650bf937d5
+[Visual Studio Spell Checker]: http://visualstudiogallery.msdn.microsoft.com/a23de100-31a1-405c-b4b7-d6be40c3dfff
+[VSColorOutput]: http://visualstudiogallery.msdn.microsoft.com/f4d9c2b5-d6d7-4543-a7a5-2d7ebabc2496
+[VsVim]: http://visualstudiogallery.msdn.microsoft.com/59ca71b3-a4a3-46ca-8fe1-0e90e3f79329
