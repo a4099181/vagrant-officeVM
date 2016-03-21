@@ -8,7 +8,8 @@
   This machine arbitrary uses a box based on **Hyper-V** solution by default.
   It is possible to use any other virtualization provider such as **VMWare**
   or **Virtual Box**. In this case valid box should be provided.
-  This box should contain any Windows operating system.
+  This box should contain any Windows operating system
+  with [Chocolatey] Machine Package Manager installed.
 
 ### How to use it?
 
@@ -50,4 +51,5 @@
 
 > These all settings you can tweak as you wish.
 
+[Chocolatey]: https://chocolatey.org
 [Vagrant]: https://www.vagrantup.com

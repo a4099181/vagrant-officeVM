@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -87,7 +88,20 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
+  config.vm.provision 'shell', name: 'generic: chocolatey provisioner',
+      run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+      inline: "iex ((new-object net.webclient)" +
+              ".DownloadString('https://chocolatey.org/install.ps1'))"
+
+  config.vm.provision 'shell', name: 'generic: chocolatey packages',
+      run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+      inline: 'cinst -y C:\vagrant\provision\generic\choco.config'
+
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
+
+      main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
+          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+          inline: 'cinst -y C:\vagrant\provision\vs2015\choco.config'
 
   end
 
