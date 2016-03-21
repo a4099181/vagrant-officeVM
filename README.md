@@ -8,8 +8,7 @@
   This machine arbitrary uses a box based on **Hyper-V** solution by default.
   It is possible to use any other virtualization provider such as **VMWare**
   or **Virtual Box**. In this case valid box should be provided.
-  This box should contain any Windows operating system
-  with [Chocolatey] Machine Package Manager installed.
+  This box should contain any Windows operating system just only.
 
 ### How to use it?
 
@@ -51,5 +50,38 @@
 
 > These all settings you can tweak as you wish.
 
+### What is installed?
+
+#### [Chocolatey] packages:
+
+It reads a list of packages to install from
+[packages.config](../master/provision/choco/packages.config)
+
+* Applications:
+  * [Git] Portable
+  * [Skype]
+  * [Tomighty] - it installs [Java] Runtime Environment
+  * [Visual Studio] 2015 Enterprise Update 1 with optional features:
+    * SQL
+  * [Resharper] - [Visual Studio] extension for .net developers
+* Fonts:
+  * [inconsolata]
+  * [meslo]
+  * [source code pro]
+* Utilities:
+  * [unzip]
+
+[Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
+[Git]: https://git-scm.com/
+[inconsolata]: http://www.levien.com/type/myfonts/inconsolata.html
+[Java]: http://www.java.com
+[meslo]: https://github.com/andreberg/Meslo-Font
+[Resharper]: https://www.jetbrains.com/resharper/
+[Skype]: http://www.skype.com
+[source code pro]: http://adobe-fonts.github.io/source-code-pro/
+[Tomighty]: http://www.tomighty.org
+[unzip]: http://www.info-zip.org/UnZip.html
 [Vagrant]: https://www.vagrantup.com
+[Visual Studio]: https://www.visualstudio.com
+
