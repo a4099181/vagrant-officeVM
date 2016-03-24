@@ -53,6 +53,7 @@
 ### What is installed?
 
 * VPN connection
+* NuGet extended configuration
 
 #### [Chocolatey] packages:
 
