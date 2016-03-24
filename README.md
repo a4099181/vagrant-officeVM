@@ -52,6 +52,8 @@
 
 ### What is installed?
 
+* VPN connection
+
 #### [Chocolatey] packages:
 
 It reads a list of packages to install from
