@@ -86,4 +86,9 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
+
+  config.vm.define 'vs2015', autostart: true, primary: true do | main |
+
+  end
+
 end
