@@ -90,6 +90,10 @@ It reads a list of Visual Studio extensions to install from
 * [VSColorOutput]
 * [VsVim]
 
+### What will be installed on first login?
+
+* [Babun] - a Windows shell you will love
+
 ### Known issues!
 
 * Visual Studio installation issue
