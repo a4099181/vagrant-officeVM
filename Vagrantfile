@@ -110,6 +110,9 @@ Vagrant.configure(2) do |config|
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
 
+      main.vm.provision 'shell', name: 'Windows Registry update',
+          privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
+
   end
 
 end
