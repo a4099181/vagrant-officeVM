@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require_relative "scripts/sysroot.rb"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -102,6 +103,12 @@ Vagrant.configure(2) do |config|
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
           run: 'up', powershell_args: '-ExecutionPolicy ByPass',
           inline: 'cinst -y C:\vagrant\provision\vs2015\choco.config'
+
+      main.vm.provision 'shell', name: 'vs2015: vs extensions',
+          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+          path: 'provision\powershell\vsix.ps1'
+
+      provision_sysroot  main.vm if Dir.exist?  'sysroot'
 
   end
 
