@@ -90,6 +90,25 @@ It reads a list of Visual Studio extensions to install from
 * [VSColorOutput]
 * [VsVim]
 
+### Drives mappings
+
+There is expected an encrypted file `sysroot-protected`
+inside `sysroot-protected\Users\Vagrant\AppData\Local\Temp` folder.
+
+Decrypted content should be a JSon formatted data like below:
+
+```json
+    {     "mappings" : [ {
+          "local"    :     "<localDrive>"
+      ,   "remote"   :     "\\\\<server-name>\\<network-share>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+    } ] }
+```
+
+This file is processed by
+[map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
+
 ### Sensitive data support
 
 Sensitive data such as usernames and passwords are protected with encryption.

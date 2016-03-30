@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require_relative "provision/ruby/map-drives.rb"
 require_relative "provision/ruby/sysroot.rb"
 require_relative "provision/ruby/sysroot-protected.rb"
 require_relative "provision/ruby/vpn-connect.rb"
@@ -118,6 +119,8 @@ Vagrant.configure(2) do |config|
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
       connect_vpn                  main.vm
+
+      provision_drives             main.vm if File.exist? 'sysroot-protected\Users\vagrant\AppData\Local\Temp\map-drives.json'
 
   end
 end
