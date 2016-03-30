@@ -108,7 +108,7 @@ Vagrant.configure(2) do |config|
           run: 'up', powershell_args: '-ExecutionPolicy ByPass',
           path: 'provision\powershell\vsix.ps1'
 
-      provision_sysroot  main.vm if Dir.exist?  'sysroot'
+      provision_sysroot            main.vm if Dir.exist?  'sysroot'
 
   end
 
