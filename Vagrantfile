@@ -3,6 +3,7 @@
 
 require_relative "provision/ruby/sysroot.rb"
 require_relative "provision/ruby/sysroot-protected.rb"
+require_relative "provision/ruby/vpn-connect.rb"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -116,6 +117,7 @@ Vagrant.configure(2) do |config|
       main.vm.provision 'shell', name: 'Windows Registry update',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
-  end
+      connect_vpn                  main.vm
 
+  end
 end
