@@ -90,6 +90,14 @@ It reads a list of Visual Studio extensions to install from
 * [VSColorOutput]
 * [VsVim]
 
+### Sensitive data support
+
+Sensitive data such as usernames and passwords are protected with encryption.
+All files located in `sysroot-protected` folder are expected to be encrypted.
+This folder is processed by
+[sysroot-protected.ps1](../provisioning/powershell/sysroot-protected.ps1).
+This scripts supports file content encryption with a key provided as file.
+
 ### What will be installed on first login?
 
 * [Babun] - a Windows shell you will love

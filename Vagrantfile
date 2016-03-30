@@ -1,7 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require_relative "scripts/sysroot.rb"
+require_relative "provision/ruby/sysroot.rb"
+require_relative "provision/ruby/sysroot-protected.rb"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -109,6 +110,8 @@ Vagrant.configure(2) do |config|
           path: 'provision\powershell\vsix.ps1'
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
+
+      provision_sysroot_protected  main.vm if Dir.exist?  'sysroot-protected'
 
       main.vm.provision 'shell', name: 'Windows Registry update',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
