@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+require_relative "provision/ruby/git-clone.rb"
 require_relative "provision/ruby/map-drives.rb"
 require_relative "provision/ruby/sysroot.rb"
 require_relative "provision/ruby/sysroot-protected.rb"
@@ -121,6 +122,8 @@ Vagrant.configure(2) do |config|
       connect_vpn                  main.vm
 
       provision_drives             main.vm if File.exist? 'sysroot-protected\Users\vagrant\AppData\Local\Temp\map-drives.json'
+
+      provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 
   end
 end
