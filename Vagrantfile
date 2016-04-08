@@ -125,5 +125,9 @@ Vagrant.configure(2) do |config|
 
       provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 
+      main.vm.provision 'shell', name: 'Windows Defender exclusions',
+          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+          path: 'provision\powershell\defender.ps1'
+
   end
 end
