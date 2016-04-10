@@ -10,7 +10,9 @@
   This machine arbitrary uses a box based on **Hyper-V** solution by default.
   It is possible to use any other virtualization provider such as **VMWare**
   or **Virtual Box**. In this case valid box should be provided.
-  This box should contain any Windows operating system just only.
+  This box should contain any Windows operating system configured as it is
+  described in Vagrant documentation in chapter
+  [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html).
 
 ### How to use it?
 
@@ -44,64 +46,122 @@
 
    Enjoy!
 
+   > It is adviced to clean local temporary folder after successful machine
+   > provisioning. It will free some disk space (more than 1GB I expect)
+   > and may remove some sensitive data used for provisioning.
+
 ### Your new machine
 
-* has a hostname as your host OS with suffix `-VAGRANT`
-* has assigned 1 CPU less than your host OS has.
-* has declared maximum memory up to 8GB
+  * has a hostname as your host OS with suffix `-VAGRANT`
+  * has assigned 1 CPU less than your host OS has.
+  * has declared maximum memory up to 8GB
 
-> These all settings you can tweak as you wish.
+  > All these settings you can tweak as you wish.
 
-### What is installed?
+### Multi-machine support
 
-* VPN connection
-* NuGet extended configuration
+A single Vagrantfile may describe more than one machine. Two or more concurrent
+versions of software may be provisioned in separated virtual machines.
 
-#### [Chocolatey] packages:
+The [Vagrantfile] specifies following machines:
 
-It reads a list of packages to install from
-[packages.config](../master/provision/choco/packages.config)
+* `vs2015` - the primary machine with [Visual Studio] 2015.
+  In the future, when new releases of the [Visual Studio] will come new
+  dedicated machines are expected and may be separated from each other.
 
-* Applications:
-  * [Git] Portable
-  * [Skype]
-  * [Tomighty] - it installs [Java] Runtime Environment
-  * [Visual Studio] 2015 Enterprise Update 1 with optional features:
-    * SQL
-  * [Resharper] - [Visual Studio] extension for .net developers
-* Fonts:
-  * [inconsolata]
-  * [meslo]
-  * [source code pro]
-* Utilities:
-  * [unzip]
+### Common provisioning
 
-#### Visual Studio extensions
+While provisioning all machines installs:
 
-It reads a list of Visual Studio extensions to install from
-[vs-extensions.txt](../master/provision/vs-extensions.txt)
+* [Chocolatey] package manager
+* [Chocolatey] packages specified in
+  [choco.config](../master/provision/generic/choco.config)
 
-* [File nesting]
-* [Productivity Power Tools]
-* [ReAttach]
-* [Relative line numbers]
-* [Soneta StudioExt Package]
-* [Visual Studio Spell Checker]
-* [VSColorOutput]
-* [VsVim]
+Each vagrant machine may be provisioned individual also.
 
-### Git repositories
+### Individual provisioning
 
-It reads a list of repositories to clone from
-[git-clone.json](../master/sysroot/Users/vagrant/MyProjects/git-clone.json)
+##### `vs2015`
 
-* CodeStyles
+This particular machine is equipped with:
 
-There is also one another solution to clone git repository
-that need authentication for reading.
-These repositories may be cloned on [first login](#what-will-be-installed-on-first-login).
+* [Chocolatey] packages specified in
+  [choco.config](../master/provision/vs2015/choco.config)
+* [Visual Studio] extensions specified in
+  [vs-extensions.txt](../master/provision/vs2015/vs-extensions.txt).
+  Extensions are installed by Powershell script
+  [vsix.ps1](../master/provision/powershell/vsix.ps1).
 
-> Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
+* all arbitrary files from [sysroot](../master/sysroot) folder.
+  This folder is processed by file replication command `robocopy` available
+  in Windows operating system.
+
+  There is some software that cannot be installed while provisioning.
+  This method is used to provide a desktop shortcut to do a manual installation.
+
+  For example [Get Babun desktop shortcut](../master/sysroot/Users/vagrant/Desktop)
+  simplifies [Babun] installation and needs to be manually clicked. [Babun]
+  installation is supported by Powershell script
+  [babun.ps1](../master/provision/powershell/babun.ps1).
+
+  Take a look inside [sysroot](../master/sysroot/) to see what else will be
+  copied to your new machine.
+
+* all files from [sysroot-protected](../master/sysroot-protected) folder.
+  Files are expected to be encrypted using a custom utility
+  [Encrypt-Json.ps1](../master/utils/Encrypt-Json.ps1). Files are processed by
+  Powershell script
+  [sysroot-protected.ps1](../master/provision/powershell/sysroot-protected.ps1).
+
+  That is the way the sensitive private data are being applied into guest OS.
+  This is the way to maintain privacy and secure those data also.
+
+* all `*.reg` files from [registry](../master/provision/registry) folder are
+  applied using a batch file
+  [registry.cmd](../master/provision/batch/registry.cmd).
+
+  This is another method to take some actions in runtime of your new machine.
+
+  For example [vpn-triggers.reg](../master/provision/registry/vpn-triggers.reg)
+  registers an action to update VPN application triggers. You don't have to
+  manually connect VPN connection. It will be established automatically when
+  specified executable files will be executed. Triggers are updated every time
+  the user is logged in and Powershell script
+  [vpn-triggers.ps1](../master/provision/powershell/vpn-triggers.ps1)
+  maintains VPN triggers.
+
+* established VPN connection. Only when `vpn-connect.cmd` is provided.
+  [More info...](#vpn-connection)
+
+* mapped network drives. [More info...](#drives-mappings)
+
+* cloned git repositories. You can define a list of git repositories in file
+  [git-clone.json](../master/sysroot/Users/vagrant/MyProjects/git-clone.json).
+  This file is processed by Powershell script
+  [git-clone.ps1](../master/provision/powershell/git-clone.ps1).
+
+  > Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
+
+* Windows Defender exclusions. There is a Powershell script
+  [defender.ps1](../master/provision/powershell/defender.ps1) that looks for
+  some executables. Those files are ignored by Windows Defender anti-malware
+  scanner.
+
+### VPN connection
+
+It is possible to establish VPN connection while provisioning.
+Two files are required:
+
+1. `rasphone.pbk` placed into user application data folder
+   using `sysroot` solution.
+2. encrypted `vpn-connect.cmd` batch file placed into temporary folder
+   using `sysroot-protected` solution.
+
+   `vpn-connect.cmd` batch file should contain encrypted single line as below:
+
+   ```shell
+   rasdial "<VPN connection name>" <username> <password> /domain:<domain name>
+   ```
 
 ### Drives mappings
 
@@ -121,20 +181,6 @@ Decrypted content should be a JSon formatted data like below:
 
 This file is processed by
 [map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
-
-### Sensitive data support
-
-Sensitive data such as usernames and passwords are protected with encryption.
-All files located in `sysroot-protected` folder are expected to be encrypted.
-This folder is processed by
-[sysroot-protected.ps1](../provisioning/powershell/sysroot-protected.ps1).
-This scripts supports file content encryption with a key provided as file.
-
-### What will be installed on first login?
-
-* [Babun] - a Windows shell you will love
-* Git repositories that needs authentication for reading.
-  See [git-clone.reg](../master/provision/registry/git-clone.reg)
 
 ### Known issues!
 
@@ -164,6 +210,7 @@ This scripts supports file content encryption with a key provided as file.
 [Tomighty]: http://www.tomighty.org
 [unzip]: http://www.info-zip.org/UnZip.html
 [Vagrant]: https://www.vagrantup.com
+[Vagrantfile]: ../master/Vagrantfile
 [Visual Studio]: https://www.visualstudio.com
 
 [File nesting]: http://visualstudiogallery.msdn.microsoft.com/3ebde8fb-26d8-4374-a0eb-1e4e2665070c
