@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<DatabaseCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <MsSqlDatabase>
+    <Name>enovadev</Name>
+    <Description>enovadev</Description>
+    <Active>true</Active>
+    <DifferentSecondaryDatabase>false</DifferentSecondaryDatabase>
+    <OperatorName>Administrator</OperatorName>
+    <OperatorPassword>=73B5136419372A131DD9E639E5BAE2AE</OperatorPassword>
+    <WindowsAuthentication>false</WindowsAuthentication>
+    <LicencesSelection>false</LicencesSelection>
+    <IsOptimalization>true</IsOptimalization>
+    <BatchLinks>100</BatchLinks>
+    <BatchFeatures>100</BatchFeatures>
+    <BatchSubTables>40</BatchSubTables>
+    <NonCollectedRows>50000</NonCollectedRows>
+    <LockNotification>false</LockNotification>
+    <Server>(localdb)\MSSQLLocalDB</Server>
+    <DatabaseName>enovadev</DatabaseName>
+    <User />
+    <Password />
+    <Trusted>true</Trusted>
+    <SecondaryServer />
+    <SecondaryDatabaseName />
+    <SecondaryUser />
+    <SecondaryPassword>=73B5136419372A131DD9E639E5BAE2AE</SecondaryPassword>
+    <SecondaryTrusted>false</SecondaryTrusted>
+    <UseConnectionString>false</UseConnectionString>
+    <NetworkLibrary>Default</NetworkLibrary>
+    <Timeout>20</Timeout>
+    <IsUnicodeStrings>false</IsUnicodeStrings>
+  </MsSqlDatabase>
+  <MsSqlDatabase>
+    <Name>nunit:default</Name>
+    <Description>nunit:default</Description>
+    <Active>true</Active>
+    <DifferentSecondaryDatabase>false</DifferentSecondaryDatabase>
+    <OperatorName>?</OperatorName>
+    <OperatorPassword>=860E9072AC5874E78232753F80C5B49214</OperatorPassword>
+    <WindowsAuthentication>false</WindowsAuthentication>
+    <LicencesSelection>false</LicencesSelection>
+    <IsOptimalization>true</IsOptimalization>
+    <BatchLinks>100</BatchLinks>
+    <BatchFeatures>100</BatchFeatures>
+    <BatchSubTables>40</BatchSubTables>
+    <NonCollectedRows>50000</NonCollectedRows>
+    <LockNotification>false</LockNotification>
+    <Server>(localdb)\MSSQLLocalDB</Server>
+    <DatabaseName>nunit_default</DatabaseName>
+    <User />
+    <Password />
+    <Trusted>true</Trusted>
+    <SecondaryServer />
+    <SecondaryDatabaseName />
+    <SecondaryUser />
+    <SecondaryPassword>=65B75092756174071FCFB1DB9DF8A8AE</SecondaryPassword>
+    <SecondaryTrusted>false</SecondaryTrusted>
+    <UseConnectionString>false</UseConnectionString>
+    <NetworkLibrary>Default</NetworkLibrary>
+    <Timeout>15</Timeout>
+    <IsUnicodeStrings>false</IsUnicodeStrings>
+  </MsSqlDatabase>
+  <MsSqlDatabase>
+    <Name>devsql-sql2014</Name>
+    <Description>devsql\sql2014</Description>
+    <Active>true</Active>
+    <DifferentSecondaryDatabase>false</DifferentSecondaryDatabase>
+    <OperatorName>?</OperatorName>
+    <OperatorPassword>=86C80692ED104FB038A3B48896DAD892F9</OperatorPassword>
+    <WindowsAuthentication>false</WindowsAuthentication>
+    <LicencesSelection>false</LicencesSelection>
+    <IsOptimalization>true</IsOptimalization>
+    <BatchLinks>100</BatchLinks>
+    <BatchFeatures>100</BatchFeatures>
+    <BatchSubTables>40</BatchSubTables>
+    <NonCollectedRows>50000</NonCollectedRows>
+    <LockNotification>false</LockNotification>
+    <Server>devsql\sql2014</Server>
+    <DatabaseName>proautoma</DatabaseName>
+    <User />
+    <Password />
+    <Trusted>true</Trusted>
+    <SecondaryServer />
+    <SecondaryDatabaseName />
+    <SecondaryUser />
+    <SecondaryPassword>=8871C67234294F50A55E706C8BE7C4AE</SecondaryPassword>
+    <SecondaryTrusted>false</SecondaryTrusted>
+    <UseConnectionString>false</UseConnectionString>
+    <NetworkLibrary>Default</NetworkLibrary>
+    <Timeout>15</Timeout>
+    <IsUnicodeStrings>false</IsUnicodeStrings>
+  </MsSqlDatabase>
+  <MsSqlDatabase>
+    <Name>stany_mag_sql</Name>
+    <Description>wydajnosc\sql2014</Description>
+    <Active>true</Active>
+    <DifferentSecondaryDatabase>false</DifferentSecondaryDatabase>
+    <OperatorName>?</OperatorName>
+    <OperatorPassword>=862FE90BDFB76B9A4D6E713B8E57D692A6</OperatorPassword>
+    <WindowsAuthentication>false</WindowsAuthentication>
+    <LicencesSelection>false</LicencesSelection>
+    <IsOptimalization>true</IsOptimalization>
+    <BatchLinks>100</BatchLinks>
+    <BatchFeatures>100</BatchFeatures>
+    <BatchSubTables>40</BatchSubTables>
+    <NonCollectedRows>50000</NonCollectedRows>
+    <LockNotification>false</LockNotification>
+    <Server>wydajnosc\sql2014</Server>
+    <DatabaseName>stany_mag_sql</DatabaseName>
+    <User>sa</User>
+    <Password>=753B4DFD53D507E8334455CD61DB35186B</Password>
+    <Trusted>false</Trusted>
+    <SecondaryServer />
+    <SecondaryDatabaseName />
+    <SecondaryUser />
+    <SecondaryPassword>=D79629EB068E6B7AD093B5DF936ACAAE</SecondaryPassword>
+    <SecondaryTrusted>false</SecondaryTrusted>
+    <UseConnectionString>false</UseConnectionString>
+    <NetworkLibrary>Default</NetworkLibrary>
+    <Timeout>15</Timeout>
+    <IsUnicodeStrings>false</IsUnicodeStrings>
+  </MsSqlDatabase>
+</DatabaseCollection>
