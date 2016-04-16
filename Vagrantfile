@@ -19,8 +19,8 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
     config.vm.provider       "hyperv"
-    config.vm.box          = "seb!/w10-4devs"
-    config.vm.box_url      = "file://z:/Vagrant/w10-4devs/hyperv.box"
+    config.vm.box          = "seb!/w10box"
+    config.vm.box_url      = "file://z:/Vagrant/w10box/hyperv.box"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-VAGRANT"
     config.vm.communicator = "winrm"
     config.winrm.username  = "vagrant"
