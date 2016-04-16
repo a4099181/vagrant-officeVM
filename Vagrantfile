@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 require_relative "provision/ruby/git-clone.rb"
-require_relative "provision/ruby/map-drives.rb"
 require_relative "provision/ruby/sysroot.rb"
 require_relative "provision/ruby/sysroot-protected.rb"
 require_relative "provision/ruby/vpn-connect.rb"
@@ -127,7 +126,9 @@ Vagrant.configure(2) do |config|
 
       connect_vpn                  main.vm
 
-      provision_drives             main.vm if File.exist? 'sysroot-protected\Users\vagrant\AppData\Local\Temp\map-drives.json'
+      main.vm.provision 'shell', name: 'vs2015: network drives',
+          privileged: false, powershell_args: '-NonInteractive',
+          run: 'up', path: 'provision\powershell\map-drives.ps1'
 
       provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 

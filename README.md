@@ -193,17 +193,15 @@ This file is processed by
 
 ### Drives mappings
 
-There is expected an encrypted file `sysroot-protected`
+There is expected an encrypted file `map-drives.json`
 inside `sysroot-protected\Users\Vagrant\AppData\Local\Temp` folder.
 
 Decrypted content should be a JSon formatted data like below:
 
 ```json
-    {     "mappings" : [ {
+    {     "drives" : [ {
           "local"    :     "<localDrive>"
       ,   "remote"   :     "\\\\<server-name>\\<network-share>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
     } ] }
 ```
 
