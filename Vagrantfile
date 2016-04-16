@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
     config.vm.provider       "hyperv"
     config.vm.box          = "seb!/w10box"
     config.vm.box_url      = "file://z:/Vagrant/w10box/hyperv.box"
-    config.vm.hostname     = "#{ENV['COMPUTERNAME']}-VAGRANT"
+    config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
     config.vm.communicator = "winrm"
     config.winrm.username  = "vagrant"
     config.winrm.password  = "vagrant"
@@ -57,7 +57,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "hyperv" do |vb|
 
-      vb.vmname = "#{ENV['COMPUTERNAME']}-VAGRANT"
+      vb.vmname = "#{ENV['COMPUTERNAME']}-V"
 
       # Number of virtual CPU given to mashine.
       # Defaults is taken from box image XML.
