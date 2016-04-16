@@ -130,6 +130,10 @@ This particular machine is equipped with:
   [vpn-triggers.ps1](../master/provision/powershell/vpn-triggers.ps1)
   maintains VPN triggers.
 
+* Windows credentials. Credentials list is processed by
+  [vault.ps1](../master/provision/powershell/vault.ps1).
+  [More info...](#windows-credentials)
+
 * established VPN connection. Only when `vpn-connect.cmd` is provided.
   [More info...](#vpn-connection)
 
@@ -162,6 +166,30 @@ Two files are required:
    ```shell
    rasdial "<VPN connection name>" <username> <password> /domain:<domain name>
    ```
+
+### Windows credentials
+
+There is expected an encrypted file `vault.json`
+inside `sysroot-protected\Users\Vagrant\AppData\Local\Temp` folder.
+
+Decrypted content should be a JSon formatted data like below:
+
+```json
+    {     "credentials" : [ {
+          "type"     :     "domain"
+      ,   "server"   :     "<servername>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+      }, {
+          "type"     :     "generic"
+      ,   "server"   :     "git:http://<url>:<port>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+    } ] }
+```
+
+This file is processed by
+[vault.ps1](../master/provision/powershell/vault.ps1) while provisioning.
 
 ### Drives mappings
 

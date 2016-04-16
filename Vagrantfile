@@ -119,6 +119,12 @@ Vagrant.configure(2) do |config|
       main.vm.provision 'shell', name: 'Windows Registry update',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
+      main.vm.provision 'shell', name: 'vs2015: Windows credentials',
+          path: 'provision\powershell\vault-domain.ps1'
+
+      main.vm.provision 'shell', name: 'vs2015: Windows generic credentials',
+          path: 'provision\powershell\vault-generic.ps1'
+
       connect_vpn                  main.vm
 
       provision_drives             main.vm if File.exist? 'sysroot-protected\Users\vagrant\AppData\Local\Temp\map-drives.json'
