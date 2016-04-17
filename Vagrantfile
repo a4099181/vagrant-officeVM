@@ -124,6 +124,9 @@ Vagrant.configure(2) do |config|
       main.vm.provision 'shell', name: 'vs2015: Windows generic credentials',
           path: 'provision\powershell\vault-generic.ps1'
 
+      main.vm.provision 'shell', name: 'vs2015: dialup credentials',
+          path: 'provision\powershell\vault-dialup.ps1'
+
       connect_vpn                  main.vm
 
       main.vm.provision 'shell', name: 'vs2015: network drives',

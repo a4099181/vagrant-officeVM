@@ -185,6 +185,11 @@ Decrypted content should be a JSon formatted data like below:
       ,   "server"   :     "git:http://<url>:<port>"
       ,   "username" :     "<username>"
       ,   "password" :     "<password>"
+      }, {
+          "type"     :     "dialup"
+      ,   "name"     :     "<vpn connection name>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
     } ] }
 ```
 
