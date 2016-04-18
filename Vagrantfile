@@ -104,16 +104,15 @@ Vagrant.configure(2) do |config|
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
-          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
           inline: 'cinst -y C:\vagrant\provision\vs2015\choco.config'
-
-      main.vm.provision 'shell', name: 'vs2015: vs extensions',
-          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
-          path: 'provision\powershell\vsix.ps1'
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
 
       provision_sysroot_protected  main.vm if Dir.exist?  'sysroot-protected'
+
+      main.vm.provision 'shell', name: 'vs2015: vs extensions',
+          privileged: false,
+          path: 'provision\powershell\vsix.ps1'
 
       main.vm.provision 'shell', name: 'Windows Registry update',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'

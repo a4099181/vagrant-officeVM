@@ -10,7 +10,7 @@
 # * executes installer for each downloaded extension
 
 $temp      = Join-Path $env:LOCALAPPDATA 'Temp'
-$list      = 'C:\vagrant\provision\vs2015\vs-extensions.txt'
+$list      = Join-Path $temp 'vs-extensions.txt'
 $gallery   = 'https://visualstudiogallery.msdn.microsoft.com/'
 $installer = Get-ChildItem       -Path ${env:ProgramFiles(x86)}             `
                                  -Filter "VSIXInstaller.exe"                `
