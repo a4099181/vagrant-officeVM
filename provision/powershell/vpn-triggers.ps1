@@ -12,10 +12,10 @@ $current = Get-VpnConnectionTrigger "Soneta VPN"                            `
               | Select-Object       -ExpandProperty ApplicationID 
 
 Get-ChildItem -Path ${env:ProgramFiles(x86)}, $env:ProgramW6432             `
-                  , $env:LOCALAPPDATA\Apps                                  `
+                  , $env:USERPROFILE                                        `
               -File                                                         `
               -Recurse                                                      `
-              -Include devenv.exe, eTask.exe                                `
+              -Include devenv.exe, eTask.exe, mintty.exe                    `
    | Where-Object { !$current -Or -Not $current.Contains($_.FullName) }     `
    | ForEach-Object                                                         `
    {                                                                        `
