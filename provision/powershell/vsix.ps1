@@ -35,7 +35,7 @@ Get-Content                      -Path $list                                `
         Invoke-WebRequest        -Uri "$($gallery)$($uri)"                  `
                                  -OutFile $out
         Start-Process            -FilePath $installer                       `
-                                 -ArgumentList "/quiet", "/admin", $out     `
+                                 -ArgumentList "/quiet", $out               `
                                  -NoNewWindow                               `
                                  -PassThru                                  `
                                  -Wait
