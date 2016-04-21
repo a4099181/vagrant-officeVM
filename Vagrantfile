@@ -19,7 +19,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
     config.vm.provider       "hyperv"
     config.vm.box          = "seb!/w10box"
-    config.vm.box_url      = "file://z:/Vagrant/w10box/hyperv.box"
+    config.vm.box_url      = "https://cdn.rawgit.com/a4099181/vagrant-w10box/master/remote-box.json"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
     config.vm.communicator = "winrm"
     config.winrm.username  = "vagrant"
