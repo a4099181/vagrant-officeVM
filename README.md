@@ -6,10 +6,13 @@
   You can download it from https://www.vagrantup.com/downloads.html
   and follow the installer to install it.
 
-* Soft requirement is **Hyper-V** to be active on your operating system.
-  This machine arbitrary uses a box based on **Hyper-V** solution by default.
-  It is possible to use any other virtualization provider such as **VMWare**
-  or **Virtual Box**. In this case valid box should be provided.
+* This [Vagrantfile] supports:
+
+  * Microsoft HyperV - tested with Windows 10 HyperV
+  * Oracle VM [VirtualBox] - tested with [VirtualBox] 5.0
+
+  It is possible to use any other virtualization provider such as **VMWare**.
+  In this case valid box should be provided.
   This box should contain any Windows operating system configured as it is
   described in Vagrant documentation in chapter
   [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html).
@@ -32,8 +35,12 @@
    and get [Vagrant] to work:
 
    ```shell
-   C:\my-vagrant\Vagrant.MyDevMachine> vagrant up
+   C:\my-vagrant\Vagrant.MyDevMachine> vagrant up --provider hyperv
    ```
+
+   > Please, note that two technologies are supported.
+   > Vagrant uses [VirtualBox] as default so if you want to use HyperV,
+   > then you have to provide `--provider hyperv` argument.
 
    Relax and let [Vagrant] to do its job.
    After that your new development environment is ready for you so then:
@@ -52,7 +59,7 @@
 
 ### Your new machine
 
-  * has a hostname as your host OS with suffix `-VAGRANT`
+  * has a hostname as your host OS with suffix `-V`
   * has assigned 1 CPU less than your host OS has.
   * has declared maximum memory up to 8GB
 
@@ -88,7 +95,7 @@ This particular machine is equipped with:
 * [Chocolatey] packages specified in
   [choco.config](../master/provision/vs2015/choco.config)
 * [Visual Studio] extensions specified in
-  [vs-extensions.txt](../master/provision/vs2015/vs-extensions.txt).
+  [vs-extensions.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-extensions.txt).
   Extensions are installed by Powershell script
   [vsix.ps1](../master/provision/powershell/vsix.ps1).
 
@@ -193,8 +200,11 @@ Decrypted content should be a JSon formatted data like below:
     } ] }
 ```
 
-This file is processed by
-[vault.ps1](../master/provision/powershell/vault.ps1) while provisioning.
+While provisioning this file is processed by multiple scripts such as:
+[vault-dialup.ps1](../master/provision/powershell/vault-dialup.ps1)
+, [vault-domain.ps1](../master/provision/powershell/vault-domain.ps1)
+, [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
+.
 
 ### Drives mappings
 
@@ -243,6 +253,7 @@ This file is processed by
 [Vagrant]: https://www.vagrantup.com
 [Vagrantfile]: ../master/Vagrantfile
 [Visual Studio]: https://www.visualstudio.com
+[VirtualBox]: https://www.virtualbox.org
 
 [File nesting]: http://visualstudiogallery.msdn.microsoft.com/3ebde8fb-26d8-4374-a0eb-1e4e2665070c
 [Productivity Power Tools]: http://visualstudiogallery.msdn.microsoft.com/d0d33361-18e2-46c0-8ff2-4adea1e34fef
