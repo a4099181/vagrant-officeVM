@@ -9,11 +9,11 @@
 $temp = Join-Path $env:LOCALAPPDATA 'Temp'
 $list = Join-Path $temp 'vault.json'
 
-Get-Content                   -Path $list                                   `
-   | ConvertFrom-Json                                                       `
-   | Select-Object            -ExpandProperty credentials                   `
-   | Where-Object             { $_.type -eq "dialup" }                      `
-   | ForEach-Object                                                         `
-{                                                                           `
-        dialupass /setpass    `"$($_.name)`" $($_.username) $($_.password); `
+Get-Content                   -Path $list                                                            `
+   | ConvertFrom-Json                                                                                `
+   | Select-Object            -ExpandProperty credentials                                            `
+   | Where-Object             { $_.type -eq "dialup" }                                               `
+   | ForEach-Object                                                                                  `
+{                                                                                                    `
+        dialupass /setpass    `"$($_.name)`" `"$($_.username)`" `"$($_.password)`" `"$($_.domain)`"; `
 }
