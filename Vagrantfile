@@ -17,7 +17,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-    config.vm.provider       "hyperv"
+    config.vm.provider       "virtualbox"
     config.vm.box          = "seb!/w10box"
     config.vm.box_url      = "https://cdn.rawgit.com/a4099181/vagrant-w10box/master/remote-box.json"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
