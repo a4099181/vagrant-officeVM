@@ -21,6 +21,7 @@ Vagrant.configure(2) do |config|
     config.vm.box          = "seb!/w10box"
     config.vm.box_url      = "https://cdn.rawgit.com/a4099181/vagrant-w10box/master/remote-box.json"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
+    config.vm.guest        = :windows
     config.vm.communicator = "winrm"
     config.winrm.username  = "vagrant"
     config.winrm.password  = "vagrant"
