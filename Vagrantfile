@@ -117,12 +117,13 @@ Vagrant.configure(2) do |config|
               ".DownloadString('https://chocolatey.org/install.ps1'))"
 
   config.vm.provision 'shell', name: 'generic: chocolatey packages',
-      run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+      run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
       inline: 'cinst -y C:\vagrant\provision\generic\choco.config'
 
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           inline: 'cinst --timeout 7200 -y C:\vagrant\provision\vs2015\choco.config'
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
@@ -131,30 +132,35 @@ Vagrant.configure(2) do |config|
 
       main.vm.provision 'shell', name: 'vs2015: vs extensions',
           privileged: false,
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vsix.ps1'
 
       main.vm.provision 'shell', name: 'Windows Registry update',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
       main.vm.provision 'shell', name: 'vs2015: Windows credentials',
           path: 'provision\powershell\vault-domain.ps1'
 
       main.vm.provision 'shell', name: 'vs2015: Windows generic credentials',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vault-generic.ps1'
 
       main.vm.provision 'shell', name: 'vs2015: dialup credentials',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vault-dialup.ps1'
 
       connect_vpn                  main.vm
 
       main.vm.provision 'shell', name: 'vs2015: network drives',
-          privileged: false, powershell_args: '-NonInteractive',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
+          privileged: false,
           run: 'up', path: 'provision\powershell\map-drives.ps1'
 
       provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 
       main.vm.provision 'shell', name: 'Windows Defender exclusions',
-          run: 'up', powershell_args: '-ExecutionPolicy ByPass',
+          run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\defender.ps1'
 
   end
