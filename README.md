@@ -1,5 +1,3 @@
-> See **[known issues](#known-issues)** at the bottom of this page, please.
-
 ### Requirements
 
 * Must-have requirement is [Vagrant] to be installed on your operating system.
@@ -222,22 +220,6 @@ Decrypted content should be a JSon formatted data like below:
 
 This file is processed by
 [map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
-
-### Known issues!
-
-* Visual Studio installation issue
-
-  Visual Studio installation fails but Visual Studio is installed anyway :).
-  This failure stops provisioning.
-  There is a workaround for it:
-
-  ```shell
-  > vagrant up
-  (...) # vagrant will build the virtual machine and stops after Visual Studio installation.
-  > vagrant provision
-  (...) # it cause re-provisioning and it should succeed.
-  > vagrant rdp # and enjoy!
-  ```
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org

@@ -123,7 +123,7 @@ Vagrant.configure(2) do |config|
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
-          inline: 'cinst -y C:\vagrant\provision\vs2015\choco.config'
+          inline: 'cinst --timeout 7200 -y C:\vagrant\provision\vs2015\choco.config'
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
 
