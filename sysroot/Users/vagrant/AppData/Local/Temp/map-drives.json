@@ -1,7 +1,4 @@
 { drives: [ {
-    local:  "M:",
-    remote: "\\\\BARBAKAN-10\\Matrix"
-    }, {
     local:  "P:",
     remote: "\\\\files\\PUBLICZNY"
     }, {
