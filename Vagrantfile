@@ -119,13 +119,13 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision 'shell', name: 'generic: chocolatey packages',
       run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-      inline: 'cinst -y C:\vagrant\provision\generic\choco.config'
+      inline: 'cinst --allow-empty-checksums -y C:\vagrant\provision\generic\choco.config'
 
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          inline: 'cinst --timeout 7200 -y C:\vagrant\provision\vs2015\choco.config'
+          inline: 'cinst --allow-empty-checksums --timeout 7200 -y C:\vagrant\provision\vs2015\choco.config'
 
       provision_sysroot            main.vm if Dir.exist?  'sysroot'
 
