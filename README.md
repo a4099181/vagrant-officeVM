@@ -1,5 +1,3 @@
-> See **[known issues](#known-issues)** at the bottom of this page, please.
-
 ### Requirements
 
 * Must-have requirement is [Vagrant] to be installed on your operating system.
@@ -222,30 +220,6 @@ Decrypted content should be a JSon formatted data like below:
 
 This file is processed by
 [map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
-
-### Known issues!
-
-* Provisioning issue after cholatey provisioner installation
-
-  Chocolatey installs PowerShell script into profile.
-  It is automatically executed before every shell loading.
-  It may be omitted only with -NoProfile argument passed to powershell.exe.
-  It stops provisioning.
-  There is a workaround for it:
-
-  ```shell
-  > vagrant up --no-provision
-  (...) # vagrant will build the virtual machine only.
-  > vagrant provision
-  (...) # it runs provisioning which fails just after chocolatey installation.
-  > vagrant rdp
-  (...) # log into new machine and delete WindowsPowerShell folder from Documents,
-        # then log out,
-        # then edit Vagrantfile and make sure choloatey won't be installed one more time.
-  > vagrant provision # again
-  (...) # it cause re-provisioning and it should succeed.
-  > vagrant rdp # and enjoy!
-  ```
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
