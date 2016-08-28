@@ -28,7 +28,7 @@ Get-Content                      -Path $list                                `
         $uri = Invoke-WebRequest -UseBasicParsing                           `
                                  -Uri $gallery$id                           `
              | Select-Object     -ExpandProperty Links                      `
-             | Where-Object      { $_.href.EndsWith("vsix") }               `
+             | Where-Object      { $_.href -And $_.href.EndsWith("vsix") }  `
              | Select-Object     -ExpandProperty href
         $out = Join-Path         $temp "$($id).vsix"
 
