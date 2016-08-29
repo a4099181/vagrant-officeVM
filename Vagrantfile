@@ -155,7 +155,7 @@ Vagrant.configure(2) do |config|
 
       main.vm.provision 'shell', name: 'vs2015: network drives',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
-          privileged: false,
+          privileged: true,
           run: 'up', path: 'provision\powershell\map-drives.ps1'
 
       provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
