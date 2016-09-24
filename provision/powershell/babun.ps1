@@ -11,9 +11,12 @@
 #   - babun is not started just after installation.
 #   It is required for provisioning babun well.
 # * runs the modified babun installation batch file.
+# * updates babun immediately after installation.
 # * registers mintty.exe as VPN connection trigger.
 
-if (-Not (Test-Path (Join-Path $env:USERPROFILE ".babun")))
+$babunPath = Join-Path $env:USERPROFILE ".babun"
+
+if (-Not (Test-Path ($babunPath)))
 {
     $getFrom = 'http://projects.reficio.org/babun/download'
     $putTo   = Join-Path $env:LOCALAPPDATA 'Temp/babun'
@@ -25,13 +28,15 @@ if (-Not (Test-Path (Join-Path $env:USERPROFILE ".babun")))
             | Select-Object -First 1
 
     $silent = Join-Path $setup.Directory "silent-$($setup.Name)"
+    $update = Join-Path $babunPath "update.bat"
 
     Get-Content        $setup.FullName                                  `
        | Select-String -Pattern 'babun.bat', 'pause'                    `
                        -NotMatch                                        `
        | Out-File      -Encoding ascii -Force $silent
 
-    Start-Process $setup.FullName -NoNewWindow -PassThru
+    Start-Process $silent -NoNewWindow -PassThru -Wait
+    Start-Process $update -NoNewWindow -PassThru -Wait
 
     Get-VpnConnection                                                   `
        | ForEach-Object                                                 `
@@ -39,7 +44,7 @@ if (-Not (Test-Path (Join-Path $env:USERPROFILE ".babun")))
             Add-VpnConnectionTriggerApplication                         `
                   -ConnectionName $_.Name                               `
                   -ApplicationID                                        `
-                     "$($env:USERPROFILE)\.babun\cygwin\bin\mintty.exe" `
+                     "$babunPath\cygwin\bin\mintty.exe"                 `
        }
 }
 
