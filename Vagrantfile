@@ -136,6 +136,11 @@ Vagrant.configure(2) do |config|
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vsix.ps1'
 
+      main.vm.provision 'shell', name: 'vs2015: vscode extensions',
+          privileged: false,
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+          path: 'provision\powershell\vscode.ps1'
+
       main.vm.provision 'shell', name: 'Windows Registry update',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'

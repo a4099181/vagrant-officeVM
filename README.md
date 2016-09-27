@@ -97,6 +97,11 @@ This particular machine is equipped with:
   Extensions are installed by Powershell script
   [vsix.ps1](../master/provision/powershell/vsix.ps1).
 
+* [Visual Studio Code] extensions specified in
+  [vscode-extensions.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vscode-extensions.txt).
+  Extensions are installed by Powershell script
+  [vscode.ps1](../master/provision/powershell/vscode.ps1).
+
 * all arbitrary files from [sysroot](../master/sysroot) folder.
   This folder is processed by file replication command `robocopy` available
   in Windows operating system.
@@ -235,6 +240,7 @@ This file is processed by
 [Vagrant]: https://www.vagrantup.com
 [Vagrantfile]: ../master/Vagrantfile
 [Visual Studio]: https://www.visualstudio.com
+[Visual Studio Code]: https://code.visualstudio.com
 [VirtualBox]: https://www.virtualbox.org
 
 [File nesting]: http://visualstudiogallery.msdn.microsoft.com/3ebde8fb-26d8-4374-a0eb-1e4e2665070c
