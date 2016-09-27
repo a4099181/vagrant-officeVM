@@ -1,0 +1,3 @@
+dbankier.vscode-instant-markdown | yes
+ms-vscode.csharp                 | no
+
