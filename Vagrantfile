@@ -156,6 +156,10 @@ Vagrant.configure(2) do |config|
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vault-dialup.ps1'
 
+      main.vm.provision 'shell', name: 'Extend PATH variable',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+          path: 'provision\powershell\extend-PATH-environment-variable.ps1'
+
       connect_vpn                  main.vm
 
       main.vm.provision 'shell', name: 'vs2015: network drives',
