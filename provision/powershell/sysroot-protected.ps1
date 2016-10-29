@@ -10,8 +10,6 @@
 # See also: utils\Encrypt-Json.ps1
 
 $secureKey = 'C:\vagrant\.vagrant\my-private.key'
-$bytes = [System.IO.File]::ReadAllBytes($secureKey)
-[System.Array]::Resize([ref] $bytes, 32);
 
 Get-ChildItem                              -Path 'C:\vagrant\sysroot-protected' `
                                            -Recurse -File                       `
@@ -19,7 +17,7 @@ Get-ChildItem                              -Path 'C:\vagrant\sysroot-protected' 
     | ForEach-Object                                                            `
 {
     $secureString = Get-Content $_                                              `
-                  | ConvertTo-SecureString -Key ($bytes)
+                  | ConvertTo-SecureString -Key (Get-Content $secureKey)
     $destination  = $_.Replace("vagrant\sysroot-protected\","")
 
     New-Item -Path "$($destination)" -ItemType File -Force

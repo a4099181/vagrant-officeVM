@@ -14,9 +14,6 @@
 #
 # This is not a cmdlet.
 
-$bytes = [System.IO.File]::ReadAllBytes(".\.vagrant\my-private.key")
-[System.Array]::Resize([ref] $bytes, 32);
-
 Get-Content $args[0]                -Raw                                          `
    | Select-Object                                                                `
            @{ Name='Oneline';                                                     `
@@ -24,4 +21,4 @@ Get-Content $args[0]                -Raw                                        
    | Select-Object                  -ExpandProperty Oneline                       `
    | ConvertTo-SecureString         -AsPlainText                                  `
                                     -Force                                        `
-   | ConvertFrom-SecureString       -Key ($bytes)
+   | ConvertFrom-SecureString       -Key (Get-Content .\.vagrant\my-private.key)
