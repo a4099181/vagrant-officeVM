@@ -121,6 +121,11 @@ Vagrant.configure(2) do |config|
       run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
       inline: 'cinst --allow-empty-checksums -y C:\vagrant\provision\generic\choco.config'
 
+  config.vm.provision 'shell', name: 'generic: vscode extensions',
+      privileged: false,
+      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+      path: 'provision\powershell\vscode.ps1'
+
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
@@ -135,11 +140,6 @@ Vagrant.configure(2) do |config|
           privileged: false,
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vsix.ps1'
-
-      main.vm.provision 'shell', name: 'vs2015: vscode extensions',
-          privileged: false,
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vscode.ps1'
 
       main.vm.provision 'shell', name: 'Windows Registry update',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
