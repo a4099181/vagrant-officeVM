@@ -61,8 +61,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
 
-      vb.name = "#{ENV['COMPUTERNAME']}-V"
-
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
@@ -74,8 +72,6 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider "hyperv" do |hv|
-
-      hv.vmname = "#{ENV['COMPUTERNAME']}-V"
 
       # Number of virtual CPU given to mashine.
       # Defaults is taken from box image XML.
