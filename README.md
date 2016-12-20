@@ -22,7 +22,7 @@
    Clone this repo wherever you want using git:
 
    ```shell
-   C:\my-vagrant> git clone git@github.com/Vagrant.MyDevMachine.git
+   C:\my-vagrant> git clone git@github.com/vagrant-officeVM.git
    ```
 
    Or alternatively you can use '_Download ZIP_' button
@@ -33,7 +33,7 @@
    and get [Vagrant] to work:
 
    ```shell
-   C:\my-vagrant\Vagrant.MyDevMachine> vagrant up --provider hyperv
+   C:\my-vagrant\vagrant-officeVM> vagrant up --provider hyperv
    ```
 
    > Please, note that two technologies are supported.
@@ -44,7 +44,7 @@
    After that your new development environment is ready for you so then:
 
    ```shell
-   C:\my-vagrant\Vagrant.MyDevMachine> vagrant rdp
+   C:\my-vagrant\vagrant-officeVM> vagrant rdp
    ```
 
    and login to your new machine with default credentials.
@@ -73,6 +73,7 @@ The [Vagrantfile] specifies following machines:
 * `vs2015` - the primary machine with [Visual Studio] 2015.
   In the future, when new releases of the [Visual Studio] will come new
   dedicated machines are expected and may be separated from each other.
+* `vs2017` - The future is now ;-) Another machine with [Visual Studio] 2017.
 
 ### Common provisioning
 
@@ -85,6 +86,27 @@ While provisioning all machines installs:
 Each vagrant machine may be provisioned individual also.
 
 ### Individual provisioning
+
+##### `vs2017`
+
+This particular machine is equipped with:
+
+* [Chocolatey] packages specified in
+  [choco.config](../master/provision/vs2017/choco.config)
+* [Visual Studio] is installed exclusively by Powershell script
+  [install.ps1](../master/provision/vs2017/install.ps1)
+* [Visual Studio] extensions specified in
+  [vs-marketplace.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-marketplace.txt).
+  Extensions are installed by Powershell script
+  [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1).
+* All other items are handled the same way as `vs2015` (described below)
+
+  > Please note, that Visual Studio 2017 is deployed with:
+  > - new setup tool; this changes the way VS2017 may be installed silently with custom features.
+  >   It is supported by the script [install.ps1](../master/provision/vs2017/install.ps1)
+  > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
+  >   It is supported by the script [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1)
+  >   and input file [vs-marketplace.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-marketplace.txt).
 
 ##### `vs2015`
 
