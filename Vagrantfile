@@ -186,7 +186,7 @@ Vagrant.configure(2) do |config|
       vs17.vm.provision 'shell', name: 'vs extensions',
           privileged: false,
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vsix.ps1'
+          path: 'provision\powershell\vsix-marketplace.ps1'
 
       vs17.vm.provision 'shell', name: 'Windows Registry update',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',

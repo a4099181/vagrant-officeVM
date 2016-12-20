@@ -1,0 +1,13 @@
+JaredParMSFT | VsVimDev15 | yes
+ZoltanKlinger | RelativeLineNumbers | yes 
+VisualStudioProductTeam | ProductivityPowerTools2017 | yes 
+ErlanR | ReAttach | yes 
+EWoodruff | VisualStudioSpellChecker | yes 
+MikeWard-AnnArborn | VSColorOutput | yes 
+MadsKristensen | FileNesting | yes 
+enovaMSDN | SonetaStudioExtPackage | yes 
+enovaMSDN | SonetaPlatformDeveloper | yes
+NunitDevelopers | NunitTestAdapter | no  
+NunitDevelopers | Nunit3TestAdapter | no 
+VisualStudioProductTeam | VisualStudio2015ColorThemeEditor | yes 
+
