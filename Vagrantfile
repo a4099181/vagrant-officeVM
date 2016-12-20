@@ -173,16 +173,20 @@ Vagrant.configure(2) do |config|
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
-#      main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
-#          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-#          inline: 'cinst --allow-empty-checksums --timeout 14400 -y C:\vagrant\provision\vs2015\choco.config'
+      vs17.vm.provision 'shell', name: 'Visual Studio 2017 installation',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+          path: 'provision\vs2017\install.ps1'
+
+      vs17.vm.provision 'shell', name: 'Visual Studio\'s chocolatey packages',
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+          inline: 'cinst --ignore-checksums --allow-empty-checksums --timeout 14400 -y C:\vagrant\provision\vs2017\choco.config'
 
       provision_sysroot_protected  vs17.vm if Dir.exist?  'sysroot-protected'
 
-#      vs17.vm.provision 'shell', name: 'vs2015: vs extensions',
-#          privileged: false,
-#          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-#          path: 'provision\powershell\vsix.ps1'
+      vs17.vm.provision 'shell', name: 'vs extensions',
+          privileged: false,
+          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+          path: 'provision\powershell\vsix.ps1'
 
       vs17.vm.provision 'shell', name: 'Windows Registry update',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
