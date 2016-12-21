@@ -124,6 +124,21 @@ Vagrant.configure(2) do |config|
       powershell_args: '-NoProfile -ExecutionPolicy ByPass',
       path: 'provision\powershell\vscode.ps1'
 
+  config.vm.provision 'shell', name: 'Windows credentials',
+      path: 'provision\powershell\vault-domain.ps1'
+
+  config.vm.provision 'shell', name: 'Windows generic credentials',
+      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+      path: 'provision\powershell\vault-generic.ps1'
+
+  config.vm.provision 'shell', name: 'dialup credentials',
+      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+      path: 'provision\powershell\vault-dialup.ps1'
+
+  connect_vpn                  config.vm
+
+  provision_gitclone           config.vm
+
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
       main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
@@ -141,29 +156,14 @@ Vagrant.configure(2) do |config|
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
-      main.vm.provision 'shell', name: 'vs2015: Windows credentials',
-          path: 'provision\powershell\vault-domain.ps1'
-
-      main.vm.provision 'shell', name: 'vs2015: Windows generic credentials',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vault-generic.ps1'
-
-      main.vm.provision 'shell', name: 'vs2015: dialup credentials',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vault-dialup.ps1'
-
       main.vm.provision 'shell', name: 'Extend PATH variable',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\extend-PATH-environment-variable.ps1'
-
-      connect_vpn                  main.vm
 
       main.vm.provision 'shell', name: 'vs2015: network drives',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
           privileged: true,
           run: 'up', path: 'provision\powershell\map-drives.ps1'
-
-      provision_gitclone           main.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 
       main.vm.provision 'shell', name: 'Windows Defender exclusions',
           run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
@@ -192,29 +192,14 @@ Vagrant.configure(2) do |config|
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
 
-      vs17.vm.provision 'shell', name: 'Windows credentials',
-          path: 'provision\powershell\vault-domain.ps1'
-
-      vs17.vm.provision 'shell', name: 'Windows generic credentials',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vault-generic.ps1'
-
-      vs17.vm.provision 'shell', name: 'dialup credentials',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vault-dialup.ps1'
-
       vs17.vm.provision 'shell', name: 'Extend PATH variable',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\extend-PATH-environment-variable.ps1'
-
-      connect_vpn                  vs17.vm
 
       vs17.vm.provision 'shell', name: 'network drives',
           powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
           privileged: true,
           run: 'up', path: 'provision\powershell\map-drives.ps1'
-
-      provision_gitclone           vs17.vm if File.exist? 'sysroot\Users\vagrant\MyProjects\git-clone.json'
 
       vs17.vm.provision 'shell', name: 'Windows Defender exclusions',
           run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',

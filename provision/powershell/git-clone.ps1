@@ -4,16 +4,21 @@
 
 # This script:
 # * takes a repositores list to clone from a text file
+# * takes care of MyProjects folder existance
 # * uses a git provisioned with chocolatey and accessible in PATH
 # * executes git clone for each repository
 # * clones the repositories into MyProjects folder in user profile
 
 $projects = Join-Path $env:UserProfile 'MyProjects'
-$list     = Join-Path $projects        'git-clone.json'
+$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
 
-Get-Content                     -Path $list                          `
-   | ConvertFrom-Json                                                `
-   | Select-Object             -ExpandProperty repositories          `
+if ((Test-Path $projects)-eq 0)
+{
+    New-Item -Path $projects -ItemType Directory
+}
+
+$json.cfg                                                            `
+   | Select-Object             -ExpandProperty repos                 `
    | ForEach-Object                                                  `
 {
         Start-Process           -FilePath 'git'                      `
