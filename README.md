@@ -199,6 +199,8 @@ Two files are required:
    rasdial "<VPN connection name>" <username> <password> /domain:<domain name>
    ```
 
+> Note, that it will be supported by the global configuration file soon.
+
 ### Windows credentials
 
 There is expected an encrypted file `vault.json`
@@ -231,6 +233,8 @@ While provisioning this file is processed by multiple scripts such as:
 , [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
 .
 
+> Note, that it will be supported by the global configuration file soon.
+
 ### Drives mappings
 
 There is expected an encrypted file `map-drives.json`
@@ -247,6 +251,27 @@ Decrypted content should be a JSon formatted data like below:
 
 This file is processed by
 [map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
+
+> Note, that it will be supported by the global configuration file soon.
+
+### Global configuration/cutomization file
+
+You can customize your machine with single configuration file.
+The file is JSON formatted. A sample configuration file is
+[cfg.json](../sebi/cfg.json).
+
+Configuration contains some secret regions where some sensitive datas are expected.
+These areas are expected to be encrypted with tools available in [Utils](../master/utils/) folder.
+
+The first step you need is to make your own copy of the configuration file. You should store there your passwords and usernames.
+The next thing is to encrypt this file.
+
+You need a private key. You can create it with [Generate-PrivateKey](../master/utils/Generate-PrivateKey.ps1) utility.
+Then you can encrypt the file with [Encrypt-Config](../master/utils/Encrypt-Config.ps1).
+
+When your passwords needs to be changed you can decrypt the file with [Decrypt-Config](../master/utils/Decrypt-Config.ps1). Then update the configuration and encrypt it back. That's all.
+
+It is recommended to maintain your configuration file in your own branch or fork.
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
