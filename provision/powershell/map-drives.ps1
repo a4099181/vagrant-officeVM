@@ -6,14 +6,18 @@
 # * takes a drives mappings list to from a JSON formatted text file
 # * creates a new drive for each entry
 
-$temp = Join-Path $env:LOCALAPPDATA 'Temp'
-$list = Join-Path $temp 'map-drives.json'
+. "C:\vagrant\Utils\CryptoLib.ps1"
+
 $pass = ConvertTo-SecureString -AsPlainText -Force "vagrant"
 $cred = New-Object pscredential("vagrant",  $pass)
 
+$key = "c:\vagrant\.vagrant\my-private.key"
+$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
+$json.cfg.drives                                                          `
+    | Select-Object -expand secret                                        `
+    | ForEach-Object { Decrypt $_ $key }
 
-Get-Content                   -Path $list                                 `
-   | ConvertFrom-Json                                                     `
+$json.cfg                                                                 `
    | Select-Object            -ExpandProperty drives                      `
    | ForEach-Object                                                       `
 {                                                                         `
@@ -23,7 +27,7 @@ Get-Content                   -Path $list                                 `
                               -Wait                                       `
 @"
         New-SmbMapping        -LocalPath       $($_.local)               ``
-                              -RemotePath      $($_.remote)              ``
+                              -RemotePath      $($_.secret.remote)       ``
                               -Persistent      `$True                    ``
                               -SaveCredentials
 "@                                                                        `
