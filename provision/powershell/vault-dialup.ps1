@@ -6,14 +6,18 @@
 # * takes a dialup credentials list from a JSON formatted text file
 # * stores dialup credentials using dialupass utility.
 
-$temp = Join-Path $env:LOCALAPPDATA 'Temp'
-$list = Join-Path $temp 'vault.json'
+. "C:\vagrant\Utils\CryptoLib.ps1"
 
-Get-Content                   -Path $list                                                            `
-   | ConvertFrom-Json                                                                                `
-   | Select-Object            -ExpandProperty credentials                                            `
+$key = "c:\vagrant\.vagrant\my-private.key"
+$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
+$json.cfg.vault                                                           `
+    | Select-Object -expand secret                                        `
+    | ForEach-Object { Decrypt $_ $key }
+
+$json.cfg                                                                                            `
+   | Select-Object            -ExpandProperty vault                                                  `
    | Where-Object             { $_.type -eq "dialup" }                                               `
    | ForEach-Object                                                                                  `
 {                                                                                                    `
-        dialupass /setpass    `"$($_.name)`" `"$($_.username)`" `"$($_.password)`" `"$($_.domain)`"; `
+        dialupass /setpass    `"$($_.secret.name)`" `"$($_.secret.username)`" `"$($_.secret.password)`" `"$($_.secret.domain)`"; `
 }
