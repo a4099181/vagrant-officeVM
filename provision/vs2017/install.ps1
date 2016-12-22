@@ -4,14 +4,8 @@
 
 # This script:
 # * downloads Visual Studio 2017 Enterprise from official website.
+# * takes a Visual Studio components list to install from a text file
 # * runs the installer with following selected:
-#   @ workloads:
-#     - .NET desktop development
-#   @ components:
-#     - .NET Framework 4 - 4.6 development tools
-#     - SQL Server Native Client
-#     - SQL Server Command Line Utilities
-#     - SQL Server Express 2016 LocalDB
 
 $installerPath = Join-Path $env:LOCALAPPDATA 'Temp\vs_Enterprise.exe'
 
@@ -22,9 +16,11 @@ if (-Not (Test-Path ($installerPath)))
     Invoke-WebRequest -Uri $getFrom -OutFile $installerPath
 }
 
-Start-Process -Wait -FilePath $installerPath -ArgumentList "--quiet", "--lang en-US" , `
-    " --add Microsoft.VisualStudio.Workload.ManagedDesktop"                          , `
-    " --add Microsoft.Net.ComponentGroup.TargetingPacks.Common"                      , `
-    " --add Microsoft.VisualStudio.Component.SQL.NCLI"                               , `
-    " --add Microsoft.VisualStudio.Component.SQL.CMDUtils"                           , `
-    " --add Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime"
+$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
+
+$components = $json.cfg.vs2017                                        `
+    | Select-Object  -ExpandProperty components         `
+    | Where-Object   { -Not $_.disabled }               `
+    | % { "--add $($_.id)" }
+
+Start-Process -Wait -FilePath $installerPath -ArgumentList ( "--quiet", "--lang en-US" + $components )
