@@ -94,11 +94,13 @@ This particular machine is equipped with:
 * [Chocolatey] packages specified in
   [choco.config](../master/provision/vs2017/choco.config)
 * [Visual Studio] is installed exclusively by Powershell script
-  [install.ps1](../master/provision/vs2017/install.ps1)
-* [Visual Studio] extensions specified in
-  [vs-marketplace.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-marketplace.txt).
+  [install.ps1](../master/provision/vs2017/install.ps1).
+  There is a place to mark components to install in the configuration file.
+  [More info...](#visual-studio-2017-components-and-extensions)
+* [Visual Studio] extensions specified in configuration file.
   Extensions are installed by Powershell script
   [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1).
+  [More info...](#visual-studio-2017-components-and-extensions)
 * All other items are handled the same way as `vs2015` (described below)
 
   > Please note, that Visual Studio 2017 is deployed with:
@@ -106,7 +108,7 @@ This particular machine is equipped with:
   >   It is supported by the script [install.ps1](../master/provision/vs2017/install.ps1)
   > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
   >   It is supported by the script [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1)
-  >   and input file [vs-marketplace.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-marketplace.txt).
+  >   and the extensions list in the configuration file.
 
 ##### `vs2015`
 
@@ -119,8 +121,7 @@ This particular machine is equipped with:
   Extensions are installed by Powershell script
   [vsix.ps1](../master/provision/powershell/vsix.ps1).
 
-* [Visual Studio Code] extensions specified in
-  [vscode-extensions.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vscode-extensions.txt).
+* [Visual Studio Code] extensions specified in configuration file.
   Extensions are installed by Powershell script
   [vscode.ps1](../master/provision/powershell/vscode.ps1).
 
@@ -162,19 +163,17 @@ This particular machine is equipped with:
   [vpn-triggers.ps1](../master/provision/powershell/vpn-triggers.ps1)
   maintains VPN triggers.
 
-* Windows credentials. Credentials list is processed by
-  [vault.ps1](../master/provision/powershell/vault.ps1).
-  [More info...](#windows-credentials)
+* Windows credentials. [More info...](#windows-credentials)
 
 * established VPN connection. Only when `vpn-connect.cmd` is provided.
   [More info...](#vpn-connection)
 
 * mapped network drives. [More info...](#drives-mappings)
 
-* cloned git repositories. You can define a list of git repositories in file
-  [git-clone.json](../master/sysroot/Users/vagrant/MyProjects/git-clone.json).
-  This file is processed by Powershell script
+* cloned git repositories. You can define a list of git repositories in configuration file
+  This list is processed by Powershell script
   [git-clone.ps1](../master/provision/powershell/git-clone.ps1).
+  [More info...](#git-repositories-to-clone)
 
   > Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
 
@@ -182,77 +181,6 @@ This particular machine is equipped with:
   [defender.ps1](../master/provision/powershell/defender.ps1) that looks for
   some executables. Those files are ignored by Windows Defender anti-malware
   scanner.
-
-### VPN connection
-
-It is possible to establish VPN connection while provisioning.
-Two files are required:
-
-1. `rasphone.pbk` placed into user application data folder
-   using `sysroot` solution.
-2. encrypted `vpn-connect.cmd` batch file placed into temporary folder
-   using `sysroot-protected` solution.
-
-   `vpn-connect.cmd` batch file should contain encrypted single line as below:
-
-   ```shell
-   rasdial "<VPN connection name>" <username> <password> /domain:<domain name>
-   ```
-
-> Note, that it will be supported by the global configuration file soon.
-
-### Windows credentials
-
-There is expected an encrypted file `vault.json`
-inside `sysroot-protected\Users\Vagrant\AppData\Local\Temp` folder.
-
-Decrypted content should be a JSon formatted data like below:
-
-```json
-    {     "credentials" : [ {
-          "type"     :     "domain"
-      ,   "server"   :     "<servername>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-      }, {
-          "type"     :     "generic"
-      ,   "server"   :     "git:http://<url>:<port>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-      }, {
-          "type"     :     "dialup"
-      ,   "name"     :     "<vpn connection name>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-    } ] }
-```
-
-While provisioning this file is processed by multiple scripts such as:
-[vault-dialup.ps1](../master/provision/powershell/vault-dialup.ps1)
-, [vault-domain.ps1](../master/provision/powershell/vault-domain.ps1)
-, [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
-.
-
-> Note, that it will be supported by the global configuration file soon.
-
-### Drives mappings
-
-There is expected an encrypted file `map-drives.json`
-inside `sysroot-protected\Users\Vagrant\AppData\Local\Temp` folder.
-
-Decrypted content should be a JSon formatted data like below:
-
-```json
-    {     "drives" : [ {
-          "local"    :     "<localDrive>"
-      ,   "remote"   :     "\\\\<server-name>\\<network-share>"
-    } ] }
-```
-
-This file is processed by
-[map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
-
-> Note, that it will be supported by the global configuration file soon.
 
 ### Global configuration/cutomization file
 
@@ -272,6 +200,136 @@ Then you can encrypt the file with [Encrypt-Config](../master/utils/Encrypt-Conf
 When your passwords needs to be changed you can decrypt the file with [Decrypt-Config](../master/utils/Decrypt-Config.ps1). Then update the configuration and encrypt it back. That's all.
 
 It is recommended to maintain your configuration file in your own branch or fork.
+
+#### What's inside of the configuration file?
+
+##### Windows credentials
+
+This is the list of your secret usernames and passwords to your favourite services.
+You can store them here. Encrypt'em all. Vagrant will place them into Windows Vault and keeps it safely.
+
+Sample content is:
+
+```json
+    {     "credentials" : [ {
+          "type"     :     "domain"
+      ,   "secret"   : {
+          "server"   :     "<servername>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+    } }, {
+          "type"     :     "generic"
+      ,   "secret"   : {
+          "server"   :     "git:http://<url>:<port>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+    } }, {
+          "type"     :     "dialup"
+      ,   "secret"   : {
+          "name"     :     "<vpn connection name>"
+      ,   "username" :     "<username>"
+      ,   "password" :     "<password>"
+    } } ] }
+```
+
+While provisioning this part of the config file is processed by multiple scripts such as:
+[vault-dialup.ps1](../master/provision/powershell/vault-dialup.ps1)
+, [vault-domain.ps1](../master/provision/powershell/vault-domain.ps1)
+, [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
+.
+
+> Please note, that `secret` objects may be encrypted as described above.
+
+##### VPN connection
+
+It is possible to establish VPN connection while provisioning.
+Two files are required:
+
+1. `rasphone.pbk` placed into user application data folder
+   using `sysroot` solution.
+2. `dialup` entry in `credentials` section of the configuration file.
+
+##### Drives mappings
+
+This is the list of the network drives to map to local disc letters.
+
+Sample content is:
+
+```json
+    { "drives"           : [ {
+          "local"        : "<localDrive>",
+          "secret"       : {
+              "remote"   : "\\\\<server-name>\\<network-share>"
+        }
+    } ] }
+```
+
+This part of the config file is processed by
+[map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
+
+> Please note, that `secret` objects may be encrypted as described above.
+
+##### git repositories to clone
+
+This is a place to list git repositories you need. Vagrant will clone them all.
+
+Sample content is:
+
+```json
+    { "repos"           : [ {
+          "url"        : "<url-where-to-clone-from>"
+    } ] }
+```
+
+This part of the config file is processed by
+[git-clone.ps1](../master/provision/powershell/git-clone.ps1).
+
+##### [Visual Studio] 2017 components and extensions
+
+This is the list of the components and extensions to install with Visual Studio 2017.
+
+Sample content is:
+
+```json
+               "vs2017":  {
+                               "components":  [
+                                                  {
+                                                      "id":  "<workload-or-component-id>"
+                                                  }
+                                              ],
+                               "extensions":  [
+                                                  {
+                                                      "publisher":  "<package-publisher>",
+                                                      "name":  "<package-name>"
+                                                  }
+                                              ]
+                           },
+```
+
+This part of the config file is processed by multiple scripts such as:
+[install.ps1](../master/provision/vs2017/install.ps1),
+[vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1)
+.
+
+##### [Visual Studio Code] extensions
+
+This is the list of the extensions to install with Visual Studio Code.
+
+Sample content is:
+
+```json
+               "vscode":  {
+                               "extensions":  [
+                                                  {
+                                                      "disabled":  false,
+                                                      "name":  "<extension-name>"
+                                                  }
+                                              ]
+                           },
+```
+
+This part of the config file is processed by
+[vscode.ps1](../master/provision/powershell/vscode.ps1).
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
