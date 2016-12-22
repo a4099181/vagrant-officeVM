@@ -10,7 +10,7 @@
 # This script is designed to work with Visual Studio Marketplace.
 
 $temp      = Join-Path $env:LOCALAPPDATA 'Temp'
-$list      = Join-Path $temp 'vs-marketplace.txt'
+$json      = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
 $gallery   = 'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/'
 $installer = Get-ChildItem       -Path ${env:ProgramFiles(x86)}             `
                                  -Filter "VSIXInstaller.exe"                `
@@ -18,16 +18,13 @@ $installer = Get-ChildItem       -Path ${env:ProgramFiles(x86)}             `
            | Select-Object       -ExpandProperty FullName                   `
                                  -First 1
 
-Get-Content                      -Path $list                                `
-    | Select-String              -Pattern '^#', '^\s*$'                     `
-                                 -NotMatch                                  `
-    | Where-Object               { $_.Line.Split('|')[2].Trim() -eq 'yes' } `
+$json.cfg.vs2017                                        `
+    | Select-Object  -ExpandProperty extensions         `
+    | Where-Object   { -Not $_.disabled }               `
     | ForEach-Object             {
 
-        $psh  =                   $_.Line.Split('|')[0].Trim()
-        $nme  =                   $_.Line.Split('|')[1].Trim()
-        $out  = Join-Path         $temp "$($psh).$($nme).vsix"
-        $uri  = "$($gallery)$($psh)/vsextensions/$($nme)/latest/vspackage"
+        $out  = Join-Path         $temp "$($_.publisher).$($_.name).vsix"
+        $uri  = "$($gallery)$($_.publisher)/vsextensions/$($_.name)/latest/vspackage"
 
         Invoke-WebRequest        -Uri  $uri                                 `
                                  -OutFile $out
