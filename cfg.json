@@ -6,9 +6,10 @@
                                                       "name":  "dbankier.vscode-instant-markdown"
                                                   },
                                                   {
-                                                      "disabled":  true,
+                                                      "disabled":  false,
                                                       "name":  "ms-vscode.csharp"
-                                                  }
+                                                  },
+                                                  { "name":  "ms-mssql.mssql" }
                                               ]
                            },
                 "vs2017":  {
