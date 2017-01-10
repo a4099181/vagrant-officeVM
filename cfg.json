@@ -28,6 +28,9 @@
                                                   },
                                                   {
                                                       "id":  "Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime"
+                                                  },
+                                                  {
+                                                      "id": "Microsoft.VisualStudio.Component.SQL.SSDT"
                                                   }
                                               ],
                                "extensions":  [
