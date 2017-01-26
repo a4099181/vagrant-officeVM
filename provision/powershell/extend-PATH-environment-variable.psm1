@@ -1,11 +1,11 @@
-# file    : extend-PATH-environment-variable.ps1
+# file    : extend-PATH-environment-variable.psm1
 # author  : bryjamus <bryjamus@gmail.com>
 # license : MIT
 
-# This script:
+# This module:
 # * Adds to %PTH% environment variable paths
 
-Function AddTo-SystemPath {
+Function Add-SystemPath {
   Param([array] $PathToAdd)
   $VerifiedPathsToAdd = $Null
   Foreach ($Path in $PathToAdd) {
@@ -16,7 +16,7 @@ Function AddTo-SystemPath {
     else {
       $VerifiedPathsToAdd += ";$Path"
       Write-Host "`$VerifiedPathsToAdd updated to contain: $Path"
-    }         
+    }
 
     if($VerifiedPathsToAdd -ne $null) {
       Write-Host "`$VerifiedPathsToAdd contains: $verifiedPathsToAdd"
@@ -25,7 +25,3 @@ Function AddTo-SystemPath {
     }
   }
 }
-
-$Path = Join-Path $ENV:UserProfile 'bin'
-
-AddTo-SystemPath(@($Path))

@@ -1,10 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require_relative "provision/ruby/git-clone.rb"
-require_relative "provision/ruby/sysroot.rb"
-require_relative "provision/ruby/sysroot-protected.rb"
-require_relative "provision/ruby/vpn-connect.rb"
+require_relative "provision/ruby/powershell.rb"
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -100,6 +97,10 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
+  cfg_file='cfg.json'
+  key_file='.vagrant\my-private.key'
+  powershell_args='-ExecutionPolicy ByPass -NoLogo -NonInteractive -NoProfile -Sta'
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
@@ -108,32 +109,25 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
+  powershell config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
+  powershell config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
+  powershell config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json #{cfg_file}"
+
   config.vm.provision 'shell', name: 'generic: chocolatey provisioner',
       run: 'up', powershell_args: '-ExecutionPolicy ByPass',
       inline: "iex ((new-object net.webclient)" +
               ".DownloadString('https://chocolatey.org/install.ps1'))"
 
-  config.vm.provision 'shell', name: 'generic: chocolatey packages',
-      run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
+  config.vm.provision 'shell', name: 'installing choco packages',
+      run: 'up', powershell_args: powershell_args,
       inline: 'cinst --allow-empty-checksums -y C:\vagrant\provision\generic\choco.config'
 
-  provision_sysroot            config.vm if Dir.exist?  'sysroot'
-
-  config.vm.provision 'shell', name: 'generic: vscode extensions',
-      privileged: false,
-      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-      path: 'provision\powershell\vscode.ps1'
-
-  config.vm.provision 'shell', name: 'Windows credentials',
-      path: 'provision\powershell\vault-domain.ps1'
-
-  config.vm.provision 'shell', name: 'Windows generic credentials',
-      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-      path: 'provision\powershell\vault-generic.ps1'
-
-  connect_vpn                  config.vm
-
-  provision_gitclone           config.vm
+  powershell config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
+  powershell config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
+  powershell config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
+  powershell_nonprivileged config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
+  powershell_nonprivileged config.vm, "Connect-Vpn #{cfg_file} #{key_file}"
+  powershell config.vm, "Copy-GitRepositories #{cfg_file}"
 
   config.vm.define 'vs2015', autostart: true, primary: true do | main |
 
@@ -141,65 +135,31 @@ Vagrant.configure(2) do |config|
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           inline: 'cinst --allow-empty-checksums --timeout 14400 -y C:\vagrant\provision\vs2015\choco.config'
 
-      provision_sysroot_protected  main.vm if Dir.exist?  'sysroot-protected'
+      powershell main.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
 
       main.vm.provision 'shell', name: 'vs2015: vs extensions',
           privileged: false,
           powershell_args: '-NoProfile -ExecutionPolicy ByPass',
           path: 'provision\powershell\vsix.ps1'
 
-      main.vm.provision 'shell', name: 'Windows Registry update',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
-
-      main.vm.provision 'shell', name: 'Extend PATH variable',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\extend-PATH-environment-variable.ps1'
-
-      main.vm.provision 'shell', name: 'vs2015: network drives',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
-          privileged: true,
-          run: 'up', path: 'provision\powershell\map-drives.ps1'
-
-      main.vm.provision 'shell', name: 'Windows Defender exclusions',
-          run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\defender.ps1'
+      powershell main.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      powershell main.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
+      powershell main.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      powershell main.vm, 'Add-WindowsDefenderExclusions'
 
   end
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
-      vs17.vm.provision 'shell', name: 'Visual Studio 2017 installation',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\vs2017\install.ps1'
-
-      vs17.vm.provision 'shell', name: 'Visual Studio\'s chocolatey packages',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          inline: 'cinst --ignore-checksums --allow-empty-checksums --timeout 14400 -y C:\vagrant\provision\vs2017\choco.config'
-
-      provision_sysroot_protected  vs17.vm if Dir.exist?  'sysroot-protected'
-
-      vs17.vm.provision 'shell', name: 'vs extensions',
-          privileged: false,
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vsix-marketplace.ps1'
-
-      vs17.vm.provision 'shell', name: 'Windows Registry update',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          privileged: true, run: 'up', path: 'provision\batch\registry.cmd'
-
-      vs17.vm.provision 'shell', name: 'Extend PATH variable',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\extend-PATH-environment-variable.ps1'
-
-      vs17.vm.provision 'shell', name: 'network drives',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass -NonInteractive',
-          privileged: true,
-          run: 'up', path: 'provision\powershell\map-drives.ps1'
-
-      vs17.vm.provision 'shell', name: 'Windows Defender exclusions',
-          run: 'up', powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\defender.ps1'
+      powershell vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
+      powershell vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
+      powershell vs17.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
+      powershell vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      powershell vs17.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
+      powershell vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      powershell vs17.vm, 'Add-WindowsDefenderExclusions'
+      powershell_nonprivileged vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
 
   end
+
 end

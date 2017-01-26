@@ -28,7 +28,13 @@
                                           "publisher":  "NunitDevelopers",
                                           "name":  "NunitTestAdapter"
                                       }
-                                  ]
+                                  ],
+                    "chocolatey" : {
+                        "packages": [
+                            { "id": "microsoft-build-tools" }
+                            , { "id": "resharper" }
+                            , { "id": "ncrunch-vs2017" }
+                        ]},
                },
     "repos":  [
                   {

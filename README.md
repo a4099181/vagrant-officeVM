@@ -1,3 +1,26 @@
+> This README file is outdated.
+> Some new features are not documented well.
+> The only way to know how they works is to read the code as long as README file is not refreshed.
+> New features list:
+> * Two configuration files are processed: config\common.json and config\user.json.
+>   The first one is versioned and shared. It should contain only the most basic and common options.
+>   The second is for user customization. It is not versioned. It is .gitignore-ed.
+>   Only sample file is provided. It is not being processed.
+>   Both files are merged at the beginning of the provision process.
+> * setup.ps1 file - now you can provision your local Windows instance.
+>   The same configuration and the same scripts may provision local Windows instance as well as virtualized Windows instance.
+> * all powershell scripts are now powershell modules.You can run powershell console and provision selectively manually just from shell.
+>   If you are interested take a look at any `*.psm1` file in the project to find a function name.
+>   Run powershell console and don't forget to load modules or use powershell.lnk file and don't care of it.
+>   Take a look at the bottom of new Vagrantfile if you want to know what functions are called by the provision process.
+>   You can take anyone and execute it on-demand.
+>   If you are familiar with powershell you can get the functions list with the command like that:
+>   `get-module | ? { $_.ModuleType -eq "Script" } | ? { $_.Version -eq "0.0" } | select -expand ExportedCommands`
+>   But keep the eyes open. Maybe it give you some more than I expect.
+>   Hint: Get-Help is your friend ;) if you want to know more about any function.
+>
+>   All about encryption stays untouched. Everything is alreade described in README. It may be changed soon.
+
 ### Requirements
 
 * Must-have requirement is [Vagrant] to be installed on your operating system.
@@ -94,20 +117,20 @@ This particular machine is equipped with:
 * [Chocolatey] packages specified in
   [choco.config](../master/provision/vs2017/choco.config)
 * [Visual Studio] is installed exclusively by Powershell script
-  [install.ps1](../master/provision/vs2017/install.ps1).
+  [install.psm1](../master/provision/vs2017/install.psm1).
   There is a place to mark components to install in the configuration file.
   [More info...](#visual-studio-2017-components-and-extensions)
 * [Visual Studio] extensions specified in configuration file.
   Extensions are installed by Powershell script
-  [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1).
+  [install.psm1](../master/provision/vs2017/install.psm1).
   [More info...](#visual-studio-2017-components-and-extensions)
 * All other items are handled the same way as `vs2015` (described below)
 
   > Please note, that Visual Studio 2017 is deployed with:
   > - new setup tool; this changes the way VS2017 may be installed silently with custom features.
-  >   It is supported by the script [install.ps1](../master/provision/vs2017/install.ps1)
+  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
   > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
-  >   It is supported by the script [vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1)
+  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
   >   and the extensions list in the configuration file.
 
 ##### `vs2015`
@@ -123,7 +146,7 @@ This particular machine is equipped with:
 
 * [Visual Studio Code] extensions specified in configuration file.
   Extensions are installed by Powershell script
-  [vscode.ps1](../master/provision/powershell/vscode.ps1).
+  [vscode.psm1](../master/provision/powershell/vscode.psm1).
 
 * all arbitrary files from [sysroot](../master/sysroot) folder.
   This folder is processed by file replication command `robocopy` available
@@ -160,7 +183,7 @@ This particular machine is equipped with:
   manually connect VPN connection. It will be established automatically when
   specified executable files will be executed. Triggers are updated every time
   the user is logged in and Powershell script
-  [vpn-triggers.ps1](../master/provision/powershell/vpn-triggers.ps1)
+  [vpn-triggers.psm1](../master/provision/powershell/vpn-triggers.psm1)
   maintains VPN triggers.
 
 * Windows credentials. [More info...](#windows-credentials)
@@ -178,7 +201,7 @@ This particular machine is equipped with:
   > Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
 
 * Windows Defender exclusions. There is a Powershell script
-  [defender.ps1](../master/provision/powershell/defender.ps1) that looks for
+  [defender.psm1](../master/provision/powershell/defender.psm1) that looks for
   some executables. Those files are ignored by Windows Defender anti-malware
   scanner.
 
@@ -233,9 +256,8 @@ Sample content is:
 ```
 
 While provisioning this part of the config file is processed by multiple scripts such as:
-[connect-vpn.ps1](../master/provision/powershell/connect-vpn.ps1)
-, [vault-domain.ps1](../master/provision/powershell/vault-domain.ps1)
-, [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
+[vpn.ps1](../master/provision/powershell/vpn.ps1)
+, [vault.ps1](../master/provision/powershell/vault.ps1)
 .
 
 > Please note, that `secret` objects may be encrypted as described above.
@@ -306,10 +328,8 @@ Sample content is:
                            },
 ```
 
-This part of the config file is processed by multiple scripts such as:
-[install.ps1](../master/provision/vs2017/install.ps1),
-[vsix-marketplace.ps1](../master/provision/powershell/vsix-marketplace.ps1)
-.
+This part of the config file is processed by
+[install.psm1](../master/provision/vs2017/install.psm1).
 
 ##### [Visual Studio Code] extensions
 
@@ -329,7 +349,7 @@ Sample content is:
 ```
 
 This part of the config file is processed by
-[vscode.ps1](../master/provision/powershell/vscode.ps1).
+[vscode.psm1](../master/provision/powershell/vscode.psm1).
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org

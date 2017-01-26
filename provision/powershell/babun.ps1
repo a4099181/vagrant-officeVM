@@ -24,27 +24,24 @@ if (-Not (Test-Path ($babunPath)))
     Start-BitsTransfer -Source $getFrom -Destination $putTo'.zip'
     unzip -o $putTo'.zip' -d $putTo
 
-    $setup  = Get-ChildItem -Path $putTo -Recurse -Filter install.bat   `
-            | Select-Object -First 1
+    $setup  = Get-ChildItem -Path $putTo -Recurse -Filter install.bat |
+        Select-Object -First 1
 
     $silent = Join-Path $setup.Directory "silent-$($setup.Name)"
     $update = Join-Path $babunPath "update.bat"
 
-    Get-Content        $setup.FullName                                  `
-       | Select-String -Pattern 'babun.bat', 'pause'                    `
-                       -NotMatch                                        `
-       | Out-File      -Encoding ascii -Force $silent
+    Get-Content        $setup.FullName |
+        Select-String -Pattern 'babun.bat', 'pause' -NotMatch |
+        Out-File      -Encoding ascii -Force $silent
 
     Start-Process $silent -NoNewWindow -PassThru -Wait
     Start-Process $update -NoNewWindow -PassThru -Wait
 
-    Get-VpnConnection                                                   `
-       | ForEach-Object                                                 `
-       {                                                                `
+    Get-VpnConnection |
+       % {
             Add-VpnConnectionTriggerApplication                         `
                   -ConnectionName $_.Name                               `
-                  -ApplicationID                                        `
-                     "$babunPath\cygwin\bin\mintty.exe"                 `
+                  -ApplicationID  "$babunPath\cygwin\bin\mintty.exe"
        }
 }
 
