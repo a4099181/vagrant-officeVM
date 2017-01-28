@@ -11,11 +11,11 @@
 
 . ".\CryptoLib.ps1"
 
-$cfg = "..\cfg.json"
+$cfg = "..\config\user.json"
 $key = "..\.vagrant\my-private.key"
 $jsn = Get-Content $cfg | ConvertFrom-Json
 
-$arr = @( $jsn.cfg.drives, $jsn.cfg.vault )
+$arr = @( $jsn.drives, $jsn.vault )
 
 foreach ($a in $arr)
 {

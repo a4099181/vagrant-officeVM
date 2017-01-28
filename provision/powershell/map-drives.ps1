@@ -12,13 +12,12 @@ $pass = ConvertTo-SecureString -AsPlainText -Force "vagrant"
 $cred = New-Object pscredential("vagrant",  $pass)
 
 $key = "c:\vagrant\.vagrant\my-private.key"
-$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
-$json.cfg.drives                                                          `
-    | Select-Object -expand secret                                        `
-    | ForEach-Object { Decrypt $_ $key }
+$cfg = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
+$cfg.drives |
+    Select-Object -expand secret |
+    % { Decrypt $_ $key }
 
-$json.cfg                                                                 `
-   | Select-Object            -ExpandProperty drives                      `
+$cfg.drives                                                               `
    | ForEach-Object                                                       `
 {                                                                         `
     Start-Process powershell  -Credential $cred                           `

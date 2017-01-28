@@ -10,21 +10,19 @@
 # * clones the repositories into MyProjects folder in user profile
 
 $projects = Join-Path $env:UserProfile 'MyProjects'
-$json = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
+$cfg = Get-Content C:\vagrant\cfg.json | ConvertFrom-Json
 
 if ((Test-Path $projects)-eq 0)
 {
     New-Item -Path $projects -ItemType Directory
 }
 
-$json.cfg                                                            `
-   | Select-Object             -ExpandProperty repos                 `
-   | ForEach-Object                                                  `
-{
-        Start-Process           -FilePath 'git'                      `
-                                -ArgumentList "clone $($_.url)"      `
-                                -WorkingDirectory $projects          `
-                                -NoNewWindow                         `
-                                -PassThru                            `
-                                -Wait
-}
+$cfg.repos |
+    % {
+        Start-Process -FilePath 'git' `
+                      -ArgumentList "clone $($_.url)" `
+                      -WorkingDirectory $projects `
+                      -NoNewWindow `
+                      -PassThru `
+                      -Wait
+    }

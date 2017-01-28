@@ -1,0 +1,41 @@
+﻿{
+    "vscode":  {
+                   "extensions":  [
+                                      { "name":  "dbankier.vscode-instant-markdown" },
+                                      { "name":  "ms-vscode.csharp" },
+                                      { "name":  "ms-mssql.mssql" }
+                                  ]
+               },
+    "vs2017":  {
+                   "components":  [
+                                      { "id": "Microsoft.VisualStudio.Workload.ManagedDesktop" },
+                                      { "id": "Microsoft.Net.ComponentGroup.TargetingPacks.Common" },
+                                      { "id": "Microsoft.VisualStudio.Component.SQL.NCLI" },
+                                      { "id": "Microsoft.VisualStudio.Component.SQL.CMDUtils" },
+                                      { "id": "Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime" },
+                                      { "id": "Microsoft.VisualStudio.Component.SQL.SSDT" }
+                                  ],
+                   "extensions":  [
+                                      {
+                                          "publisher":  "enovaMSDN",
+                                          "name":  "SonetaStudioExtPackage"
+                                      },
+                                      {
+                                          "publisher":  "enovaMSDN",
+                                          "name":  "SonetaPlatformDeveloper"
+                                      },
+                                      {
+                                          "publisher":  "NunitDevelopers",
+                                          "name":  "NunitTestAdapter"
+                                      }
+                                  ]
+               },
+    "repos":  [
+                  {
+                      "url":  "http://tfs2.soneta.int:8080/tfs/enova/enova-git/_git/enova.git"
+                  },
+                  {
+                      "url":  "http://tfs2.soneta.int:8080/tfs/enova/enova-git/_git/generator.git"
+                  }
+              ]
+}
