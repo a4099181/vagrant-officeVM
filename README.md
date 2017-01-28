@@ -233,7 +233,7 @@ Sample content is:
 ```
 
 While provisioning this part of the config file is processed by multiple scripts such as:
-[vault-dialup.ps1](../master/provision/powershell/vault-dialup.ps1)
+[connect-vpn.ps1](../master/provision/powershell/connect-vpn.ps1)
 , [vault-domain.ps1](../master/provision/powershell/vault-domain.ps1)
 , [vault-generic.ps1](../master/provision/powershell/vault-generic.ps1)
 .

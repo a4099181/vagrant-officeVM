@@ -131,10 +131,6 @@ Vagrant.configure(2) do |config|
       powershell_args: '-NoProfile -ExecutionPolicy ByPass',
       path: 'provision\powershell\vault-generic.ps1'
 
-  config.vm.provision 'shell', name: 'dialup credentials',
-      powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-      path: 'provision\powershell\vault-dialup.ps1'
-
   connect_vpn                  config.vm
 
   provision_gitclone           config.vm
