@@ -7,12 +7,12 @@ $set_working_directory='cd c:\vagrant'
 $powershell_args='-ExecutionPolicy ByPass -NoLogo -NonInteractive -NoProfile -Sta'
 $import_modules='( Get-ChildItem -Path provision -Include *.psm1 -File -Recurse | Import-Module )'
 
-def powershell vm, inline
+def ps_elev vm, inline
     vm.provision "shell", name: inline, powershell_args: $powershell_args,
         inline: "#{$set_working_directory};#{$import_modules};#{inline};"
 end
 
-def powershell_nonprivileged vm, inline
+def ps_nonp vm, inline
     vm.provision "shell", name: inline, powershell_args: $powershell_args, privileged: false,
         inline: "#{$set_working_directory};#{$import_modules};#{inline};"
 end

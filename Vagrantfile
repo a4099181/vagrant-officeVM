@@ -108,28 +108,28 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  powershell config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
-  powershell config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
-  powershell config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json #{cfg_file}"
-  powershell config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
-  powershell config.vm, "Install-CommonPackages #{cfg_file}"
-  powershell config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
-  powershell config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
-  powershell config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
-  powershell_nonprivileged config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
-  powershell_nonprivileged config.vm, "Connect-Vpn #{cfg_file} #{key_file}"
-  powershell config.vm, "Copy-GitRepositories #{cfg_file}"
+  ps_elev config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
+  ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
+  ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json #{cfg_file}"
+  ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
+  ps_elev config.vm, "Install-CommonPackages #{cfg_file}"
+  ps_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
+  ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
+  ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
+  ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
+  ps_nonp config.vm, "Connect-Vpn #{cfg_file} #{key_file}"
+  ps_elev config.vm, "Copy-GitRepositories #{cfg_file}"
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
-      powershell vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
-      powershell vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      powershell vs17.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
-      powershell vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      powershell vs17.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
-      powershell vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
-      powershell vs17.vm, 'Add-WindowsDefenderExclusions'
-      powershell_nonprivileged vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
+      ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
+      ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
+      ps_elev vs17.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
+      ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      ps_elev vs17.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
+      ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
+      ps_nonp vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
 
   end
 
