@@ -19,6 +19,7 @@
 >   But keep the eyes open. Maybe it give you some more than I expect.
 >   Hint: Get-Help is your friend ;) if you want to know more about any function.
 > * choco.config files are removed. All lists of choco packages are migrated to configuration files.
+> * machine vs2015 is removed.
 >
 >   All about encryption stays untouched. Everything is alreade described in README. It may be changed soon.
 
@@ -94,10 +95,10 @@ versions of software may be provisioned in separated virtual machines.
 
 The [Vagrantfile] specifies following machines:
 
-* `vs2015` - the primary machine with [Visual Studio] 2015.
+* `vs2015` - **REMOVED** machine with [Visual Studio] 2015.
+* `vs2017` - the primary machine with [Visual Studio] 2017.
   In the future, when new releases of the [Visual Studio] will come new
   dedicated machines are expected and may be separated from each other.
-* `vs2017` - The future is now ;-) Another machine with [Visual Studio] 2017.
 
 ### Common provisioning
 
@@ -125,30 +126,6 @@ This particular machine is equipped with:
   Extensions are installed by Powershell script
   [install.psm1](../master/provision/vs2017/install.psm1).
   [More info...](#visual-studio-2017-components-and-extensions)
-* All other items are handled the same way as `vs2015` (described below)
-
-  > Please note, that Visual Studio 2017 is deployed with:
-  > - new setup tool; this changes the way VS2017 may be installed silently with custom features.
-  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
-  > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
-  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
-  >   and the extensions list in the configuration file.
-
-##### `vs2015`
-
-This particular machine is equipped with:
-
-* [Chocolatey] packages specified in
-  [choco.config](../master/provision/vs2015/choco.config)
-* [Visual Studio] extensions specified in
-  [vs-extensions.txt](../master/sysroot/Users/vagrant/AppData/Local/Temp/vs-extensions.txt).
-  Extensions are installed by Powershell script
-  [vsix.ps1](../master/provision/powershell/vsix.ps1).
-
-* [Visual Studio Code] extensions specified in configuration file.
-  Extensions are installed by Powershell script
-  [vscode.psm1](../master/provision/powershell/vscode.psm1).
-
 * all arbitrary files from [sysroot](../master/sysroot) folder.
   This folder is processed by file replication command `robocopy` available
   in Windows operating system.
@@ -205,6 +182,18 @@ This particular machine is equipped with:
   [defender.psm1](../master/provision/powershell/defender.psm1) that looks for
   some executables. Those files are ignored by Windows Defender anti-malware
   scanner.
+
+
+  > Please note, that Visual Studio 2017 is deployed with:
+  > - new setup tool; this changes the way VS2017 may be installed silently with custom features.
+  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
+  > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
+  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
+  >   and the extensions list in the configuration file.
+
+##### `vs2015`
+
+** Place a tag just before commit**
 
 ### Global configuration/cutomization file
 

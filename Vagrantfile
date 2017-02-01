@@ -99,7 +99,6 @@ Vagrant.configure(2) do |config|
 
   cfg_file='cfg.json'
   key_file='.vagrant\my-private.key'
-  powershell_args='-ExecutionPolicy ByPass -NoLogo -NonInteractive -NoProfile -Sta'
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -120,26 +119,6 @@ Vagrant.configure(2) do |config|
   powershell_nonprivileged config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   powershell_nonprivileged config.vm, "Connect-Vpn #{cfg_file} #{key_file}"
   powershell config.vm, "Copy-GitRepositories #{cfg_file}"
-
-  config.vm.define 'vs2015', autostart: true, primary: true do | main |
-
-      main.vm.provision 'shell', name: 'vs2015: chocolatey packages',
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          inline: 'cinst --allow-empty-checksums --timeout 14400 -y C:\vagrant\provision\vs2015\choco.config'
-
-      powershell main.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
-
-      main.vm.provision 'shell', name: 'vs2015: vs extensions',
-          privileged: false,
-          powershell_args: '-NoProfile -ExecutionPolicy ByPass',
-          path: 'provision\powershell\vsix.ps1'
-
-      powershell main.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      powershell main.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
-      powershell main.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
-      powershell main.vm, 'Add-WindowsDefenderExclusions'
-
-  end
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
