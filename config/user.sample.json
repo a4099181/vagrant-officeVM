@@ -1,4 +1,9 @@
 ﻿{
+    "chocolatey" : {
+        "packages": [
+            { "id": "sourcetree", "disabled": true }
+            , { "id": "tortoisegit", "disabled": true }
+        ]},
     "vscode":  {
                    "extensions":  [
                                       {

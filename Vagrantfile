@@ -112,16 +112,8 @@ Vagrant.configure(2) do |config|
   powershell config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
   powershell config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   powershell config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json #{cfg_file}"
-
-  config.vm.provision 'shell', name: 'generic: chocolatey provisioner',
-      run: 'up', powershell_args: '-ExecutionPolicy ByPass',
-      inline: "iex ((new-object net.webclient)" +
-              ".DownloadString('https://chocolatey.org/install.ps1'))"
-
-  config.vm.provision 'shell', name: 'installing choco packages',
-      run: 'up', powershell_args: powershell_args,
-      inline: 'cinst --allow-empty-checksums -y C:\vagrant\provision\generic\choco.config'
-
+  powershell config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
+  powershell config.vm, "Install-CommonPackages #{cfg_file}"
   powershell config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
   powershell config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   powershell config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"

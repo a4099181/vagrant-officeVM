@@ -1,4 +1,16 @@
 ﻿{
+    "chocolatey" : {
+        "packages": [
+            { "id": "git-credential-manager-for-windows" }
+            , { "id": "inconsolata" }
+            , { "id": "meslolg.dz" }
+            , { "id": "skype" }
+            , { "id": "sourcecodepro" }
+            , { "id": "tomighty" }
+            , { "id": "unzip" }
+            , { "id": "mysql.workbench" }
+            , { "id": "visualstudiocode" }
+        ]},
     "vscode":  {
                    "extensions":  [
                                       { "name":  "dbankier.vscode-instant-markdown" },

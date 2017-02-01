@@ -18,6 +18,7 @@
 >   `get-module | ? { $_.ModuleType -eq "Script" } | ? { $_.Version -eq "0.0" } | select -expand ExportedCommands`
 >   But keep the eyes open. Maybe it give you some more than I expect.
 >   Hint: Get-Help is your friend ;) if you want to know more about any function.
+> * choco.config files are removed. All lists of choco packages are migrated to configuration files.
 >
 >   All about encryption stays untouched. Everything is alreade described in README. It may be changed soon.
 
