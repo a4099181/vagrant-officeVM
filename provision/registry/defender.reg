@@ -1,4 +1,4 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
-"Windows Defender exclusions restore"="powershell -WindowStyle Hidden -NonInteractive -ExecutionPolicy ByPass -Command ( Import-Module c:\\vagrant\\provision\\powershell\\defender.psm1; Add-WindowsDefenderExclusions; )"
+"Windows Defender exclusions restore"="powershell -WindowStyle Hidden -NonInteractive -ExecutionPolicy ByPass -Command ( Add-WindowsDefenderExclusions; )"

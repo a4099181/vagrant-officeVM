@@ -1,4 +1,6 @@
-﻿<#
+﻿Function Global:Encrypt
+{
+<#
     .SYNOPSIS
     Encrypts Value property of the piece of JSON.
 
@@ -8,22 +10,25 @@
     .PARAMETER KeyFile
     Encryption key file.
 
-    .NOTES
-    File Name : crypto.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
+    .INPUTS
+    PSCustomObject (Json object)
 #>
-Function Global:Encrypt(
-      [Parameter(Mandatory=$true)] $Json
-    , [Parameter(Mandatory=$true)][String] $KeyFile)
-{
-    $Json.psobject.Properties |
-        % {
-            $_.Value = ( $_.Value |
-                ConvertTo-SecureString   -AsPlainText -Force |
-                ConvertFrom-SecureString -Key (Get-Content $KeyFile ) )
-        }
+    Param ( [Parameter(Mandatory=$true)][String] $KeyFile
+          , [Parameter(Mandatory=$true, ValueFromPipeline=$true)] $Json )
+
+    Process
+    {
+        $Json.psobject.Properties |
+            ForEach-Object {
+                $_.Value = ( $_.Value |
+                    ConvertTo-SecureString   -AsPlainText -Force |
+                    ConvertFrom-SecureString -Key (Get-Content $KeyFile ) )
+            }
+    }
 }
+
+Function Global:Decrypt
+{
 <#
     .SYNOPSIS
     Decrypts Value property of the piece of JSON.
@@ -34,22 +39,22 @@ Function Global:Encrypt(
     .PARAMETER KeyFile
     Encryption key file.
 
-    .NOTES
-    File Name : crypto.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
+    .INPUTS
+    PSCustomObject (Json object)
 #>
-Function Global:Decrypt(
-      [Parameter(Mandatory=$true)] $Json
-    , [Parameter(Mandatory=$true)][String] $KeyFile)
-{
-    $Json.psobject.Properties |
-        % {
-            $secureString = $_.Value |
-                ConvertTo-SecureString -Key (Get-Content $KeyFile)
+    Param ( [Parameter(Mandatory=$true)][String] $KeyFile
+          , [Parameter(Mandatory=$true, ValueFromPipeline=$true)] $Json )
 
-            $_.Value = ( New-Object System.Net.NetworkCredential ("n/a", $secureString) |
-                Select-Object -ExpandProperty Password )
-        }
+    Process
+    {
+        $Json.psobject.Properties |
+            ForEach-Object {
+                $secureString = $_.Value |
+                    ConvertTo-SecureString -Key (Get-Content $KeyFile)
+
+                $_.Value = ( New-Object System.Net.NetworkCredential ("n/a", $secureString) |
+                    Select-Object -ExpandProperty Password )
+            }
+    }
 }
 

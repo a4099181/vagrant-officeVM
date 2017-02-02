@@ -1,3 +1,5 @@
+Function Install-CommonPackages
+{
 <#
     .SYNOPSIS
     This function installs packages enumerated in configuration files.
@@ -5,22 +7,25 @@
     .DESCRIPTION
     This function in details:
     * takes a list of packages from configuration file,
-    * installs each package with chocolatey package manager.
+    * skips packages marked as disabled,
+    * installs each package left,
+    * uses chocolatey package manager.
 
     .PARAMETER CfgFile
     Configuration file.
 
-    .NOTES
-    File Name: chocolatey.psm1
-    Author:    seb! <sebi@sebi.one.pl>
-    License:   MIT
-#>
-Function Install-CommonPackages (
-      [Parameter(Mandatory=$true)][String] $CfgFile )
-{
-    $cfg = Get-Content $CfgFile | ConvertFrom-Json
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Install-CommonPackages.md
 
-    $cfg.chocolatey.packages |
-        ? { -Not $_.disabled } |
-        % { cinst --limit-output --allow-empty-checksums -y $_.id }
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/chocolatey.psm1
+
+    .LINK
+    https://chocolatey.org/packages
+#>
+    Param ( [Parameter(Mandatory=$true)][String] $CfgFile )
+
+    ( Get-Content $CfgFile | ConvertFrom-Json ).chocolatey.packages |
+        Where-Object   { -Not $_.disabled } |
+        ForEach-Object { cinst --limit-output --allow-empty-checksums -y $_.id }
 }

@@ -1,39 +1,45 @@
+Function Copy-GitRepositories
+{
 <#
     .SYNOPSIS
-    This module clones git respositories enumerated in configuration file.
+    This function clones git respositories enumerated in configuration file.
 
     .DESCRIPTION
-    This module:
-    * takes a repositores list to clone from a text file
-    * takes care of MyProjects folder existance
-    * uses a git provisioned with chocolatey and accessible in PATH
-    * executes git clone for each repository
-    * clones the repositories into MyProjects folder in user profile
+    This function in details:
+    * creates destination folder if it not exists,
+    * takes a repositores list to clone from configuration file,
+    * skips repositories marked as disabled,
+    * clones each repository left,
+    * uses a git that should be already provisioned and accessible,
+    * clones the repositories into specified destination folder,
+    * initializes submodules within repositories.
 
     .PARAMETER CfgFile
     Configuration file.
 
-    .NOTES
-    File Name : git-clone.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
-#>
-Function Copy-GitRepositories (
-      [Parameter(Mandatory=$true)][String] $CfgFile )
-{
-    $projects = Join-Path $env:UserProfile 'MyProjects'
-    $cfg = Get-Content $CfgFile | ConvertFrom-Json
+    .PARAMETER DestinationFolder
+    Destination folder for cloned repositories.
 
-    if ((Test-Path $projects)-eq 0)
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Copy-GitRepositories.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/git-clone.psm1
+#>
+    Param ( [Parameter(Mandatory=$true)][String] $CfgFile
+          , [String] $DestinationFolder = ( Join-Path $env:UserProfile 'MyProjects' ) )
+
+    if ((Test-Path $DestinationFolder)-eq 0)
     {
-        New-Item -Path $projects -ItemType Directory
+        New-Item -Path $DestinationFolder -ItemType Directory
     }
 
-    $cfg.repos |
-        % {
+    ( Get-Content $CfgFile | ConvertFrom-Json ).repos |
+        Where-Object { -Not $_.disabled } |
+        ForEach-Object {
             Start-Process -FilePath 'git' `
-                          -ArgumentList "clone $($_.url)" `
-                          -WorkingDirectory $projects `
+                          -ArgumentList "clone --recursive $($_.url)" `
+                          -WorkingDirectory $DestinationFolder `
                           -NoNewWindow `
                           -PassThru `
                           -Wait

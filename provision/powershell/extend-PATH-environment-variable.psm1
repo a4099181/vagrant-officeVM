@@ -1,13 +1,27 @@
-# file    : extend-PATH-environment-variable.psm1
-# author  : bryjamus <bryjamus@gmail.com>
-# license : MIT
-
-# This module:
-# * Adds to %PTH% environment variable paths
-
 Function Add-SystemPath
 {
+<#
+    .SYNOPSIS
+    This function updates enironment PATH variable.
+
+    .DESCRIPTION
+    This function in details:
+    * adds specified paths to %PATH% environment variable
+
+    .PARAMETER PathToAdd
+    Array of paths to add.
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-SystemPath.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/extend-PATH-environment-variable.psm1
+
+    .NOTES
+    Author: bryjamus <bryjamus@gmail.com>
+#>
   Param([array] $PathToAdd)
+
   $VerifiedPathsToAdd = $Null
   Foreach ($Path in $PathToAdd) {
     if ($env:Path -like "*$Path*") {

@@ -5,10 +5,9 @@
 # This script executes local Windows machine provisioning.
 
 $wdir = ( Get-Location )
-$import_module="Import-Module vagrant-officeVM"
 $args = "-ExecutionPolicy ByPass", "-NoLogo", "-NonInteractive",
-        "-NoProfile", "-Sta", "-Command cd '$wdir'; $import_module;"
+        "-NoProfile", "-Sta", "-Command cd '$wdir';"
 
-Start-Process powershell -Wait -Args ($args+"Merge-ConfigurationFiles config\common.json, config\user.json cfg.json")
+Start-Process powershell -Wait -Args ($args+"Merge-ConfigurationFiles config\common.json, config\user.json | Out-File -Encoding utf8 cfg.json")
 Start-Process powershell -Wait -Args ($args+"setup\elevated.ps1") -Verb runAs
 Start-Process powershell -Wait -Args ($args+"setup\non-privileged.ps1")

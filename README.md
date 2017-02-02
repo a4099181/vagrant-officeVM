@@ -286,51 +286,6 @@ Sample content is:
 This part of the config file is processed by
 [git-clone.ps1](../master/provision/powershell/git-clone.ps1).
 
-##### [Visual Studio] 2017 components and extensions
-
-This is the list of the components and extensions to install with Visual Studio 2017.
-
-Sample content is:
-
-```json
-               "vs2017":  {
-                               "components":  [
-                                                  {
-                                                      "id":  "<workload-or-component-id>"
-                                                  }
-                                              ],
-                               "extensions":  [
-                                                  {
-                                                      "publisher":  "<package-publisher>",
-                                                      "name":  "<package-name>"
-                                                  }
-                                              ]
-                           },
-```
-
-This part of the config file is processed by
-[install.psm1](../master/provision/vs2017/install.psm1).
-
-##### [Visual Studio Code] extensions
-
-This is the list of the extensions to install with Visual Studio Code.
-
-Sample content is:
-
-```json
-               "vscode":  {
-                               "extensions":  [
-                                                  {
-                                                      "disabled":  false,
-                                                      "name":  "<extension-name>"
-                                                  }
-                                              ]
-                           },
-```
-
-This part of the config file is processed by
-[vscode.psm1](../master/provision/powershell/vscode.psm1).
-
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
 [Git]: https://git-scm.com/

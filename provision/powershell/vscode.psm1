@@ -1,26 +1,27 @@
+Function Install-VisualStudioCodeExtensions
+{
 <#
     .SYNOPSIS
     This function installs Visual Studio Code Extensions enumerated in configuration file.
 
     .DESCRIPTION
-    This script:
-    * takes a Visual Studio Code extensions list to install from a text file
-    * executes VS Code to install extensions
+    This function in details:
+    * takes a Visual Studio Code extensions list to install from configuration file,
+    * skips extensions marked as disabled,
+    * executes VS Code to install all extensions left.
 
     .PARAMETER CfgFile
     Configuration file.
 
-    .NOTES
-    File Name : vscode.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
-#>
-Function Install-VisualStudioCodeExtensions (
-      [Parameter(Mandatory=$true)][String] $CfgFile )
-{
-    $cfg = Get-Content $CfgFile | ConvertFrom-Json
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Install-VisualStudioCodeExtensions.md
 
-    $cfg.vscode.extensions |
-        ? { -Not $_.disabled } |
-        % { code --install-extension $_.name }
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vscode.psm1
+#>
+    Param ( [Parameter(Mandatory=$true)][String] $CfgFile )
+
+    ( Get-Content $CfgFile | ConvertFrom-Json ).vscode.extensions |
+        Where-Object   { -Not $_.disabled } |
+        ForEach-Object { code --install-extension $_.name }
 }

@@ -1,11 +1,15 @@
+Function Add-GenericWindowsCredentials
+{
 <#
     .SYNOPSIS
     This function adds generic Windows Credentials enumerated in configuration file.
 
     .DESCRIPTION
-    This module:
-    * takes a generic credentials list from a JSON formatted text file
-    * stores credentials into Windows Vault
+    This function in details:
+    * takes a generic credentials list from configuration file,
+    * skips entries marked as disabled,
+    * stores all credentials left into Windows Vault,
+    * supports encrypted secret data.
 
     .PARAMETER CfgFile
     Configuration file.
@@ -13,40 +17,48 @@
     .PARAMETER KeyFile
     Encryption key file.
 
-    .NOTES
-    File Name : vault.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-GenericWindowsCredentials.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1
 #>
-Function Add-GenericWindowsCredentials (
-      [Parameter(Mandatory=$true)][String] $CfgFile
-    , [Parameter(Mandatory=$true)][String] $KeyFile )
-{
+    Param ( [Parameter(Mandatory=$true)][String] $CfgFile
+          , [Parameter(Mandatory=$true)][String] $KeyFile )
+
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
+
     $cfg.vault |
         Select-Object -expand secret |
-        % { Decrypt $_ $KeyFile }
+        Decrypt $KeyFile
+
     $pass = ConvertTo-SecureString -AsPlainText -Force "vagrant"
     $cred = New-Object pscredential("vagrant",  $pass)
 
     $cfg.vault |
-        ? { $_.type -eq "generic" } |
-        % {
+        Where-Object   { $_.type -eq "generic" } |
+        Where-Object   { -Not $_.disabled } |
+        ForEach-Object {
             Start-Process cmdkey  -Credential $cred `
                                   -LoadUserProfile `
                                   -NoNewWindow `
                                   -Wait `
-                "/generic:$($_.secret.server) /user:$($_.secret.username) /pass:$($_.secret.password)"; `
+                "/generic:$($_.secret.server) /user:$($_.secret.username) /pass:$($_.secret.password)";
         }
 }
+
+Function Add-WindowsCredentials
+{
 <#
     .SYNOPSIS
     This function adds domain Windows Credentials enumerated in configuration file.
 
     .DESCRIPTION
-    This module:
-    * takes a domain credentials list from a JSON formatted text file
-    * stores credentials into Windows Vault
+    This function in details:
+    * takes a domain credentials list from from configuration file,
+    * skips entries marked as disabled,
+    * stores all credentials left into Windows Vault,
+    * supports encrypted secret data.
 
     .PARAMETER CfgFile
     Configuration file.
@@ -54,29 +66,32 @@ Function Add-GenericWindowsCredentials (
     .PARAMETER KeyFile
     Encryption key file.
 
-    .NOTES
-    File Name : vault.psm1
-    Author    : seb! <sebi@sebi.one.pl>
-    License   : MIT
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-WindowsCredentials.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1
 #>
-Function Add-WindowsCredentials (
-      [Parameter(Mandatory=$true)][String] $CfgFile
-    , [Parameter(Mandatory=$true)][String] $KeyFile )
-{
+    Param ( [Parameter(Mandatory=$true)][String] $CfgFile
+          , [Parameter(Mandatory=$true)][String] $KeyFile )
+
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
+
     $cfg.vault |
         Select-Object -expand secret |
-        % { Decrypt $_ $KeyFile }
+        Decrypt $KeyFile
+
     $pass = ConvertTo-SecureString -AsPlainText -Force "vagrant"
     $cred = New-Object pscredential("vagrant",  $pass)
 
     $cfg.vault |
-        ? { -Not $_.type -Or $_.type -eq "domain" } |
-        % {
+        Where-Object   { -Not $_.type -Or $_.type -eq "domain" } |
+        Where-Object   { -Not $_.disabled } |
+        ForEach-Object {
             Start-Process cmdkey  -Credential $cred `
                                   -LoadUserProfile `
                                   -NoNewWindow `
                                   -Wait `
-                "/add:$($_.secret.server) /user:$($_.secret.username) /pass:$($_.secret.password)"; `
+                "/add:$($_.secret.server) /user:$($_.secret.username) /pass:$($_.secret.password)";
         }
 }
