@@ -5,7 +5,8 @@
 # This module:
 # * Adds to %PTH% environment variable paths
 
-Function Add-SystemPath {
+Function Add-SystemPath
+{
   Param([array] $PathToAdd)
   $VerifiedPathsToAdd = $Null
   Foreach ($Path in $PathToAdd) {
@@ -25,3 +26,4 @@ Function Add-SystemPath {
     }
   }
 }
+

@@ -13,7 +13,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Encrypt(
+Function Global:Encrypt(
       [Parameter(Mandatory=$true)] $Json
     , [Parameter(Mandatory=$true)][String] $KeyFile)
 {
@@ -39,7 +39,7 @@ function Encrypt(
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Decrypt(
+Function Global:Decrypt(
       [Parameter(Mandatory=$true)] $Json
     , [Parameter(Mandatory=$true)][String] $KeyFile)
 {
@@ -52,3 +52,4 @@ function Decrypt(
                 Select-Object -ExpandProperty Password )
         }
 }
+

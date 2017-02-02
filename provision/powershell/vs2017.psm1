@@ -16,7 +16,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Install-VisualStudio2017 (
+Function Install-VisualStudio2017 (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
@@ -60,7 +60,7 @@ function Install-VisualStudio2017 (
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Install-VisualStudio2017Extensions (
+Function Install-VisualStudio2017Extensions (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
@@ -106,7 +106,7 @@ function Install-VisualStudio2017Extensions (
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Install-VisualStudio2017Packages (
+Function Install-VisualStudio2017Packages (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
@@ -115,6 +115,7 @@ function Install-VisualStudio2017Packages (
     {
         $cfg.vs2017.chocolatey.packages |
             ? { -Not $_.disabled } |
-            % { cinst --ignore-checksums --allow-empty-checksums -y $_.id }
+            % { cinst --limit-output --ignore-checksums --allow-empty-checksums -y $_.id }
     }
 }
+

@@ -18,7 +18,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Copy-GitRepositories (
+Function Copy-GitRepositories (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $projects = Join-Path $env:UserProfile 'MyProjects'

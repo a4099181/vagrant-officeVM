@@ -108,6 +108,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
+  ps_elev config.vm, 'robocopy provision\powershell "C:\Program Files\WindowsPowerShell\Modules\vagrant-officeVM" *.ps?1 /MIR'
   ps_elev config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json #{cfg_file}"

@@ -9,14 +9,13 @@
 >   Both files are merged at the beginning of the provision process.
 > * setup.ps1 file - now you can provision your local Windows instance.
 >   The same configuration and the same scripts may provision local Windows instance as well as virtualized Windows instance.
-> * all powershell scripts are now powershell modules.You can run powershell console and provision selectively manually just from shell.
+> * all powershell scripts are now single powershell module.You can run powershell console and provision selectively manually just from shell.
 >   If you are interested take a look at any `*.psm1` file in the project to find a function name.
->   Run powershell console and don't forget to load modules or use powershell.lnk file and don't care of it.
+>   Run powershell console and don't forget to `Import-Module vagrant-officeVM`.
 >   Take a look at the bottom of new Vagrantfile if you want to know what functions are called by the provision process.
 >   You can take anyone and execute it on-demand.
 >   If you are familiar with powershell you can get the functions list with the command like that:
->   `get-module | ? { $_.ModuleType -eq "Script" } | ? { $_.Version -eq "0.0" } | select -expand ExportedCommands`
->   But keep the eyes open. Maybe it give you some more than I expect.
+>   `get-command -module vagrant-officeVM`
 >   Hint: Get-Help is your friend ;) if you want to know more about any function.
 > * choco.config files are removed. All lists of choco packages are migrated to configuration files.
 > * machine vs2015 is removed.

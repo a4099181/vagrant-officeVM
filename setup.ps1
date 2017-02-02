@@ -5,7 +5,7 @@
 # This script executes local Windows machine provisioning.
 
 $wdir = ( Get-Location )
-$import_module="Get-ChildItem -Path $wdir\provision -Include *.psm1 -File -Recurse | Import-Module"
+$import_module="Import-Module vagrant-officeVM"
 $args = "-ExecutionPolicy ByPass", "-NoLogo", "-NonInteractive",
         "-NoProfile", "-Sta", "-Command cd '$wdir'; $import_module;"
 

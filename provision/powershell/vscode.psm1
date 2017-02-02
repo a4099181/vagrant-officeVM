@@ -15,7 +15,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Install-VisualStudioCodeExtensions (
+Function Install-VisualStudioCodeExtensions (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $cfg = Get-Content $CfgFile | ConvertFrom-Json

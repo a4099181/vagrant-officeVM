@@ -18,7 +18,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Add-DriveMappings (
+Function Add-DriveMappings (
       [Parameter(Mandatory=$true)][String] $CfgFile
     , [Parameter(Mandatory=$true)][String] $KeyFile )
 {
@@ -44,3 +44,4 @@ function Add-DriveMappings (
 "@
     }
 }
+

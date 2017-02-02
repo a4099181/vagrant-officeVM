@@ -15,12 +15,12 @@
     Author:    seb! <sebi@sebi.one.pl>
     License:   MIT
 #>
-function Install-CommonPackages (
+Function Install-CommonPackages (
       [Parameter(Mandatory=$true)][String] $CfgFile )
 {
     $cfg = Get-Content $CfgFile | ConvertFrom-Json
 
     $cfg.chocolatey.packages |
         ? { -Not $_.disabled } |
-        % { cinst --allow-empty-checksums -y $_.id }
+        % { cinst --limit-output --allow-empty-checksums -y $_.id }
 }

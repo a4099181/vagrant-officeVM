@@ -40,3 +40,4 @@ function Add-WindowsDefenderExclusions
     Add-MpPreference -ExclusionPath C:\pagefile.sys `
             -ExclusionExtension config, cs , ldf, lnk, mdf, ttf, txt, xml, log
 }
+

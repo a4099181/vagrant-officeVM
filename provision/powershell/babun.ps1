@@ -44,4 +44,3 @@ if (-Not (Test-Path ($babunPath)))
                   -ApplicationID  "$babunPath\cygwin\bin\mintty.exe"
        }
 }
-

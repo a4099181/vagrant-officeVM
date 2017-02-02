@@ -18,7 +18,7 @@
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Add-GenericWindowsCredentials (
+Function Add-GenericWindowsCredentials (
       [Parameter(Mandatory=$true)][String] $CfgFile
     , [Parameter(Mandatory=$true)][String] $KeyFile )
 {
@@ -59,7 +59,7 @@ function Add-GenericWindowsCredentials (
     Author    : seb! <sebi@sebi.one.pl>
     License   : MIT
 #>
-function Add-WindowsCredentials (
+Function Add-WindowsCredentials (
       [Parameter(Mandatory=$true)][String] $CfgFile
     , [Parameter(Mandatory=$true)][String] $KeyFile )
 {
