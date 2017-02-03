@@ -141,15 +141,6 @@ This particular machine is equipped with:
   Take a look inside [sysroot](../master/sysroot/) to see what else will be
   copied to your new machine.
 
-* all files from [sysroot-protected](../master/sysroot-protected) folder.
-  Files are expected to be encrypted using a custom utility
-  [Encrypt-Json.ps1](../master/utils/Encrypt-Json.ps1). Files are processed by
-  Powershell script
-  [sysroot-protected.ps1](../master/provision/powershell/sysroot-protected.ps1).
-
-  That is the way the sensitive private data are being applied into guest OS.
-  This is the way to maintain privacy and secure those data also.
-
 * all `*.reg` files from [registry](../master/provision/registry) folder are
   applied using a batch file
   [registry.cmd](../master/provision/batch/registry.cmd).

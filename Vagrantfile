@@ -124,7 +124,6 @@ Vagrant.configure(2) do |config|
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      ps_elev vs17.vm, "Copy-SysrootProtected #{key_file}" if Dir.exist?  'sysroot-protected'
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs17.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
