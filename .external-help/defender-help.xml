@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Add-WindowsDefenderExclusions</command:name>
+<command:verb>Add</command:verb>
+<command:noun>WindowsDefenderExclusions</command:noun>
+<maml:description><maml:para>This function add Windows defender exclusions.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This function in details adds exclusions for: * specified processes,
+</maml:para>
+<maml:para>* specified folders,
+</maml:para>
+<maml:para>* specified files,
+</maml:para>
+<maml:para>* specified extensions.
+</maml:para>
+<maml:para>
+</maml:para>
+<maml:para>The primary aim is to improve developer machine performance.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Add-WindowsDefenderExclusions</maml:name>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>ProcessesPaths</maml:name>
+<maml:Description><maml:para>Paths where specified processess should be search for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( ${env:ProgramFiles(x86)}, $env:ProgramW6432 )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>ProcessesList</maml:name>
+<maml:Description><maml:para>Processess to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'msbuild.exe', 'devenv.exe', 'sqlcmd.exe', 'sqllocaldb.exe', 'sqlservr.exe', 'sqlwriter.exe')</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>FoldersPaths</maml:name>
+<maml:Description><maml:para>Paths where specified folders should be search for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( $env:USERPROFILE )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>FoldersList</maml:name>
+<maml:Description><maml:para>Folders to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'MyProjects', '.nuget', '.babun' )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>FilesList</maml:name>
+<maml:Description><maml:para>Files to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>C:\pagefile.sys</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>ExtensionsList</maml:name>
+<maml:Description><maml:para>File extensions to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'config', 'cs' , 'ldf', 'lnk', 'mdf', 'ttf', 'txt', 'xml', 'log' )</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>ProcessesPaths</maml:name>
+<maml:Description><maml:para>Paths where specified processess should be search for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( ${env:ProgramFiles(x86)}, $env:ProgramW6432 )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>ProcessesList</maml:name>
+<maml:Description><maml:para>Processess to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'msbuild.exe', 'devenv.exe', 'sqlcmd.exe', 'sqllocaldb.exe', 'sqlservr.exe', 'sqlwriter.exe')</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none"><maml:name>FoldersPaths</maml:name>
+<maml:Description><maml:para>Paths where specified folders should be search for.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( $env:USERPROFILE )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none"><maml:name>FoldersList</maml:name>
+<maml:Description><maml:para>Folders to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'MyProjects', '.nuget', '.babun' )</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none"><maml:name>FilesList</maml:name>
+<maml:Description><maml:para>Files to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>C:\pagefile.sys</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none"><maml:name>ExtensionsList</maml:name>
+<maml:Description><maml:para>File extensions to exclude within Windows Defender.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>( 'config', 'cs' , 'ldf', 'lnk', 'mdf', 'ttf', 'txt', 'xml', 'log' )</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes></command:inputTypes>
+<command:returnValues></command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Add-WindowsDefenderExclusions</dev:code>
+<dev:remarks><maml:para>Adds default exclusions. If you want to add custom exclusions you may consider using standard  `Add-MpPreference` cmdlet also. Please, take a look at: `Get-Help Add-MpPreference` for more information.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-WindowsDefenderExclusions.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-WindowsDefenderExclusions.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/defender.psm1</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/defender.psm1</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+</helpItems>

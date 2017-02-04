@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Merge-ConfigurationFiles</command:name>
+<command:verb>Merge</command:verb>
+<command:noun>ConfigurationFiles</command:noun>
+<maml:description><maml:para>This function combines configuration files.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This function in details: * loads Newtonsoft.Json library from specified location,
+</maml:para>
+<maml:para>* parses all input files,
+</maml:para>
+<maml:para>* merges them in the specified order,
+</maml:para>
+<maml:para>* uses Newtonsoft.Json library with setting MergeArrayHandling.Union.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Merge-ConfigurationFiles</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Files</maml:name>
+<maml:Description><maml:para>An Array of the configuration files to combine.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>ModulesPath</maml:name>
+<maml:Description><maml:para>Path where installed Newtonsoft.Json package can be found.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>C:\Program Files\WindowsPowerShell\Modules</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>Files</maml:name>
+<maml:Description><maml:para>An Array of the configuration files to combine.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+<dev:type><maml:name>String[]</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>ModulesPath</maml:name>
+<maml:Description><maml:para>Path where installed Newtonsoft.Json package can be found.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>C:\Program Files\WindowsPowerShell\Modules</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes></command:inputTypes>
+<command:returnValues><command:returnValue><dev:type><maml:name>String</maml:name>
+</dev:type>
+<maml:description><maml:para>
+</maml:para>
+</maml:description>
+</command:returnValue>
+</command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Merge-ConfigurationFiles common.json, user.json</dev:code>
+<dev:remarks><maml:para>It merges two specified Json files using Merge(JObject, JsonMergeSettings) method of the JObject class provided by the `Newtonsoft.Json library`. The output is merged Json formatted string.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2</maml:title>
+<dev:code>PS C:\&gt; Merge-ConfigurationFiles common.json, user.json | Out-File -Encoding utf8 merged.json</dev:code>
+<dev:remarks><maml:para>It merges two specified Json files and saves merged result into file `merged.json` with UTF-8 encoding. Content of the `user.json` file supplements content of the `common.json` file.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Merge-ConfigurationFiles.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Merge-ConfigurationFiles.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/config.psm1</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/config.psm1</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>http://www.newtonsoft.com/json/help/html/MergeJson.htm</maml:linkText>
+<maml:uri>http://www.newtonsoft.com/json/help/html/MergeJson.htm</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>http://www.newtonsoft.com/</maml:linkText>
+<maml:uri>http://www.newtonsoft.com/</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+</helpItems>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Add-GenericWindowsCredentials</command:name>
+<command:verb>Add</command:verb>
+<command:noun>GenericWindowsCredentials</command:noun>
+<maml:description><maml:para>This function adds generic Windows Credentials enumerated in configuration file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This function in details: * takes a generic credentials list from configuration file,
+</maml:para>
+<maml:para>* skips entries marked as disabled,
+</maml:para>
+<maml:para>* stores all credentials left into Windows Vault,
+</maml:para>
+<maml:para>* supports encrypted secret data.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Add-GenericWindowsCredentials</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
+<maml:Description><maml:para>Encryption key file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
+<maml:Description><maml:para>Encryption key file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes></command:inputTypes>
+<command:returnValues></command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Add-WindowsCredentials cfg.json encryption.key</dev:code>
+<dev:remarks><maml:para>Adds user credentials into Windows Vault. Pass your encryption.key file for secret data decryption.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2 Sample content of the `cfg.json`</maml:title>
+<dev:code>{
+    "vault"               : [
+        {
+            "type"        : "generic",
+            "secret":
+            {
+                "server"  :  "git:http://&lt;uri&gt;:&lt;port&gt;",
+                "username":  "&lt;username&gt;",
+                "password":  "&lt;password&gt;"
+            },
+            "disabled": true
+        }
+    ]
+}</dev:code>
+<dev:remarks><maml:para>&gt; The values of the `secret` object properties should be encrypted .
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-GenericWindowsCredentials.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-GenericWindowsCredentials.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Add-WindowsCredentials</command:name>
+<command:verb>Add</command:verb>
+<command:noun>WindowsCredentials</command:noun>
+<maml:description><maml:para>This function adds domain Windows Credentials enumerated in configuration file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This function in details: * takes a domain credentials list from from configuration file,
+</maml:para>
+<maml:para>* skips entries marked as disabled,
+</maml:para>
+<maml:para>* stores all credentials left into Windows Vault,
+</maml:para>
+<maml:para>* supports encrypted secret data.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Add-WindowsCredentials</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
+<maml:Description><maml:para>Encryption key file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
+<maml:Description><maml:para>Encryption key file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes></command:inputTypes>
+<command:returnValues></command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Add-WindowsCredentials cfg.json encryption.key</dev:code>
+<dev:remarks><maml:para>Adds user credentials into Windows Vault. Pass your encryption.key file for secret data decryption.
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 2 Sample content of the `cfg.json`</maml:title>
+<dev:code>{
+    "vault"               : [
+        {
+            "type"        : "domain",
+            "secret":
+            {
+                "server"  :  "&lt;hostname&gt;",
+                "username":  "&lt;domainname&gt;\\&lt;username&gt;",
+                "password":  "&lt;password&gt;"
+            },
+            "disabled": true
+        }
+    ]
+}</dev:code>
+<dev:remarks><maml:para>&gt; Note that domainname and username is separated by the escaped back-slash. &gt; The values of the `secret` object properties should be encrypted .
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-WindowsCredentials.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-WindowsCredentials.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vault.psm1</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+</helpItems>
