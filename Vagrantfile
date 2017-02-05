@@ -133,4 +133,8 @@ Vagrant.configure(2) do |config|
 
   end
 
+  # Vagrantfile custom global provisioning place-holders
+  # STARTS-HERE
+  # ENDS-HERE
+
 end
