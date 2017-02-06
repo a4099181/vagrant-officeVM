@@ -108,7 +108,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  ps_elev config.vm, 'robocopy provision\powershell "C:\Users\vagrant\Documents\WindowsPowerShell\Modules\vagrant-officeVM" *.ps?1 /MIR'
+  ps_elev config.vm, 'robocopy provision\powershell "C:\Program Files\WindowsPowerShell\Modules\vagrant-officeVM" *.ps?1 /MIR'
   ps_elev config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
@@ -126,7 +126,7 @@ Vagrant.configure(2) do |config|
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps_elev vs17.vm, 'Add-SystemPath( @( Join-Path $ENV:UserProfile bin ) )'
+      ps_elev vs17.vm, 'Add-SystemPath "%USERPROFILE%\\AppData\\Local\\Programs\\Microsoft Git Credential Manager for Windows"'
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
       ps_nonp vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
