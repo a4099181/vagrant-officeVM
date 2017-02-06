@@ -1,47 +1,53 @@
-> This README file is outdated.
-> Some new features are not documented well.
-> The only way to know how they works is to read the code as long as README file is not refreshed.
-> New features list:
-> * Two configuration files are processed: config\common.json and config\user.json.
->   The first one is versioned and shared. It should contain only the most basic and common options.
->   The second is for user customization. It is not versioned. It is .gitignore-ed.
->   Only sample file is provided. It is not being processed.
->   Both files are merged at the beginning of the provision process.
-> * setup.ps1 file - now you can provision your local Windows instance.
->   The same configuration and the same scripts may provision local Windows instance as well as virtualized Windows instance.
-> * all powershell scripts are now single powershell module.You can run powershell console and provision selectively manually just from shell.
->   If you are interested take a look at any `*.psm1` file in the project to find a function name.
->   Run powershell console and don't forget to `Import-Module vagrant-officeVM`.
->   Take a look at the bottom of new Vagrantfile if you want to know what functions are called by the provision process.
->   You can take anyone and execute it on-demand.
->   If you are familiar with powershell you can get the functions list with the command like that:
->   `get-command -module vagrant-officeVM`
->   Hint: Get-Help is your friend ;) if you want to know more about any function.
-> * choco.config files are removed. All lists of choco packages are migrated to configuration files.
-> * machine vs2015 is removed.
->
->   All about encryption stays untouched. Everything is alreade described in README. It may be changed soon.
+### What is it for?
+
+Fast and easy software developer's environment setup. 
+Be able to:
+* start to code up to one hour from scratch (ie: just after new OS installation),
+* decide to restart your development environment any time you want 
+  and after next one hour enjoy your new development environment
+  and back to code ;)
+
+Make simply possible two alternative approaches:
+* get full power of advantages using virtualization you like,
+* work with local Windows instance and make your new computer ready to work ASAP.
 
 ### Requirements
 
-* Must-have requirement is [Vagrant] to be installed on your operating system.
-  You can download it from https://www.vagrantup.com/downloads.html
-  and follow the installer to install it.
+* If you choose virtualized approach:
 
-* This [Vagrantfile] supports:
+  * Must-have requirement is [Vagrant] to be installed on your operating system.
+    You can download it from https://www.vagrantup.com/downloads.html
+    and follow the installer to install it.
 
-  * Microsoft HyperV - tested with Windows 10 HyperV
-  * Oracle VM [VirtualBox] - tested with [VirtualBox] 5.0
+  * This [Vagrantfile] supports:
 
-  It is possible to use any other virtualization provider such as **VMWare**.
-  In this case valid box should be provided.
-  This box should contain any Windows operating system configured as it is
-  described in Vagrant documentation in chapter
-  [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html).
+    * Microsoft HyperV - tested with Windows 10 HyperV
+    * Oracle VM [VirtualBox] - tested with [VirtualBox] 5.0
+
+    It is possible to use any other virtualization provider such as **VMWare**.
+  
+  * You must have a copy of virtualized Windows instance.
+    It is a little bit complicated thing to do but it is a one-time job to do.
+    Take a virtualization hypervisor you like and create new virtualized Windows.
+    This is your vagrant box.
+    This box should contain any Windows operating system configured as it is
+    described in Vagrant documentation in chapter
+    [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html).
+
+    Alternatively you can go look for a box at [Atlas](https://atlas.hashicorp.com/boxes/search)
+    and just download it.
+
+    Another good option is to share a box across the developers at your company.
+
+* If you don't want to use any virtualization:
+
+  * Windows should be your operating system.
+
+> _In both cases be a Windows [Powershell] fan_.
 
 ### How to use it?
 
-1. Get _Vagrantfile_
+1. Take a copy of this project
 
    Clone this repo wherever you want using git:
 
@@ -52,8 +58,11 @@
    Or alternatively you can use '_Download ZIP_' button
    and unzip the archive wherever you want to.
 
-2. Open command line as Administrator,
-   go to directory where Vagrantfile is stored
+2. [Go read about configuration file](#global-configurationcustomization-file) and customize environment.
+
+3. If you choose virtualized approach?
+
+   Open command line, go to directory where Vagrantfile is stored
    and get [Vagrant] to work:
 
    ```shell
@@ -75,15 +84,15 @@
 
    Enjoy!
 
-   > It is adviced to clean local temporary folder after successful machine
-   > provisioning. It will free some disk space (more than 1GB I expect)
-   > and may remove some sensitive data used for provisioning.
+4. If you don't want to use any virtualization?
+   
+   Take a short look at [setup.ps1](setup.ps1) and execute it if you trust it.
 
-### Your new machine
+### Your new virtual machine
 
   * has a hostname as your host OS with suffix `-V`
   * has assigned 1 CPU less than your host OS has.
-  * has declared maximum memory up to 8GB
+  * has declared maximum memory up to 8GB and not more than 2/3 of your total RAM size.
 
   > All these settings you can tweak as you wish.
 
@@ -95,196 +104,88 @@ versions of software may be provisioned in separated virtual machines.
 The [Vagrantfile] specifies following machines:
 
 * `vs2015` - **REMOVED** machine with [Visual Studio] 2015.
-* `vs2017` - the primary machine with [Visual Studio] 2017.
+* `vs2017` - the machine with [Visual Studio] 2017.
   In the future, when new releases of the [Visual Studio] will come new
   dedicated machines are expected and may be separated from each other.
 
-### Common provisioning
+### Provisioning process
 
-While provisioning all machines installs:
+Provisioning process is a sequence of operations as follows:
 
-* [Chocolatey] package manager
-* [Chocolatey] packages specified in
-  [choco.config](../master/provision/generic/choco.config)
+> Follow links to get more information about each operation and [Powershell] function involved.
 
-Each vagrant machine may be provisioned individual also.
-
-### Individual provisioning
-
-##### `vs2017`
-
-This particular machine is equipped with:
-
-* [Chocolatey] packages specified in
-  [choco.config](../master/provision/vs2017/choco.config)
-* [Visual Studio] is installed exclusively by Powershell script
-  [install.psm1](../master/provision/vs2017/install.psm1).
-  There is a place to mark components to install in the configuration file.
-  [More info...](#visual-studio-2017-components-and-extensions)
-* [Visual Studio] extensions specified in configuration file.
-  Extensions are installed by Powershell script
-  [install.psm1](../master/provision/vs2017/install.psm1).
-  [More info...](#visual-studio-2017-components-and-extensions)
-* all arbitrary files from [sysroot](../master/sysroot) folder.
-  This folder is processed by file replication command `robocopy` available
-  in Windows operating system.
+* install [vagrant-officeVM Powershell module](#vagrant-officevm-powershell-module),
+* install Nuget package provider for One-Get package management,
+* install Newtonsoft.Json package (for configuration files support),
+* [merge configuration files](docs/Merge-ConfigurationFiles.md),
+* [chocolatey] package manager installation,
+* [install common packages](docs/Install-CommonPackages.md),
+* [add Windows credentials](docs/Add-WindowsCredentials.md),
+* [add generic Windows credentials](docs/Add-GenericWindowsCredentials.md),
+* [install Visual Studio Code extensions](docs/Install-VisualStudioCodeExtensions.md),
+* [connect VPN](docs/Connect-Vpn.md),
+* [clone git repositories](docs/Copy-GitRepositories.md),
+* [install Visual Studio 2017](docs/Install-VisualStudio2017.md) with strictly specified workloads and components,
+* [install Visual Studio 2017 related software](docs/Install-VisualStudio2017Packages.md),
+* [add drive mappings](docs/Add-DriveMappings.md),
+* [add Windows Defender exclusions](docs/Add-WindowsDefenderExclusions.md),
+* [install Visual Studio 2017 extensions](docs/Install-VisualStudio2017Extensions.md).
+* mirror [sysroot](sysroot) folder into `c:\`,
 
   There is some software that cannot be installed while provisioning.
   This method is used to provide a desktop shortcut to do a manual installation.
 
-  For example [Get Babun desktop shortcut](../master/sysroot/Users/vagrant/Desktop)
+  For example [Get Babun desktop shortcut](sysroot/Users/vagrant/Desktop)
   simplifies [Babun] installation and needs to be manually clicked. [Babun]
   installation is supported by Powershell script
-  [babun.ps1](../master/provision/powershell/babun.ps1).
+  [babun.ps1](provision/powershell/babun.ps1).
 
-  Take a look inside [sysroot](../master/sysroot/) to see what else will be
-  copied to your new machine.
-
-* all `*.reg` files from [registry](../master/provision/registry) folder are
-  applied using a batch file
-  [registry.cmd](../master/provision/batch/registry.cmd).
+* import registry keys from [provision/registry](provision/registry),
 
   This is another method to take some actions in runtime of your new machine.
 
-  For example [vpn-triggers.reg](../master/provision/registry/vpn-triggers.reg)
+  For example [vpn-triggers.reg](provision/registry/vpn-triggers.reg)
   registers an action to update VPN application triggers. You don't have to
   manually connect VPN connection. It will be established automatically when
   specified executable files will be executed. Triggers are updated every time
   the user is logged in and Powershell script
-  [vpn-triggers.psm1](../master/provision/powershell/vpn-triggers.psm1)
+  [vpn.psm1](provision/powershell/vpn.psm1)
   maintains VPN triggers.
 
-* Windows credentials. [More info...](#windows-credentials)
+### Global configuration/customization file
 
-* established VPN connection. Only when `vpn-connect.cmd` is provided.
-  [More info...](#vpn-connection)
+You can customize your machine with a set of the configuration file.
+Two configuration files are processed: [config/common.json](config/common.json) and `config/user.json`.
+The first one is versioned and shared. It should contain only the most basic and common options.
+The second is for user customization. It is not versioned. It is .gitignore-ed.
+Both files are merged into one single file at the beginning of the provisioning process.
 
-* mapped network drives. [More info...](#drives-mappings)
-
-* cloned git repositories. You can define a list of git repositories in configuration file
-  This list is processed by Powershell script
-  [git-clone.ps1](../master/provision/powershell/git-clone.ps1).
-  [More info...](#git-repositories-to-clone)
-
-  > Target directory for cloned repositories is `%USERPROFILE%\MyProjects` on guest OS.
-
-* Windows Defender exclusions. There is a Powershell script
-  [defender.psm1](../master/provision/powershell/defender.psm1) that looks for
-  some executables. Those files are ignored by Windows Defender anti-malware
-  scanner.
-
-
-  > Please note, that Visual Studio 2017 is deployed with:
-  > - new setup tool; this changes the way VS2017 may be installed silently with custom features.
-  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
-  > - VS Marketplace as new extensions' gallery; this changes the way VS2017 may be extended.
-  >   It is supported by the script [install.psm1](../master/provision/vs2017/install.psm1)
-  >   and the extensions list in the configuration file.
-
-##### `vs2015`
-
-** Place a tag just before commit**
-
-### Global configuration/cutomization file
-
-You can customize your machine with single configuration file.
-The file is JSON formatted. A sample configuration file is
-[cfg.json](../sebi/cfg.json).
+First-level JSON objects are inputs for different functions
+in [vagrant-officeVM module](#vagrant-officevm-powershell-module).
+[Module's documentation](docs) describes each of them with configuration samples.
 
 Configuration contains some secret regions where some sensitive datas are expected.
-These areas are expected to be encrypted with tools available in [Utils](../master/utils/) folder.
+These areas are expected to be encrypted with tools available in [Utils](utils) folder.
 
 The first step you need is to make your own copy of the configuration file. You should store there your passwords and usernames.
 The next thing is to encrypt this file.
 
-You need a private key. You can create it with [Generate-PrivateKey](../master/utils/Generate-PrivateKey.ps1) utility.
-Then you can encrypt the file with [Encrypt-Config](../master/utils/Encrypt-Config.ps1).
+You need a private key. You can create it with [Generate-PrivateKey](utils/Generate-PrivateKey.ps1) utility.
+Then you can encrypt the file with [Encrypt-Config](utils/Encrypt-Config.ps1).
 
-When your passwords needs to be changed you can decrypt the file with [Decrypt-Config](../master/utils/Decrypt-Config.ps1). Then update the configuration and encrypt it back. That's all.
+When your passwords needs to be changed you can decrypt the file with [Decrypt-Config](utils/Decrypt-Config.ps1). Then update the configuration and encrypt it back. That's all.
 
 It is recommended to maintain your configuration file in your own branch or fork.
 
-#### What's inside of the configuration file?
+### vagrant-officeVM [Powershell] module
 
-##### Windows credentials
+All [Powershell] scripts useful while provisionig are assembled together 
+into single [Powershell] module called `vagrant-officeVM`. 
+You can take a [Powershell] console and invoke on-demand any single function you want at any time you want.
+The module is installed at location where it can be automatically imported from.
 
-This is the list of your secret usernames and passwords to your favourite services.
-You can store them here. Encrypt'em all. Vagrant will place them into Windows Vault and keeps it safely.
-
-Sample content is:
-
-```json
-    {     "credentials" : [ {
-          "type"     :     "domain"
-      ,   "secret"   : {
-          "server"   :     "<servername>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-    } }, {
-          "type"     :     "generic"
-      ,   "secret"   : {
-          "server"   :     "git:http://<url>:<port>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-    } }, {
-          "type"     :     "dialup"
-      ,   "secret"   : {
-          "name"     :     "<vpn connection name>"
-      ,   "username" :     "<username>"
-      ,   "password" :     "<password>"
-    } } ] }
-```
-
-While provisioning this part of the config file is processed by multiple scripts such as:
-[vpn.ps1](../master/provision/powershell/vpn.ps1)
-, [vault.ps1](../master/provision/powershell/vault.ps1)
-.
-
-> Please note, that `secret` objects may be encrypted as described above.
-
-##### VPN connection
-
-It is possible to establish VPN connection while provisioning.
-Two files are required:
-
-1. `rasphone.pbk` placed into user application data folder
-   using `sysroot` solution.
-2. `dialup` entry in `credentials` section of the configuration file.
-
-##### Drives mappings
-
-This is the list of the network drives to map to local disc letters.
-
-Sample content is:
-
-```json
-    { "drives"           : [ {
-          "local"        : "<localDrive>",
-          "secret"       : {
-              "remote"   : "\\\\<server-name>\\<network-share>"
-        }
-    } ] }
-```
-
-This part of the config file is processed by
-[map-drives.ps1](../master/provision/powershell/map-drives.ps1) while provisioning.
-
-> Please note, that `secret` objects may be encrypted as described above.
-
-##### git repositories to clone
-
-This is a place to list git repositories you need. Vagrant will clone them all.
-
-Sample content is:
-
-```json
-    { "repos"           : [ {
-          "url"        : "<url-where-to-clone-from>"
-    } ] }
-```
-
-This part of the config file is processed by
-[git-clone.ps1](../master/provision/powershell/git-clone.ps1).
+The source code of the module you can find [here](provision/powershell) 
+and full documentation is exposed [here](docs).
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
@@ -292,13 +193,14 @@ This part of the config file is processed by
 [inconsolata]: http://www.levien.com/type/myfonts/inconsolata.html
 [Java]: http://www.java.com
 [meslo]: https://github.com/andreberg/Meslo-Font
+[PowerShell]: https://pl.wikipedia.org/wiki/Windows_PowerShell
 [Resharper]: https://www.jetbrains.com/resharper/
 [Skype]: http://www.skype.com
 [source code pro]: http://adobe-fonts.github.io/source-code-pro/
 [Tomighty]: http://www.tomighty.org
 [unzip]: http://www.info-zip.org/UnZip.html
 [Vagrant]: https://www.vagrantup.com
-[Vagrantfile]: ../master/Vagrantfile
+[Vagrantfile]: Vagrantfile
 [Visual Studio]: https://www.visualstudio.com
 [Visual Studio Code]: https://code.visualstudio.com
 [VirtualBox]: https://www.virtualbox.org
