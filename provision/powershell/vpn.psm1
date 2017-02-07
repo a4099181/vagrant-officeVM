@@ -15,13 +15,19 @@ Function Connect-Vpn
     Configuration file.
 
     .PARAMETER KeyFile
-    Encryption key file.
+    Encryption key file. If you don't have it, please see New-EncryptionKey.
 
     .PARAMETER ConnectionName
     VPN connection name to connect.
 
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Connect-Vpn.md
+    
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md
 
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1
@@ -70,7 +76,7 @@ Function Add-VpnConnectionTriggers
 
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-VpnConnectionTriggers.md
-
+    
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1
 #>

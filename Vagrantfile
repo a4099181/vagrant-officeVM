@@ -53,7 +53,7 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  totalmemory = `wmic os get TotalVisibleMemorySize | grep '^[0-9]'`.to_i / 1024
+  totalmemory = `wmic os get TotalVisibleMemorySize | findstr "^[0-9]"`.to_i / 1024
   memory      = [8192, totalmemory * 2 / 3].min
 
   config.vm.provider "virtualbox" do |vb|

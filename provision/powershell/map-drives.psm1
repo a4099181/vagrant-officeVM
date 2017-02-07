@@ -15,10 +15,16 @@ Function Add-DriveMappings
     Configuration file.
 
     .PARAMETER KeyFile
-    Encryption key file.
+    Encryption key file. If you don't have it, please see New-EncryptionKey.
 
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Add-DriveMappings.md
+    
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md
 
     .LINK
     https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/map-drives.psm1

@@ -70,6 +70,7 @@ Accept wildcard characters: False
 
 ### -KeyFile
 Encryption key file.
+If you don't have it, please see New-EncryptionKey.
 
 ```yaml
 Type: String
@@ -110,6 +111,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Connect-Vpn.md](https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Connect-Vpn.md)
+
+[https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md](https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md)
+
+[https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md](https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md)
 
 [https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1](https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1)
 

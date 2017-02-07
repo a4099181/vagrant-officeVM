@@ -147,7 +147,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
-<maml:Description><maml:para>Encryption key file.
+<maml:Description><maml:para>Encryption key file. If you don't have it, please see New-EncryptionKey.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -176,7 +176,7 @@
 <dev:defaultValue>None</dev:defaultValue>
 </command:parameter>
 <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none"><maml:name>KeyFile</maml:name>
-<maml:Description><maml:para>Encryption key file.
+<maml:Description><maml:para>Encryption key file. If you don't have it, please see New-EncryptionKey.
 </maml:para>
 </maml:Description>
 <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -228,6 +228,12 @@
 </command:examples>
 <command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Connect-Vpn.md</maml:linkText>
 <maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Connect-Vpn.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Protect-Config.md</maml:uri>
 </maml:navigationLink>
 <maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1</maml:linkText>
 <maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/vpn.psm1</maml:uri>

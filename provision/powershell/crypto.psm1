@@ -8,7 +8,7 @@
     A piece of the JSON file.
 
     .PARAMETER KeyFile
-    Encryption key file.
+    Encryption key file. If you don't have it, please see New-EncryptionKey.
 
     .INPUTS
     PSCustomObject (Json object)
@@ -37,7 +37,7 @@ Function Global:Decrypt
     A piece of the JSON file.
 
     .PARAMETER KeyFile
-    Encryption key file.
+    Encryption key file. If you don't have it, please see New-EncryptionKey.
 
     .INPUTS
     PSCustomObject (Json object)
@@ -58,3 +58,36 @@ Function Global:Decrypt
     }
 }
 
+Function New-EncryptionKey
+{
+<#
+    .SYNOPSIS
+    Creates new encryption key based on the input file.
+
+    .DESCRIPTION
+    This function in details:
+    * gets MD5 hash of the input file
+    * converts MD5 hash into a byte array that may be used with SecureString as encryption key.
+
+    .PARAMETER InputFile
+    Any file to compute encryption key from using its MD5 hash.
+
+    .OUTPUTS
+    Byte[] - Encryption key to use with SecureString.
+
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/docs/New-EncryptionKey.md
+    
+    .LINK
+    https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/crypto.psm1
+#>
+
+Param ( [Parameter(Mandatory=$true)][String] $InputFile )
+
+    return Get-FileHash $InputFile -Algorithm MD5 |
+        Select-Object -ExpandProperty Hash |
+        Select-Object  @{
+            Name="ByteArray";
+            Expression={[System.Text.Encoding]::ASCII.GetBytes( $_ ) } } |
+        Select-Object -ExpandProperty ByteArray
+}

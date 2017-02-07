@@ -1,9 +1,9 @@
 ### What is it for?
 
-Fast and easy software developer's environment setup. 
+Fast and easy software developer's environment setup.
 Be able to:
 * start to code up to one hour from scratch (ie: just after new OS installation),
-* decide to restart your development environment any time you want 
+* decide to restart your development environment any time you want
   and after next one hour enjoy your new development environment
   and back to code ;)
 
@@ -25,7 +25,7 @@ Make simply possible two alternative approaches:
     * Oracle VM [VirtualBox] - tested with [VirtualBox] 5.0
 
     It is possible to use any other virtualization provider such as **VMWare**.
-  
+
   * You must have a copy of virtualized Windows instance.
     It is a little bit complicated thing to do but it is a one-time job to do.
     Take a virtualization hypervisor you like and create new virtualized Windows.
@@ -85,7 +85,7 @@ Make simply possible two alternative approaches:
    Enjoy!
 
 4. If you don't want to use any virtualization?
-   
+
    Take a short look at [setup.ps1](setup.ps1) and execute it if you trust it.
 
 ### Your new virtual machine
@@ -165,27 +165,87 @@ in [vagrant-officeVM module](#vagrant-officevm-powershell-module).
 [Module's documentation](docs) describes each of them with configuration samples.
 
 Configuration contains some secret regions where some sensitive datas are expected.
-These areas are expected to be encrypted with tools available in [Utils](utils) folder.
+These areas are expected to be encrypted. [vagrant-officeVM module](#vagrant-officevm-powershell-module) is eqipped with some
+functions to help you play with encryption. See [configuration encryption section](#basic-configuration-encryption).
 
-The first step you need is to make your own copy of the configuration file. You should store there your passwords and usernames.
-The next thing is to encrypt this file.
+### Basic configuration encryption
 
-You need a private key. You can create it with [Generate-PrivateKey](utils/Generate-PrivateKey.ps1) utility.
-Then you can encrypt the file with [Encrypt-Config](utils/Encrypt-Config.ps1).
+Some objects in JSON formatted configuration file contains object named `secret`.
+All values of the `secret`'s properties are recognized as sensitive data.
+In particular cases those values holds username or passwords.
+You may want upload them into Windows Vault, because:
+- you don't want be asked about them,
+- or provisioning requires VPN connection,
+- or any process running while provisioning needs them to connect somewhere. Maybe to git repository?
 
-When your passwords needs to be changed you can decrypt the file with [Decrypt-Config](utils/Decrypt-Config.ps1). Then update the configuration and encrypt it back. That's all.
+When you initially edit your custom configuration file `config\user.json` you enter passwords with plain text.
+The next step is to protect your configuration file.
+If you do that for the first time, you need your private encryption key, that you don't have.
+To create your private key take a powershell console and type:
 
-It is recommended to maintain your configuration file in your own branch or fork.
+```powershell
+PS (...)\vagrant-officeVM> New-EncryptionKey | Out-File .vagrant\my-private.key
+
+cmdlet New-EncryptionKey at command pipeline position 1
+Supply values for the following parameters:
+InputFile: <**enter path to any file you want, it will be a source file for your encryption key**>
+PS (...)\vagrant-officeVM>
+```
+
+And that's all. Now you have your encryption key in `.vagrant\my-private.key`. Take care of that file. Do not share it.
+This repository ignores folder `.vagrant` then you won't commit and push anything by mistake.
+
+Now, when you have your encryption key you can protect your configuration file. Back to powershell console and type:
+
+```powershell
+PS (...)\vagrant-officeVM> Protect-Config config\user.json .vagrant\my-private.key
+PS (...)\vagrant-officeVM>
+```
+
+Well done. See config `config\user.json`. It should contains some values like this piece of config file:
+
+```
+    "drives":  [
+                   {
+                       "local":  "M:",
+                       "secret":  {
+                                      "remote":  "76492d1116743f0423413b16050(...)IEAZQAwADAANwBkADkAMgA5ADUA"
+                                  }
+                   },
+```
+
+Now you can fully provision your new VM and forget about all this stuff until your passwords expires.
+When it comes and yo'll want restart your virtual environment, then you'll need to update your secret data.
+Before update any protected data you have to unprotect your configuration file. You'll open powershell console and type:
+
+```powershell
+PS (...)\vagrant-officeVM> Unprotect-Config config\user.json .vagrant\my-private.key
+PS (...)\vagrant-officeVM>
+```
+
+Now your passwords are back. Update the expired passwords and protect it back. After that `vagrant up` command will have a chance to succeed again.
+As you see your encryption key guarantees bi-directional operation protect<->unprotect.
+If you throw off your encryption key you have restore your secret data yourself.
+
+All functions involved are members of [vagrant-officeVM module](#vagrant-officevm-powershell-module).
 
 ### vagrant-officeVM [Powershell] module
 
-All [Powershell] scripts useful while provisionig are assembled together 
-into single [Powershell] module called `vagrant-officeVM`. 
+All [Powershell] scripts useful while provisionig are assembled together
+into single [Powershell] module called `vagrant-officeVM`.
 You can take a [Powershell] console and invoke on-demand any single function you want at any time you want.
-The module is installed at location where it can be automatically imported from.
+The module is installed on provisioned VM at location where it can be automatically imported from.
+If you want to use any function on your local machine you have to import taht module manually with command like:
 
-The source code of the module you can find [here](provision/powershell) 
+```powershell
+PS (...)\vagrant-officeVM> Import-Module provision\powershell\vagrant-officeVM.psd1
+PS (...)\vagrant-officeVM>
+```
+
+The source code of the module you can find [here](provision/powershell)
 and full documentation is exposed [here](docs).
+
+Enjoy :)
 
 [Babun]: http://babun.github.io
 [Chocolatey]: https://chocolatey.org
