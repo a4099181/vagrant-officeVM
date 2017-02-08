@@ -2,6 +2,9 @@
 # vi: set ft=ruby :
 
 require_relative "provision/ruby/powershell.rb"
+require_relative "provision/ruby/platform.rb"
+
+platform = UnknownPlatform.identify
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -53,8 +56,7 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  totalmemory = `wmic os get TotalVisibleMemorySize | findstr "^[0-9]"`.to_i / 1024
-  memory      = [8192, totalmemory * 2 / 3].min
+  memory      = [8192, platform.get_total_memory * 2 / 3].min
 
   config.vm.provider "virtualbox" do |vb|
 
@@ -64,7 +66,7 @@ Vagrant.configure(2) do |config|
   #   # Customize the amount of memory on the VM:
       vb.memory = memory
 
-      vb.cpus = [1, ENV['NUMBER_OF_PROCESSORS'].to_i - 1 ].max
+      vb.cpus = [1, platform.get_processors_count.to_i - 1 ].max
 
   end
 
@@ -72,7 +74,7 @@ Vagrant.configure(2) do |config|
 
       # Number of virtual CPU given to mashine.
       # Defaults is taken from box image XML.
-      hv.cpus = [1, ENV['NUMBER_OF_PROCESSORS'].to_i - 1 ].max
+      hv.cpus = [1, platform.get_processors_count.to_i - 1 ].max
 
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
