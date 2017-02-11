@@ -99,8 +99,8 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-  cfg_file='cfg.json'
-  key_file='.vagrant\my-private.key'
+  cfg_file='cfg.json' # https://github.com/a4099181/vagrant-officeVM#global-configurationcustomization-file
+  key_file='.vagrant\my-private.key' # https://github.com/a4099181/vagrant-officeVM#basic-configuration-encryption
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -119,6 +119,8 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
+  ps_elev config.vm, "Get-ChildItem C:\\ProgramData\\Git -Filter config -File | %{git config --file $_.FullName --unset core.autocrlf}"
+  ps_nonp config.vm, 'Add-SystemPath "%LOCALAPPDATA%\\Programs\\Microsoft Git Credential Manager for Windows"'
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_nonp config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file}"
@@ -127,8 +129,8 @@ Vagrant.configure(2) do |config|
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
+      ps_elev vs17.vm, "Get-ChildItem 'C:\\Program Files (x86)\\Microsoft Visual Studio' -Filter gitconfig -File -Recurse | %{git config --file $_.FullName --unset core.autocrlf}"
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps_elev vs17.vm, 'Add-SystemPath "%USERPROFILE%\\AppData\\Local\\Programs\\Microsoft Git Credential Manager for Windows"'
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
       ps_nonp vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"

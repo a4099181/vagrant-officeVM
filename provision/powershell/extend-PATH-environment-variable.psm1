@@ -24,7 +24,8 @@ Function Add-SystemPath
 
   $VerifiedPathsToAdd = $Null
   Foreach ($Path in $PathToAdd) {
-    if ($env:Path -like "*$Path*") {
+    $UserPath=[Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::User)
+    if ($UserPath -like "*$Path*") {
       Write-Host "Currnet item in path is: $Path"
       Write-Host "$Path already exists in Path statement"
     }
@@ -36,7 +37,7 @@ Function Add-SystemPath
     if($VerifiedPathsToAdd -ne $null) {
       Write-Host "`$VerifiedPathsToAdd contains: $verifiedPathsToAdd"
       Write-Host "Adding $Path to Path statement now..."
-      [Environment]::SetEnvironmentVariable("Path",$env:Path + $VerifiedPathsToAdd,"Process")
+      [Environment]::SetEnvironmentVariable("Path",$UserPath + $VerifiedPathsToAdd,[EnvironmentVariableTarget]::User)
     }
   }
 }

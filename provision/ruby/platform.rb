@@ -1,11 +1,8 @@
 class UnknownPlatform
 
     def self.identify
-        if RUBY_PLATFORM =~ /win32|mingw32/
-            Windows.new
-        else
+        Windows.maybe ||
             UnknownPlatform.new
-        end
     end
 
     def get_total_memory
@@ -19,6 +16,10 @@ class UnknownPlatform
 end
 
 class Windows < UnknownPlatform
+
+    def self.maybe
+        RUBY_PLATFORM =~ /win32|mingw32/ ? Windows.new : false
+    end
 
     def get_total_memory
         `wmic os get TotalVisibleMemorySize | findstr "^[0-9]"`.to_i / 1024

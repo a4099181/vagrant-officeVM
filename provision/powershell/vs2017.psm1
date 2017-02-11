@@ -47,7 +47,9 @@ Function Install-VisualStudio2017
             Where-Object   { -Not $_.disabled } |
             ForEach-Object { "--add $($_.id)" }
 
-        start -Wait -FilePath $installerPath -ArgumentList ( "--quiet", "--lang en-US" + $components )
+        Start-Process -Wait -FilePath $installerPath -ArgumentList ( "--quiet",
+            "--wait", "--norestart", "--nickname vagrant",
+            "--addProductLang en-US", "--removeProductLang pl-PL" + $components )
     }
 }
 
