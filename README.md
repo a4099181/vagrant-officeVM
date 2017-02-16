@@ -120,6 +120,7 @@ Provisioning process is a sequence of operations as follows:
 * [merge configuration files](docs/Merge-ConfigurationFiles.md),
 * [chocolatey] package manager installation,
 * [install common packages](docs/Install-CommonPackages.md),
+* [download zip files and extract'em](docs/Expand-DownloadedArchive.md),
 * [add Windows credentials](docs/Add-WindowsCredentials.md),
 * [add generic Windows credentials](docs/Add-GenericWindowsCredentials.md),
 * [install Visual Studio Code extensions](docs/Install-VisualStudioCodeExtensions.md),

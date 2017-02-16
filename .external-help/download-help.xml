@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml">
+
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+<command:details><command:name>Expand-DownloadedArchive</command:name>
+<command:verb>Expand</command:verb>
+<command:noun>DownloadedArchive</command:noun>
+<maml:description><maml:para>This function downloads zip files enumerated in configuration file.
+</maml:para>
+</maml:description>
+</command:details>
+<maml:description><maml:para>This function in details: * takes a zip file list to download from configuration file,
+</maml:para>
+<maml:para>* downloads each zip file,
+</maml:para>
+<maml:para>* extracts each file to location specified in configuration file.
+</maml:para>
+</maml:description>
+<command:syntax><command:syntaxItem><maml:name>Expand-DownloadedArchive</maml:name>
+<command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:syntaxItem>
+</command:syntax>
+<command:parameters><command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none"><maml:name>CfgFile</maml:name>
+<maml:Description><maml:para>Configuration file.
+</maml:para>
+</maml:Description>
+<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+<dev:type><maml:name>String</maml:name>
+<maml:uri /></dev:type>
+<dev:defaultValue>None</dev:defaultValue>
+</command:parameter>
+</command:parameters>
+<command:inputTypes></command:inputTypes>
+<command:returnValues></command:returnValues>
+<maml:alertSet><maml:alert><maml:para>
+</maml:para>
+</maml:alert>
+</maml:alertSet>
+<command:examples><command:example><maml:title>Example 1</maml:title>
+<dev:code>PS C:\&gt; Expand-DownloadedArchive cfg.json</dev:code>
+<dev:remarks><maml:para>
+</maml:para>
+</dev:remarks>
+</command:example>
+<command:example><maml:title>Example 3 Sample content of the `cfg.json`</maml:title>
+<dev:code>{
+    "download": {
+        "zip" : [
+            {
+                "url": "&lt;url-to-zip-archive&gt;",
+                "destination": "&lt;drive:\\destination\\path&gt;"
+            }
+        ]
+    }
+}</dev:code>
+<dev:remarks><maml:para>&gt; Note, that back-slash should be escaped with another back-slash char.
+</maml:para>
+</dev:remarks>
+</command:example>
+</command:examples>
+<command:relatedLinks><maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Expand-DownloadedArchive.md</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/docs/Expand-DownloadedArchive.md</maml:uri>
+</maml:navigationLink>
+<maml:navigationLink><maml:linkText>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/download.psm1</maml:linkText>
+<maml:uri>https://github.com/a4099181/vagrant-officeVM/blob/master/provision/powershell/download.psm1</maml:uri>
+</maml:navigationLink>
+</command:relatedLinks>
+</command:command>
+</helpItems>
