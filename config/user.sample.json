@@ -24,7 +24,7 @@
                    , "extensions":  [
                                       {
                                           "publisher":  "JaredParMSFT",
-                                          "name":  "VsVimDev15"
+                                          "name":  "VsVim"
                                           , "disabled": true
                                       },
                                       {
@@ -34,7 +34,7 @@
                                       },
                                       {
                                           "publisher":  "VisualStudioProductTeam",
-                                          "name":  "ProductivityPowerTools2017"
+                                          "name":  "ProductivityPowerPack2017"
                                           , "disabled": true
                                       },
                                       {
@@ -48,7 +48,7 @@
                                           , "disabled": true
                                       },
                                       {
-                                          "publisher":  "MikeWard-AnnArborn",
+                                          "publisher":  "MikeWard-AnnArbor",
                                           "name":  "VSColorOutput"
                                           , "disabled": true
                                       },
