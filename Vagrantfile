@@ -130,7 +130,6 @@ Vagrant.configure(2) do |config|
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      ps_elev vs17.vm, 'cd "\Program Files (x86)\MSBuild\15.0"; cmd /C IF NOT EXIST Bin mklink /D Bin "..\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin"'
       ps_elev vs17.vm, "Get-ChildItem 'C:\\Program Files (x86)\\Microsoft Visual Studio' -Filter gitconfig -File -Recurse | %{git config --file $_.FullName --unset core.autocrlf}"
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
