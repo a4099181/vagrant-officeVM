@@ -1,0 +1,4 @@
+[submodule "packer-officeVM"]
+	path = packer-officeVM
+	url = https://github.com/a4099181/packer-officeVM.git
+	branch = master
