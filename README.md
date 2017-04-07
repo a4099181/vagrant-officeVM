@@ -1,3 +1,15 @@
+## News announcement
+
+This project is now combined with [packer-officeVM].
+These both projects together provides full support to:
+
+1. create a [vagrant]'s box on your own (all you need is ISO file of the Windows OS).
+2. provision your box to your own virtual machine to work.
+
+[packer-officeVM] is now an integrated part of this project as git submodule.
+To read more about [packer-officeVM],
+please see it's own [README.md](https://github.com/a4099181/packer-officeVM).
+
 ### What is it for?
 
 Fast and easy software developer's environment setup.
@@ -26,18 +38,10 @@ Make simply possible two alternative approaches:
 
     It is possible to use any other virtualization provider such as **VMWare**.
 
-  * You must have a copy of virtualized Windows instance.
-    It is a little bit complicated thing to do but it is a one-time job to do.
-    Take a virtualization hypervisor you like and create new virtualized Windows.
-    This is your vagrant box.
-    This box should contain any Windows operating system configured as it is
-    described in Vagrant documentation in chapter
-    [Creating a base box](https://www.vagrantup.com/docs/boxes/base.html).
+  * Secondary must-have requirement is [packer] to be installed on your operating system also.
+    It is required to play with [packer-officeVM].
 
-    Alternatively you can go look for a box at [Atlas](https://atlas.hashicorp.com/boxes/search)
-    and just download it.
-
-    Another good option is to share a box across the developers at your company.
+  > For a moment, please forget about HyperV. [packer-officeVM] does not support it yet.
 
 * If you don't want to use any virtualization:
 
@@ -49,10 +53,17 @@ Make simply possible two alternative approaches:
 
 1. Take a copy of this project
 
-   Clone this repo wherever you want using git:
+   Clone (with submodules) this repo wherever you want using git:
 
    ```shell
-   C:\my-vagrant> git clone git@github.com/vagrant-officeVM.git
+   C:\> git clone --recursive git@github.com/vagrant-officeVM.git
+   ```
+
+   If you already have this project cloned and [packer-officeVM] is missing,
+   then you should initialize submodules with:
+
+   ```shell
+   C:\> git submodule update --init
    ```
 
    Or alternatively you can use '_Download ZIP_' button
@@ -62,25 +73,45 @@ Make simply possible two alternative approaches:
 
 3. If you choose virtualized approach?
 
-   Open command line, go to directory where Vagrantfile is stored
-   and get [Vagrant] to work:
+   There are three steps to have to be done to achieve VM to work.
 
-   ```shell
-   C:\my-vagrant\vagrant-officeVM> vagrant up --provider hyperv
-   ```
+   1. You need Windows ISO file. You must take care of it on your own.
+      After achieve it, place it whenever you want and remember the full path to that ISO file.
+      It will be necessary just in the next step.
 
-   > Please, note that two technologies are supported.
-   > Vagrant uses [VirtualBox] as default so if you want to use HyperV,
-   > then you have to provide `--provider hyperv` argument.
+   2. You need to create a [vagrant]'s box.
+      This is the thing where [packer-officeVM] is the best choose.
 
-   Relax and let [Vagrant] to do its job.
-   After that your new development environment is ready for you so then:
+      Open command line, go to directory where Vagrantfile is and type:
 
-   ```shell
-   C:\my-vagrant\vagrant-officeVM> vagrant rdp
-   ```
+      ```shell
+      C:\vagrant-officeVM> cd packer-officeVM
+      C:\vagrant-officeVM\packer-officeVM> powershell -ExecutionPolicy ByPass -File build.ps1 <your-iso-file-path>
+      ```
 
-   and login to your new machine with default credentials.
+      Wait a dozen or so minutes and let [packer] do the box for you.
+
+   3. The last thing is to engage [Vagrant] to create and provision VM to work.
+
+      Stay in the command prompt and get [Vagrant] to work:
+
+      ```shell
+      C:\vagrant-officeVM\packer-officeVM> cd ..
+      C:\vagrant-officeVM> vagrant up vs2017
+      ```
+
+      > Please, note that two technologies are supported.
+      > Vagrant uses [VirtualBox] as default so if you want to use HyperV,
+      > then you have to provide `--provider hyperv` argument.
+
+      Relax and let [Vagrant] to do its job.
+      After that your new development environment is ready for you so then:
+
+      ```shell
+      C:\vagrant-officeVM\vagrant-officeVM> vagrant rdp
+      ```
+
+      and login to your new machine with default credentials.
 
    Enjoy!
 
@@ -254,6 +285,8 @@ Enjoy :)
 [inconsolata]: http://www.levien.com/type/myfonts/inconsolata.html
 [Java]: http://www.java.com
 [meslo]: https://github.com/andreberg/Meslo-Font
+[packer]: http://packer.io
+[packer-officeVM]: https://github.com/a4099181/packer-officeVM
 [PowerShell]: https://pl.wikipedia.org/wiki/Windows_PowerShell
 [Resharper]: https://www.jetbrains.com/resharper/
 [Skype]: http://www.skype.com
