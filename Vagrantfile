@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+Vagrant.require_version ">= 1.9.1"
+
 require_relative "provision/ruby/powershell.rb"
 require_relative "provision/ruby/platform.rb"
 
@@ -18,8 +20,7 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
     config.vm.provider       "virtualbox"
-    config.vm.box          = "your-box-name-here"
-    config.vm.box_url      = "your-box-url-here"
+    config.vm.box          = "packer-officeVM"
     config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
     config.vm.guest        = :windows
     config.vm.communicator = "winrm"
@@ -127,6 +128,8 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file}"
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
+
+      vs17.vm.box_url = "packer-officeVM/packed/windows-10.1703.json"
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
