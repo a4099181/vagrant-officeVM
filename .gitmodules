@@ -2,3 +2,7 @@
 	path = packer-officeVM
 	url = https://github.com/a4099181/packer-officeVM.git
 	branch = master
+[submodule "vagrant-provvin"]
+  path = vagrant-provvin
+  url = https://github.com/a4099181/vagrant-provvin.git
+  branch = master
