@@ -51,35 +51,33 @@ Make simply possible two alternative approaches:
 
 ### How to use it?
 
-1. Take a copy of this project
+*  If you choose virtualized approach?
 
-   Clone (with submodules) this repo wherever you want using git:
+   1. Take a copy of this project
 
-   ```shell
-   C:\> git clone --recursive git@github.com/vagrant-officeVM.git
-   ```
+      Clone (with submodules) this repo wherever you want using git:
 
-   If you already have this project cloned and [packer-officeVM] is missing,
-   then you should initialize submodules with:
+      ```shell
+      C:\> git clone --recursive git@github.com/vagrant-officeVM.git
+      ```
 
-   ```shell
-   C:\> git submodule update --init
-   ```
+      If you already have this project cloned and [packer-officeVM] is missing,
+      then you should initialize submodules with:
 
-   Or alternatively you can use '_Download ZIP_' button
-   and unzip the archive wherever you want to.
+      ```shell
+      C:\> git submodule update --init
+      ```
 
-2. [Go read about configuration file](#global-configurationcustomization-file) and customize environment.
+      Or alternatively you can use '_Download ZIP_' button
+      and unzip the archive wherever you want to.
 
-3. If you choose virtualized approach?
+   2. [Go read about configuration file](#global-configurationcustomization-file) and customize environment.
 
-   There are three steps to have to be done to achieve VM to work.
-
-   1. You need Windows ISO file. You must take care of it on your own.
+   3. You need Windows ISO file. You must take care of it on your own.
       After achieve it, place it whenever you want and remember the full path to that ISO file.
       It will be necessary just in the next step.
 
-   2. You need to create a [vagrant]'s box.
+   4. You need to create a [vagrant]'s box.
       This is the thing where [packer-officeVM] is the best choose.
 
       Open command line, go to directory where Vagrantfile is and type:
@@ -91,7 +89,7 @@ Make simply possible two alternative approaches:
 
       Wait a dozen or so minutes and let [packer] do the box for you.
 
-   3. The last thing is to engage [Vagrant] to create and provision VM to work.
+   5. The last thing is to engage [Vagrant] to create and provision VM to work.
 
       Stay in the command prompt and get [Vagrant] to work:
 
@@ -115,9 +113,16 @@ Make simply possible two alternative approaches:
 
    Enjoy!
 
-4. If you don't want to use any virtualization?
+*  If you don't want to use any virtualization?
 
-   Take a short look at [setup.ps1](setup.ps1) and execute it if you trust it.
+   I invite you to look at [vagrant-provvin] project.
+   This is a set of the [Powershell] modules to provision local Windows instance
+   in the same way as this project provisions virtual machine.
+
+   I also recommend to read some informations about
+   [configuration file](#global-configurationcustomization-file).
+
+   The same configuration file is used for both solutions.
 
 ### Your new virtual machine
 
@@ -145,23 +150,23 @@ Provisioning process is a sequence of operations as follows:
 
 > Follow links to get more information about each operation and [Powershell] function involved.
 
-* install [vagrant-officeVM Powershell module](#vagrant-officevm-powershell-module),
+* install [vagrant-provvin Powershell module](#vagrant-provvin-powershell-module),
 * install Nuget package provider for One-Get package management,
 * install Newtonsoft.Json package (for configuration files support),
-* [merge configuration files](docs/Merge-ConfigurationFiles.md),
+* [merge configuration files](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Merge-ConfigurationFiles.md),
 * [chocolatey] package manager installation,
-* [install common packages](docs/Install-CommonPackages.md),
-* [download zip files and extract'em](docs/Expand-DownloadedArchive.md),
-* [add Windows credentials](docs/Add-WindowsCredentials.md),
-* [add generic Windows credentials](docs/Add-GenericWindowsCredentials.md),
-* [install Visual Studio Code extensions](docs/Install-VisualStudioCodeExtensions.md),
-* [connect VPN](docs/Connect-Vpn.md),
-* [clone git repositories](docs/Copy-GitRepositories.md),
-* [install Visual Studio 2017](docs/Install-VisualStudio2017.md) with strictly specified workloads and components,
-* [install Visual Studio 2017 related software](docs/Install-VisualStudio2017Packages.md),
-* [add drive mappings](docs/Add-DriveMappings.md),
-* [add Windows Defender exclusions](docs/Add-WindowsDefenderExclusions.md),
-* [install Visual Studio 2017 extensions](docs/Install-VisualStudio2017Extensions.md).
+* [install common packages](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Install-CommonPackages.md),
+* [download zip files and extract'em](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Expand-DownloadedArchive.md),
+* [add Windows credentials](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Add-WindowsCredentials.md),
+* [add generic Windows credentials](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Add-GenericWindowsCredentials.md),
+* [install Visual Studio Code extensions](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Install-VisualStudioCodeExtensions.md),
+* [connect VPN](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Connect-Vpn.md),
+* [clone git repositories](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Copy-GitRepositories.md),
+* [install Visual Studio 2017](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Install-VisualStudio2017.md) with strictly specified workloads and components,
+* [install Visual Studio 2017 related software](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Install-VisualStudio2017Packages.md),
+* [add drive mappings](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Add-DriveMappings.md),
+* [add Windows Defender exclusions](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Add-WindowsDefenderExclusions.md),
+* [install Visual Studio 2017 extensions](https://github.com/a4099181/vagrant-provvin/blob/master/docs/Install-VisualStudio2017Extensions.md).
 * mirror [sysroot](sysroot) folder into `c:\`,
 
   There is some software that cannot be installed while provisioning.
@@ -181,7 +186,7 @@ Provisioning process is a sequence of operations as follows:
   manually connect VPN connection. It will be established automatically when
   specified executable files will be executed. Triggers are updated every time
   the user is logged in and Powershell script
-  [vpn.psm1](provision/powershell/vpn.psm1)
+  [vpn.psm1](https://github.com/a4099181/vagrant-provvin/blob/master/modules/vpn.psm1)
   maintains VPN triggers.
 
 ### Global configuration/customization file
@@ -193,11 +198,11 @@ The second is for user customization. It is not versioned. It is .gitignore-ed.
 Both files are merged into one single file at the beginning of the provisioning process.
 
 First-level JSON objects are inputs for different functions
-in [vagrant-officeVM module](#vagrant-officevm-powershell-module).
-[Module's documentation](docs) describes each of them with configuration samples.
+in [vagrant-provvin module](#vagrant-provvin-powershell-module).
+[Module's documentation](https://github.com/a4099181/vagrant-provvin/tree/master/docs) describes each of them with configuration samples.
 
 Configuration contains some secret regions where some sensitive datas are expected.
-These areas are expected to be encrypted. [vagrant-officeVM module](#vagrant-officevm-powershell-module) is eqipped with some
+These areas are expected to be encrypted. [vagrant-provvin module](#vagrant-provvin-powershell-module) is eqipped with some
 functions to help you play with encryption. See [configuration encryption section](#basic-configuration-encryption).
 
 ### Basic configuration encryption
@@ -251,31 +256,33 @@ When it comes and yo'll want restart your virtual environment, then you'll need 
 Before update any protected data you have to unprotect your configuration file. You'll open powershell console and type:
 
 ```powershell
-PS (...)\vagrant-officeVM> Unprotect-Config config\user.json .vagrant\my-private.key
-PS (...)\vagrant-officeVM>
+PS (...)\vagrant-provvin> Unprotect-Config config\user.json .vagrant\my-private.key
+PS (...)\vagrant-provvin>
 ```
 
 Now your passwords are back. Update the expired passwords and protect it back. After that `vagrant up` command will have a chance to succeed again.
 As you see your encryption key guarantees bi-directional operation protect<->unprotect.
 If you throw off your encryption key you have restore your secret data yourself.
 
-All functions involved are members of [vagrant-officeVM module](#vagrant-officevm-powershell-module).
+All functions involved are members of [vagrant-provvin module](#vagrant-provvin-powershell-module).
 
-### vagrant-officeVM [Powershell] module
+### vagrant-provvin [Powershell] module
 
 All [Powershell] scripts useful while provisionig are assembled together
-into single [Powershell] module called `vagrant-officeVM`.
+into single [Powershell] module called `vagrant-provvin`.
 You can take a [Powershell] console and invoke on-demand any single function you want at any time you want.
 The module is installed on provisioned VM at location where it can be automatically imported from.
 If you want to use any function on your local machine you have to import taht module manually with command like:
 
 ```powershell
-PS (...)\vagrant-officeVM> Import-Module provision\powershell\vagrant-officeVM.psd1
+PS (...)\vagrant-officeVM> Import-Module vagrant-provvin\vagrant-provvin.psd1
 PS (...)\vagrant-officeVM>
 ```
 
-The source code of the module you can find [here](provision/powershell)
-and full documentation is exposed [here](docs).
+[vagrant-provvin] is a separate project which together with: [vagrant-officeVM] and [packer-officeVM]
+forms one ecosystem.
+The source code of the module you can find [here](https://github.com/a4099181/vagrant-provvin)
+and full documentation is exposed [here](https://github.com/a4099181/vagrant-provvin/tree/master/docs).
 
 Enjoy :)
 
@@ -287,6 +294,8 @@ Enjoy :)
 [meslo]: https://github.com/andreberg/Meslo-Font
 [packer]: http://packer.io
 [packer-officeVM]: https://github.com/a4099181/packer-officeVM
+[vagrant-provvin]: https://github.com/a4099181/vagrant-provvin
+[vagrant-officeVM]: https://github.com/a4099181/vagrant-officeVM
 [PowerShell]: https://pl.wikipedia.org/wiki/Windows_PowerShell
 [Resharper]: https://www.jetbrains.com/resharper/
 [Skype]: http://www.skype.com

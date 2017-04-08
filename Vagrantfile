@@ -111,7 +111,7 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  ps_elev config.vm, 'robocopy provision\powershell "C:\Program Files\WindowsPowerShell\Modules\vagrant-officeVM" *.ps?1 /MIR'
+  ps_elev config.vm, 'robocopy vagrant-provvin "C:\Program Files\WindowsPowerShell\Modules\vagrant-provvin" *.ps?1 /MIR'
   ps_elev config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
@@ -125,7 +125,7 @@ Vagrant.configure(2) do |config|
   ps_nonp config.vm, 'Add-SystemPath "%LOCALAPPDATA%\\Programs\\Microsoft Git Credential Manager for Windows"'
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_nonp config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
-  ps_elev config.vm, "Copy-GitRepositories #{cfg_file}"
+  ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
