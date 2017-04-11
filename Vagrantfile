@@ -122,7 +122,6 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Get-ChildItem C:\\ProgramData\\Git -Filter config -File | %{git config --file $_.FullName --unset core.autocrlf}"
-  ps_nonp config.vm, 'Add-SystemPath "%LOCALAPPDATA%\\Programs\\Microsoft Git Credential Manager for Windows"'
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_nonp config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
