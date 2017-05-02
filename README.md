@@ -33,15 +33,11 @@ Make simply possible two alternative approaches:
 
   * This [Vagrantfile] supports:
 
-    * Microsoft HyperV - tested with Windows 10 HyperV
+    * Microsoft Hyper-V - tested with Windows 10 Hyper-V
     * Oracle VM [VirtualBox] - tested with [VirtualBox] 5.0
-
-    It is possible to use any other virtualization provider such as **VMWare**.
 
   * Secondary must-have requirement is [packer] to be installed on your operating system also.
     It is required to play with [packer-officeVM].
-
-  > For a moment, please forget about HyperV. [packer-officeVM] does not support it yet.
 
 * If you don't want to use any virtualization:
 
@@ -99,7 +95,7 @@ Make simply possible two alternative approaches:
       ```
 
       > Please, note that two technologies are supported.
-      > Vagrant uses [VirtualBox] as default so if you want to use HyperV,
+      > Vagrant uses [VirtualBox] as default so if you want to use Hyper-V,
       > then you have to provide `--provider hyperv` argument.
 
       Relax and let [Vagrant] to do its job.

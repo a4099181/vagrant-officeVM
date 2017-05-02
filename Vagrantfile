@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 1.9.1"
+Vagrant.require_version ">= 1.9.1", "!= 1.9.4"
 
 require_relative "provision/ruby/powershell.rb"
 require_relative "provision/ruby/platform.rb"
@@ -82,11 +82,15 @@ Vagrant.configure(2) do |config|
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
+      hv.memory = memory / 2
 
       # Number of MegaBytes maximal allowed to allocate for VM
       # This parameter is switch on Dynamic Allocation of memory.
       # Defaults is taken from box image XML.
       hv.maxmemory = memory
+
+      hv.mac="00:15:5d:0a:41:53"
+      hv.differencing_disk = true
   end
 
   #
@@ -100,7 +104,7 @@ Vagrant.configure(2) do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-  cfg_file='cfg.json' # https://github.com/a4099181/vagrant-officeVM#global-configurationcustomization-file
+  cfg_file='C:\Users\vagrant\cfg.json' # https://github.com/a4099181/vagrant-officeVM#global-configurationcustomization-file
   key_file='.vagrant\my-private.key' # https://github.com/a4099181/vagrant-officeVM#basic-configuration-encryption
 
   # Enable provisioning with a shell script. Additional provisioners such as
@@ -124,7 +128,7 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, "('C:\\ProgramData\\Git', 'C:\\tools\\git\\') | ? { Test-Path $_ } | % { Get-ChildItem $_ -Include config, gitconfig -File -Recurse } | Reset-GitAutoCrLf"
 
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
-  ps_nonp config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
+  ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
