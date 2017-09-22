@@ -67,7 +67,7 @@ Vagrant.configure(2) do |config|
   #   # Customize the amount of memory on the VM:
       vb.memory = memory
 
-      vb.cpus = [1, platform.get_processors_count.to_i - 1 ].max
+      vb.cpus = [1, platform.get_processors_count.to_i * 3 / 4 ].max
 
   end
 
@@ -75,7 +75,7 @@ Vagrant.configure(2) do |config|
 
       # Number of virtual CPU given to mashine.
       # Defaults is taken from box image XML.
-      hv.cpus = [1, platform.get_processors_count.to_i - 1 ].max
+      hv.cpus = [1, platform.get_processors_count.to_i * 3 / 4 ].max
 
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
