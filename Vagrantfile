@@ -131,9 +131,13 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
 
+  # Vagrantfile custom global provisioning place-holders
+  # STARTS-HERE
+  # ENDS-HERE
+
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
 
-      vs17.vm.box_url = "packer-officeVM/packed/windows-10.1703.json"
+      vs17.vm.box_url = "packer-officeVM/packed/windows-10.1709.json"
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
@@ -144,9 +148,5 @@ Vagrant.configure(2) do |config|
       ps_nonp vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
 
   end
-
-  # Vagrantfile custom global provisioning place-holders
-  # STARTS-HERE
-  # ENDS-HERE
 
 end
