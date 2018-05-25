@@ -15,7 +15,8 @@
                    "extensions":  [
                                       { "name":  "dbankier.vscode-instant-markdown" },
                                       { "name":  "ms-vscode.csharp" },
-                                      { "name":  "ms-mssql.mssql" }
+                                      { "name":  "ms-mssql.mssql" },
+                                      { "name":  "MS-vsliveshare.vsliveshare"}
                                   ]
                },
     "vs2017":  {
