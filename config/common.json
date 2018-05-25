@@ -43,6 +43,10 @@
                                       {
                                           "publisher":  "NunitDevelopers",
                                           "name":  "NunitTestAdapter"
+                                      },
+                                      {
+                                          "publisher": "MS-vsliveshare",
+                                          "name": "vsls-vs"
                                       }
                                   ],
                     "chocolatey" : {
