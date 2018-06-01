@@ -1,7 +1,7 @@
 class UnknownPlatform
 
     def self.identify
-        Windows.maybe ||
+        WindowsPlatform.maybe ||
             UnknownPlatform.new
     end
 
@@ -15,10 +15,10 @@ class UnknownPlatform
 
 end
 
-class Windows < UnknownPlatform
+class WindowsPlatform < UnknownPlatform
 
     def self.maybe
-        RUBY_PLATFORM =~ /win32|mingw32/ ? Windows.new : false
+        RUBY_PLATFORM =~ /win32|mingw32/ ? WindowsPlatform.new : false
     end
 
     def get_total_memory
