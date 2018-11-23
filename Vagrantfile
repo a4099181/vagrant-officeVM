@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 1.9.1", "!= 1.9.4"
+Vagrant.require_version ">= 2.2.1"
 
 require_relative "provision/ruby/powershell.rb"
 require_relative "provision/ruby/platform.rb"
@@ -90,7 +90,7 @@ Vagrant.configure(2) do |config|
       hv.maxmemory = memory
 
       hv.mac="00:15:5d:0a:41:53"
-      hv.differencing_disk = true
+      hv.linked_clone = true
   end
 
   #
