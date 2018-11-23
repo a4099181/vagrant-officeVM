@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
   # boxes at https://atlas.hashicorp.com/search.
     config.vm.provider       "virtualbox"
     config.vm.box          = "packer-officeVM"
-    config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
+#    config.vm.hostname     = "#{ENV['COMPUTERNAME']}-V"
     config.vm.guest        = :windows
     config.vm.communicator = "winrm"
     config.winrm.username  = "vagrant"
