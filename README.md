@@ -122,7 +122,6 @@ Make simply possible two alternative approaches:
 
 ### Your new virtual machine
 
-  * has a hostname as your host OS with suffix `-V`
   * has assigned 1 CPU less than your host OS has.
   * has declared maximum memory up to 8GB and not more than 2/3 of your total RAM size.
 
