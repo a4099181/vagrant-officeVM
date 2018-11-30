@@ -129,6 +129,7 @@ Vagrant.configure(2) do |config|
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
+  ps_nonp config.vm, "Set-QuickAccessFromCfg #{cfg_file}"
 
   # Vagrantfile custom global provisioning place-holders
   # STARTS-HERE
