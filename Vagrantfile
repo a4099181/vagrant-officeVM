@@ -51,6 +51,9 @@ Vagrant.configure(2) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "z:\\Downloads", "/MyDownloads"
+  config.vm.synced_folder "z:\\Documents", "/MyDocuments"
+  config.vm.synced_folder "f:\\MyWorkspace", "/MyWorkspace"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -134,6 +137,9 @@ Vagrant.configure(2) do |config|
 
   # Vagrantfile custom global provisioning place-holders
   # STARTS-HERE
+  ps7_elev config.vm, "('platyps') | ?{@(Get-Module $_ -ListAvailable).Count -eq 0} | %{Install-Module $_ -Force}"
+  ps7_elev config.vm, 'cmd /C IF NOT EXIST .editorconfig mklink .editorconfig CodeStyles\EditorConfig\editor.config', 'C:\Users\vagrant\MyProjects'
+  ps7_elev config.vm, 'sc.exe create jenkins-slave binPath=c:\Jenkins-Slave\bin\jenkins-slave.exe obj=.\vagrant password=vagrant DisplayName=Jenkins start=auto'
   # ENDS-HERE
 
   config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
