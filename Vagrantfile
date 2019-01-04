@@ -135,6 +135,10 @@ Vagrant.configure(2) do |config|
 
   # Vagrantfile custom global provisioning place-holders
   # STARTS-HERE
+  ps7_elev config.vm, "('platyps') | ?{@(Get-Module $_ -ListAvailable).Count -eq 0} | %{Install-Module $_ -Force}"
+  ps7_elev config.vm, 'cmd /C IF NOT EXIST .editorconfig mklink .editorconfig CodeStyles\EditorConfig\editor.config', 'C:\Users\vagrant\MyProjects'
+  ps7_elev config.vm, 'sc.exe create jenkins-slave binPath=c:\Jenkins-Slave\bin\jenkins-slave.exe obj=.\vagrant password=vagrant DisplayName=Jenkins start=auto'
+  config.vm.provision "file", source: 'C:\\Users\\sebi\\AppData\\Local\\Vivaldi', destination: 'C:\\Users\\vagrant\\AppData\\Local\\'
   # ENDS-HERE
 
   config.vm.define 'vs2019', autostart: false, primary: false do | vs19 |
