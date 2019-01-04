@@ -121,7 +121,6 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
   ps_elev config.vm, "Install-CommonPackages #{cfg_file}"
   ps_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
-  ps_elev config.vm, 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force'
   ps_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
