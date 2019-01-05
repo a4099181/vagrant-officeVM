@@ -88,7 +88,6 @@ Vagrant.configure(2) do |config|
       # Defaults is taken from box image XML.
       hv.maxmemory = memory
 
-      hv.mac="00:15:5d:0a:41:53"
       hv.linked_clone = true
   end
 
