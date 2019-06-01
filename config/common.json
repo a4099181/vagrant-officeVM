@@ -3,13 +3,13 @@
         "packages": [
             { "id": "git.portable" }
             , { "id": "inconsolata" }
-            , { "id": "meslolg.dz" }
-            , { "id": "skype" }
+            , { "id": "skype", "disabled": true }
             , { "id": "sourcecodepro" }
             , { "id": "tomighty" }
             , { "id": "unzip" }
             , { "id": "mysql.workbench" }
             , { "id": "visualstudiocode" }
+            , { "id": "microsoft-teams" }
         ]},
     "vscode":  {
                    "extensions":  [
@@ -19,6 +19,44 @@
                                       { "name":  "MS-vsliveshare.vsliveshare"}
                                   ]
                },
+    "vs2019":  {
+                "components":  [
+                                   { "id": "Microsoft.VisualStudio.Workload.ManagedDesktop" },
+                                   { "id": "Microsoft.VisualStudio.Workload.Azure" },
+                                   { "id": "Microsoft.Net.ComponentGroup.TargetingPacks.Common" },
+                                   { "id": "Microsoft.VisualStudio.Component.LiveUnitTesting" },
+                                   { "id": "Microsoft.VisualStudio.Component.SQL.CMDUtils" },
+                                   { "id": "Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime" },
+                                   { "id": "Microsoft.VisualStudio.Component.SQL.SSDT" }
+                                   , { "id": "Microsoft.VisualStudio.Component.DiagnosticTools"
+                                   },
+                                   {
+                                       "id":  "Microsoft.VisualStudio.Component.TypeScript.3.3"
+                                   },
+                                   {
+                                       "id": "Microsoft.VisualStudio.Component.VSSDK"
+                                   }
+                               ],
+                "extensions":  [
+                                   {
+                                       "publisher":  "enovaMSDN",
+                                       "name":  "SonetaStudioExtPackage"
+                                   },
+                                   {
+                                       "publisher":  "enovaMSDN",
+                                       "name":  "SonetaPlatformDeveloper"
+                                   },
+                                   {
+                                       "publisher": "MS-vsliveshare",
+                                       "name": "vsls-vs"
+                                   }
+                               ],
+                 "chocolatey" : {
+                     "packages": [
+                         { "id": "resharper" }
+                         , { "id": "ncrunch-vs2019" }
+                     ]}
+            },
     "vs2017":  {
                    "components":  [
                                       { "id": "Microsoft.VisualStudio.Workload.ManagedDesktop" },
@@ -55,8 +93,7 @@
                                   ],
                     "chocolatey" : {
                         "packages": [
-                            { "id": "microsoft-build-tools" }
-                            , { "id": "resharper" }
+                            { "id": "resharper" }
                             , { "id": "ncrunch-vs2017" }
                         ]}
                },
