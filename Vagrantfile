@@ -148,4 +148,22 @@ Vagrant.configure(2) do |config|
 
   end
 
+  config.vm.define 'vs2019', autostart: false, primary: false do | vs19 |
+
+      vs19.vm.box_url = "packer-officeVM/packed/windows-10.1709.json"
+
+      ps_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
+      ps_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
+      ps_elev vs19.vm, "Get-ChildItem 'C:\\Program Files (x86)\\Microsoft Visual Studio' -Filter gitconfig -File -Recurse | Reset-GitAutoCrLf"
+      ps_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      ps_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      ps_elev vs19.vm, 'Add-WindowsDefenderExclusions'
+      ps_nonp vs19.vm, "Install-VisualStudio2019Extensions #{cfg_file}"
+      ps_elev vs19.vm, "New-Item -ItemType Directory -Path 'C:\\Program Files\\Common Files\\Soneta\\Assemblies'"
+      ps_elev vs19.vm, "Get-Acl $env:USERPROFILE | Set-Acl -Path 'C:\\Program Files\\Common Files\\Soneta\\Assemblies'"
+      ps_elev vs19.vm, "New-Item -ItemType Directory -Path 'C:\\Program Files (x86)\\Common Files\\Soneta\\Assemblies'"
+      ps_elev vs19.vm, "Get-Acl $env:USERPROFILE | Set-Acl -Path 'C:\\Program Files (x86)\\Common Files\\Soneta\\Assemblies'"
+
+  end
+
 end

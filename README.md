@@ -136,6 +136,7 @@ The [Vagrantfile] specifies following machines:
 
 * `vs2015` - **REMOVED** machine with [Visual Studio] 2015.
 * `vs2017` - the machine with [Visual Studio] 2017.
+* `vs2019` - the machine with [Visual Studio] 2019.
   In the future, when new releases of the [Visual Studio] will come new
   dedicated machines are expected and may be separated from each other.
 
