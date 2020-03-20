@@ -9,7 +9,6 @@
             , { "id": "unzip" }
             , { "id": "mysql.workbench" }
             , { "id": "visualstudiocode" }
-            , { "id": "microsoft-teams" }
         ]},
     "vscode":  {
                    "extensions":  [
