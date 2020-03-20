@@ -76,15 +76,7 @@
                    "extensions":  [
                                       {
                                           "publisher":  "enovaMSDN",
-                                          "name":  "SonetaStudioExtPackage"
-                                      },
-                                      {
-                                          "publisher":  "enovaMSDN",
                                           "name":  "SonetaPlatformDeveloper"
-                                      },
-                                      {
-                                          "publisher":  "NunitDevelopers",
-                                          "name":  "NunitTestAdapter"
                                       },
                                       {
                                           "publisher": "MS-vsliveshare",
