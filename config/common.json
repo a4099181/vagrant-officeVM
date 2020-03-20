@@ -2,7 +2,7 @@
     "chocolatey" : {
         "packages": [
             { "id": "git.portable" }
-            , { "id": "inconsolata" }
+            , { "id": "firacode" }
             , { "id": "skype", "disabled": true }
             , { "id": "sourcecodepro" }
             , { "id": "tomighty" }
