@@ -15,8 +15,7 @@
                    "extensions":  [
                                       { "name":  "dbankier.vscode-instant-markdown" },
                                       { "name":  "ms-dotnettools.csharp" },
-                                      { "name":  "ms-mssql.mssql" },
-                                      { "name":  "MS-vsliveshare.vsliveshare"}
+                                      { "name":  "ms-mssql.mssql" }
                                   ]
                },
     "vs2019":  {
@@ -45,10 +44,6 @@
                                    {
                                        "publisher":  "enovaMSDN",
                                        "name":  "SonetaPlatformDeveloper"
-                                   },
-                                   {
-                                       "publisher": "MS-vsliveshare",
-                                       "name": "vsls-vs"
                                    }
                                ],
                  "chocolatey" : {
