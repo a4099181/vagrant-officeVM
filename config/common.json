@@ -2,13 +2,14 @@
     "chocolatey" : {
         "packages": [
             { "id": "git.portable" }
-            , { "id": "firacode" }
+            , { "id": "firacode-ttf" }
             , { "id": "skype", "disabled": true }
             , { "id": "sourcecodepro" }
             , { "id": "tomighty" }
             , { "id": "unzip" }
             , { "id": "mysql.workbench" }
             , { "id": "visualstudiocode" }
+            , { "id": "kubernetes-helm" }
         ]},
     "vscode":  {
                    "extensions":  [
