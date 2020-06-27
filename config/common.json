@@ -1,7 +1,7 @@
 ﻿{
     "chocolatey" : {
         "packages": [
-            { "id": "git.portable" }
+            { "id": "poshgit" }
             , { "id": "firacode-ttf" }
             , { "id": "skype", "disabled": true }
             , { "id": "sourcecodepro" }

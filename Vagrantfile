@@ -123,7 +123,7 @@ Vagrant.configure(2) do |config|
   ps_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
-  ps_elev config.vm, "('C:\\ProgramData\\Git', 'C:\\tools\\git\\') | ? { Test-Path $_ } | % { Get-ChildItem $_ -Include config, gitconfig -File -Recurse } | Reset-GitAutoCrLf"
+  ps_elev config.vm, "('C:\\ProgramData\\Git', 'C:\\Program Files\\Git', 'C:\\tools\\git\\') | ? { Test-Path $_ } | % { Get-ChildItem $_ -Include config, gitconfig -File -Recurse } | Reset-GitAutoCrLf"
 
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
