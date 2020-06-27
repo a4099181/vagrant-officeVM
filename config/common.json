@@ -35,6 +35,8 @@
                                    {
                                        "id": "Microsoft.VisualStudio.Component.VSSDK"
                                    }
+                                   , { "id": "Microsoft.VisualStudio.Component.TeamOffice" }
+                                   , { "id": "Microsoft.VisualStudio.Component.Azure.Waverton.BuildTools" }
                                ],
                 "extensions":  [
                                    {
