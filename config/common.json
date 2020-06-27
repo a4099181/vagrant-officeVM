@@ -10,6 +10,7 @@
             , { "id": "mysql.workbench" }
             , { "id": "visualstudiocode" }
             , { "id": "kubernetes-helm" }
+            , { "id": "microsoft-teams" }
         ]},
     "vscode":  {
                    "extensions":  [
