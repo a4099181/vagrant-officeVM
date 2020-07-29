@@ -50,16 +50,6 @@
                                    , { "id": "Microsoft.VisualStudio.ComponentGroup.Azure.CloudServices" }
                                    , { "id": "Microsoft.VisualStudio.Workload.NetWeb" }
                                ],
-                "extensions":  [
-                                   {
-                                       "publisher":  "enovaMSDN",
-                                       "name":  "SonetaStudioExtPackage"
-                                   },
-                                   {
-                                       "publisher":  "enovaMSDN",
-                                       "name":  "SonetaPlatformDeveloper"
-                                   }
-                               ],
                  "chocolatey" : {
                      "packages": [
                          { "id": "resharper" }

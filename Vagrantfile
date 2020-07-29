@@ -145,7 +145,6 @@ Vagrant.configure(2) do |config|
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
-      ps_nonp vs17.vm, "Install-VisualStudio2017Extensions #{cfg_file}"
 
   end
 
@@ -159,11 +158,6 @@ Vagrant.configure(2) do |config|
       ps_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs19.vm, 'Add-WindowsDefenderExclusions'
-      ps_nonp vs19.vm, "Install-VisualStudio2019Extensions #{cfg_file}"
-      ps_elev vs19.vm, "New-Item -ItemType Directory -Path 'C:\\Program Files\\Common Files\\Soneta\\Assemblies'"
-      ps_elev vs19.vm, "Get-Acl $env:USERPROFILE | Set-Acl -Path 'C:\\Program Files\\Common Files\\Soneta\\Assemblies'"
-      ps_elev vs19.vm, "New-Item -ItemType Directory -Path 'C:\\Program Files (x86)\\Common Files\\Soneta\\Assemblies'"
-      ps_elev vs19.vm, "Get-Acl $env:USERPROFILE | Set-Acl -Path 'C:\\Program Files (x86)\\Common Files\\Soneta\\Assemblies'"
 
   end
 
