@@ -119,6 +119,7 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
   ps_elev config.vm, "Install-CommonPackages #{cfg_file}"
+  ps_elev config.vm, "Install-Module PSKubectlCompletion -Force"
   ps_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
   ps_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
