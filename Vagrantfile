@@ -116,13 +116,13 @@ Vagrant.configure(2) do |config|
 
   ps_elev config.vm, 'robocopy vagrant-provvin "C:\Program Files\WindowsPowerShell\Modules\vagrant-provvin" *.ps?1 /MIR'
   ps_elev config.vm, 'cmd /C mklink /D C:\Users\vagrant\Documents\PowerShell C:\Users\vagrant\Documents\WindowsPowerShell'
-  ps_elev config.vm, '("Nuget","Chocolatey") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
+  ps_elev config.vm, '("Nuget","Chocolatey") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force -ForceBootstrap -Verbose}'
+  ps_elev config.vm, '("PSKubectlCompletion","PSWindowsUpdate","JWT","MyTasks") | % { Install-Module $_ -Force -Verbose }'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
   ps_elev config.vm, "choco install powershell-core -y"
   ps7_elev config.vm, "Install-CommonPackages #{cfg_file}"
-  ps7_elev config.vm, "Install-Module PSKubectlCompletion -Force"
   ps7_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
   ps7_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
   ps7_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
