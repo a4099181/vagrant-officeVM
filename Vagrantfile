@@ -150,7 +150,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.define 'vs2019', autostart: false, primary: false do | vs19 |
 
-      vs19.vm.box_url = "packer-officeVM/packed/windows-10.1709.json"
+      vs19.vm.box_url = "packer-officeVM/packed/windows-10.1903.json"
 
       ps_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
       ps_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
