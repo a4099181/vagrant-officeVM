@@ -14,7 +14,8 @@
             , { "id": "nodejs", "version": "14.3.0" }
             , { "id": "docker-cli", "version": "18.09.6" }
             , { "id": "docker-compose" }
-            , { "#id": "wsl2" }
+            , { "#id": "wsl2 # nested virt. required. Not available for AMD CPUs." }
+            , { "id": "powershell-core" }
             , { "id": "microsoft-windows-terminal" }
         ]},
     "vscode":  {
