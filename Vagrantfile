@@ -124,7 +124,6 @@ Vagrant.configure(2) do |config|
   ps_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
   ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
-  ps_elev config.vm, "('C:\\ProgramData\\Git', 'C:\\Program Files\\Git', 'C:\\tools\\git\\') | ? { Test-Path $_ } | % { Get-ChildItem $_ -Include config, gitconfig -File -Recurse } | Reset-GitAutoCrLf"
 
   ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
   ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
@@ -141,7 +140,6 @@ Vagrant.configure(2) do |config|
 
       ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
       ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      ps_elev vs17.vm, "Get-ChildItem 'C:\\Program Files (x86)\\Microsoft Visual Studio' -Filter gitconfig -File -Recurse | Reset-GitAutoCrLf"
       ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
@@ -154,7 +152,6 @@ Vagrant.configure(2) do |config|
 
       ps_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
       ps_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
-      ps_elev vs19.vm, "Get-ChildItem 'C:\\Program Files (x86)\\Microsoft Visual Studio' -Filter gitconfig -File -Recurse | Reset-GitAutoCrLf"
       ps_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps_elev vs19.vm, 'Add-WindowsDefenderExclusions'
