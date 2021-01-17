@@ -114,21 +114,23 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   ps_elev config.vm, 'robocopy vagrant-provvin "C:\Program Files\WindowsPowerShell\Modules\vagrant-provvin" *.ps?1 /MIR'
-  ps_elev config.vm, '("Nuget") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
+  ps_elev config.vm, 'cmd /C mklink /D C:\Users\vagrant\Documents\PowerShell C:\Users\vagrant\Documents\WindowsPowerShell'
+  ps_elev config.vm, '("Nuget","Chocolatey") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force}'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
-  ps_elev config.vm, "Install-CommonPackages #{cfg_file}"
-  ps_elev config.vm, "Install-Module PSKubectlCompletion -Force"
-  ps_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
-  ps_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
-  ps_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
-  ps_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
+  ps_elev config.vm, "choco install powershell-core -y"
+  ps7_elev config.vm, "Install-CommonPackages #{cfg_file}"
+  ps7_elev config.vm, "Install-Module PSKubectlCompletion -Force"
+  ps7_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
+  ps7_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
+  ps7_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
+  ps7_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
 
-  ps_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
-  ps_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
-  ps_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
-  ps_nonp config.vm, "Set-QuickAccessFromCfg #{cfg_file}"
+  ps7_nonp config.vm, "Install-VisualStudioCodeExtensions #{cfg_file}"
+  ps7_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
+  ps7_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
+  ps7_nonp config.vm, "Set-QuickAccessFromCfg #{cfg_file}"
 
   # Vagrantfile custom global provisioning place-holders
   # STARTS-HERE
@@ -138,11 +140,11 @@ Vagrant.configure(2) do |config|
 
       vs17.vm.box_url = "packer-officeVM/packed/windows-10.1709.json"
 
-      ps_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
-      ps_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      ps_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
-      ps_elev vs17.vm, 'Add-WindowsDefenderExclusions'
+      ps7_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
+      ps7_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
+      ps7_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      ps7_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      ps7_elev vs17.vm, 'Add-WindowsDefenderExclusions'
 
   end
 
@@ -150,11 +152,11 @@ Vagrant.configure(2) do |config|
 
       vs19.vm.box_url = "packer-officeVM/packed/windows-10.1903.json"
 
-      ps_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
-      ps_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
-      ps_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
-      ps_elev vs19.vm, 'Add-WindowsDefenderExclusions'
+      ps7_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
+      ps7_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
+      ps7_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+      ps7_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+      ps7_elev vs19.vm, 'Add-WindowsDefenderExclusions'
 
   end
 
