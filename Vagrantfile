@@ -56,7 +56,7 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  memory      = [12288, platform.get_total_memory * 2 / 3].min
+  memory      = [16384, platform.get_total_memory * 2 / 3].min
 
   config.vm.provider "virtualbox" do |vb|
 
@@ -81,7 +81,7 @@ Vagrant.configure(2) do |config|
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-      hv.memory = memory / 2
+      hv.memory = memory * 3 / 4
 
       # Number of MegaBytes maximal allowed to allocate for VM
       # This parameter is switch on Dynamic Allocation of memory.
@@ -89,6 +89,7 @@ Vagrant.configure(2) do |config|
       hv.maxmemory = memory
 
       hv.linked_clone = true
+      #hv.enable_virtualization_extensions = true
   end
 
   #
