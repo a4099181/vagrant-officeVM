@@ -17,7 +17,6 @@
             , { "id": "docker-compose" }
             , { "id": "dos2unix" }
             , { "#id": "wsl2 # nested virt. required. Not available for AMD CPUs." }
-            , { "id": "powershell-core" }
             , { "id": "microsoft-windows-terminal" }
         ]},
     "vscode":  {
