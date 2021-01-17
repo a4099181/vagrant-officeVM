@@ -56,7 +56,7 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  memory      = [8192, platform.get_total_memory * 2 / 3].min
+  memory      = [12288, platform.get_total_memory * 2 / 3].min
 
   config.vm.provider "virtualbox" do |vb|
 
