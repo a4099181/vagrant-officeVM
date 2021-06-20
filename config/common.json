@@ -16,8 +16,10 @@
             , { "id": "docker-cli", "version": "18.09.6" }
             , { "id": "docker-compose" }
             , { "id": "dos2unix" }
-            , { "#id": "wsl2 # nested virt. required. Not available for AMD CPUs." }
+            , { "id": "wsl2", "disabled": true, "comment": "nested virt. required. Not available for AMD CPUs." }
             , { "id": "microsoft-windows-terminal" }
+            , { "id": "azure-cli"}
+            , { "id": "jetbrains-rider"}
         ]},
     "vscode":  {
                    "extensions":  [
