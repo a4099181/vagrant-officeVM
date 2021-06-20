@@ -12,7 +12,7 @@
             , { "id": "kubernetes-helm" }
             , { "id": "microsoft-teams" }
             , { "id": "mysql-cli" }
-            , { "id": "nodejs", "version": "14.3.0" }
+            , { "id": "nodejs", "version": "14.6.0" }
             , { "id": "docker-cli", "version": "18.09.6" }
             , { "id": "docker-compose" }
             , { "id": "dos2unix" }
