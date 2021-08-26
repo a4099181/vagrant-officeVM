@@ -5,23 +5,28 @@
 	b = branch
 	br = branch --remote
 	c = commit
+	clean-safe = clean --exclude .vs --exclude .vscode --exclude _ReSharper.Caches --exclude .idea --exclude Soneta.Net.Web.Content/node_modules -dx
 	co = checkout
 	cp = cherry-pick
 	cl = clone
 	ci = commit
 	d = diff
 	dc = diff --cached
+	ds = diff --staged
 	fa = fetch --all --prune
+	fo = fetch --prune origin
 	fl = flow
 	flf = flow feature
 	flfco = flow feature checkout
-	flfr = flow feature rebase
+	flfrb = flow feature rebase
 	flr = flow release
 	last = log -1 --stat
 	lo = log --oneline --decorate
 	lol = log --graph --pretty='%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	m = merge
 	ma = merge --abort
+	gpull = !git pull --rebase origin $(git symbolic-ref --short HEAD)
+	gpush = !git push --prune origin $(git symbolic-ref --short HEAD)
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
@@ -30,8 +35,13 @@
 	sb = status --short --branch
 	st = stash
 	unstage = reset HEAD --
-	wip = commit --interactive --message --wip-
-	wip-amend = commit --interactive --message --wip- --amend
+	wip = commit --interactive --message "WIP: " --edit
+	wip-amend = commit --interactive --amend -C HEAD
+	wt = worktree
+	wtls = worktree list
+	wtrm = worktree remove
+	wta = worktree add
+	wtmv = worktree move
 [core]
 	autcrlf = false
 [mergetool "tortoisemerge"]
