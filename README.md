@@ -91,7 +91,7 @@ Make simply possible two alternative approaches:
 
       ```shell
       C:\vagrant-officeVM\packer-officeVM> cd ..
-      C:\vagrant-officeVM> vagrant up vs2017
+      C:\vagrant-officeVM> vagrant up vs2022
       ```
 
       > Please, note that two technologies are supported.
@@ -137,6 +137,7 @@ The [Vagrantfile] specifies following machines:
 * `vs2015` - **REMOVED** machine with [Visual Studio] 2015.
 * `vs2017` - **REMOVED** the machine with [Visual Studio] 2017.
 * `vs2019` - the machine with [Visual Studio] 2019.
+* `vs2022` - the machine with [Visual Studio] 2022.
   In the future, when new releases of the [Visual Studio] will come new
   dedicated machines are expected and may be separated from each other.
 

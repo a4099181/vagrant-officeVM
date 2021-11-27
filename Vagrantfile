@@ -122,7 +122,8 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
-  ps_elev config.vm, "choco install powershell-core -y"
+  ps_elev config.vm, 'choco install powershell-core `
+    --no-progress --yes '
   ps7_elev config.vm, "Install-CommonPackages #{cfg_file}"
   ps7_elev config.vm, 'robocopy sysroot c:\ /S /NDL /NFL' if Dir.exist? 'sysroot'
   ps7_nonp config.vm, "Expand-DownloadedArchive #{cfg_file}"
@@ -147,6 +148,44 @@ Vagrant.configure(2) do |config|
       ps7_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
       ps7_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps7_elev vs19.vm, 'Add-WindowsDefenderExclusions'
+
+  end
+
+  config.vm.define 'vs2022', autostart: false, primary: false do | vs22 |
+
+    vs22.vm.box_url = "packer-officeVM"
+
+    ps7_elev vs22.vm, 'choco install visualstudio2022enterprise `
+      --no-progress --yes `
+      --package-parameters @"
+        --addProductLang en-US
+        --removeProductLang pl-PL
+        --add Microsoft.NetCore.Component.Runtime.3.1
+        --add Microsoft.VisualStudio.Workload.ManagedDesktop
+        --add Microsoft.VisualStudio.Workload.Azure
+        --add Microsoft.Net.ComponentGroup.TargetingPacks.Common
+        --add Microsoft.VisualStudio.Component.LiveUnitTesting
+        --add Microsoft.VisualStudio.Component.SQL.CMDUtils
+        --add Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime
+        --add Microsoft.VisualStudio.Component.SQL.SSDT
+        --add Microsoft.VisualStudio.Component.DiagnosticTools
+        --add Microsoft.VisualStudio.Component.TypeScript.3.3
+        --add Microsoft.VisualStudio.Component.VSSDK
+        --add Microsoft.VisualStudio.Component.TeamOffice
+        --add Microsoft.VisualStudio.Component.Azure.Waverton
+        --add Microsoft.VisualStudio.Component.Azure.Waverton.BuildTools
+        --add Microsoft.VisualStudio.ComponentGroup.Azure.CloudServices
+        --add Microsoft.VisualStudio.Workload.NetWeb
+        --add Microsoft.VisualStudio.Component.Wcf.Tooling
+        --locale en-US
+        --nickname vagrant22
+"@'
+    ps7_elev vs22.vm, 'choco install resharper `
+      --no-progress --yes'
+    ps7_elev vs22.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
+    ps7_elev vs22.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
+    ps7_elev vs22.vm, 'Add-WindowsDefenderExclusions'
+    ps7_elev vs22.vm, 'Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase'
 
   end
 
