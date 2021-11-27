@@ -13,63 +13,6 @@
                                   ]
                    , "disabled": false
                },
-    "vs2017":  {
-                   "components":  [
-                                      {
-                                           "name" : "Desktop development with C++"
-                                           , "id": "Microsoft.VisualStudio.Workload.NativeDesktop"
-                                           , "disabled": true
-                                      }
-                                  ]
-                   , "extensions":  [
-                                      {
-                                          "publisher":  "JaredParMSFT",
-                                          "name":  "VsVim"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "ZoltanKlinger",
-                                          "name":  "RelativeLineNumbers"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "VisualStudioProductTeam",
-                                          "name":  "ProductivityPowerPack2017"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "ErlanR",
-                                          "name":  "ReAttach"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "EWoodruff",
-                                          "name":  "VisualStudioSpellChecker"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "MikeWard-AnnArbor",
-                                          "name":  "VSColorOutput"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "NunitDevelopers",
-                                          "name":  "Nunit3TestAdapter"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "VisualStudioProductTeam",
-                                          "name":  "VisualStudio2015ColorThemeEditor"
-                                          , "disabled": true
-                                      },
-                                      {
-                                          "publisher":  "MadsKristensen",
-                                          "name":  "FileNesting"
-                                          , "disabled": true
-                                      }
-                                  ]
-                   , "disabled": false
-               },
     "drives":  [
                    {
                        "local":  "<drive-letter>",

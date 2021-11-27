@@ -56,38 +56,6 @@
                          { "id": "resharper" }
                      ]}
             },
-    "vs2017":  {
-                   "components":  [
-                                      { "id": "Microsoft.VisualStudio.Workload.ManagedDesktop" },
-                                      { "id": "Microsoft.VisualStudio.Workload.Azure" },
-                                      { "id": "Microsoft.Net.ComponentGroup.TargetingPacks.Common" },
-                                      { "id": "Microsoft.VisualStudio.Component.LiveUnitTesting" },
-                                      { "id": "Microsoft.VisualStudio.Component.SQL.NCLI" },
-                                      { "id": "Microsoft.VisualStudio.Component.SQL.CMDUtils" },
-                                      { "id": "Microsoft.VisualStudio.Component.SQL.LocalDB.Runtime" },
-                                      { "id": "Microsoft.VisualStudio.Component.SQL.SSDT" }
-                                      , { "id": "Microsoft.VisualStudio.Component.DiagnosticTools"
-                                      },
-                                      {
-                                          "id":  "Microsoft.VisualStudio.Component.TypeScript.2.8"
-                                      }
-                                  ],
-                   "extensions":  [
-                                      {
-                                          "publisher":  "enovaMSDN",
-                                          "name":  "SonetaPlatformDeveloper"
-                                      },
-                                      {
-                                          "publisher": "MS-vsliveshare",
-                                          "name": "vsls-vs"
-                                      }
-                                  ],
-                    "chocolatey" : {
-                        "packages": [
-                            { "id": "resharper" }
-                            , { "id": "ncrunch-vs2017" }
-                        ]}
-               },
     "repos":  [
                   {
                       "url":  "git@ssh.dev.azure.com:v3/soneta/Soneta/soneta.git"

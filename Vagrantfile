@@ -138,18 +138,6 @@ Vagrant.configure(2) do |config|
   # STARTS-HERE
   # ENDS-HERE
 
-  config.vm.define 'vs2017', autostart: false, primary: false do | vs17 |
-
-      vs17.vm.box_url = "packer-officeVM/packed/windows-10.1709.json"
-
-      ps7_elev vs17.vm, "Install-VisualStudio2017 #{cfg_file}"
-      ps7_elev vs17.vm, "Install-VisualStudio2017Packages #{cfg_file}"
-      ps7_elev vs17.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps7_elev vs17.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
-      ps7_elev vs17.vm, 'Add-WindowsDefenderExclusions'
-
-  end
-
   config.vm.define 'vs2019', autostart: false, primary: false do | vs19 |
 
       vs19.vm.box_url = "packer-officeVM/packed/windows-10.1903.json"
