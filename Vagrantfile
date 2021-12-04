@@ -146,7 +146,6 @@ Vagrant.configure(2) do |config|
       ps7_elev vs19.vm, "Install-VisualStudio2019 #{cfg_file}"
       ps7_elev vs19.vm, "Install-VisualStudio2019Packages #{cfg_file}"
       ps7_elev vs19.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-      ps7_elev vs19.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
       ps7_elev vs19.vm, 'Add-WindowsDefenderExclusions'
 
   end
@@ -183,7 +182,6 @@ Vagrant.configure(2) do |config|
     ps7_elev vs22.vm, 'choco install resharper `
       --no-progress --yes'
     ps7_elev vs22.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
-    ps7_elev vs22.vm, "Add-DriveMappings #{cfg_file} #{key_file}"
     ps7_elev vs22.vm, 'Add-WindowsDefenderExclusions'
     ps7_elev vs22.vm, 'Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase'
 
