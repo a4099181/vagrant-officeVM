@@ -118,6 +118,7 @@ Vagrant.configure(2) do |config|
   ps_elev config.vm, 'cmd /C mklink /D C:\Users\vagrant\Documents\PowerShell C:\Users\vagrant\Documents\WindowsPowerShell'
   ps_elev config.vm, '("Nuget","Chocolatey") | ?{@(Get-PackageProvider $_ -ErrorAction Ignore).Count -eq 0} | %{Install-PackageProvider $_ -Force -ForceBootstrap -Verbose}'
   ps_elev config.vm, '("PSKubectlCompletion","PSWindowsUpdate","JWT","MyTasks") | % { Install-Module $_ -Force -Verbose }'
+  ps_elev config.vm, 'Import-Module PSWindowsUpdate -Verbose; Install-WindowsUpdate -AcceptAll -Install -IgnoreReboot -Verbose'
   ps_elev config.vm, '("newtonsoft.json") | ?{@(Get-Package $_ -ErrorAction Ignore).Count -eq 0} | %{Install-Package $_ -Force}'
   ps_elev config.vm, "Merge-ConfigurationFiles config\\common.json, config\\user.json | Out-File -Encoding utf8 #{cfg_file}"
   ps_elev config.vm, 'Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression'
