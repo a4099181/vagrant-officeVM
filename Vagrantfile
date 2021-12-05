@@ -130,7 +130,6 @@ Vagrant.configure(2) do |config|
   ps7_elev config.vm, "Add-WindowsCredentials #{cfg_file} #{key_file}"
   ps7_elev config.vm, "Add-GenericWindowsCredentials #{cfg_file} #{key_file}"
 
-  ps7_elev config.vm, "Connect-Vpn #{cfg_file} #{key_file} 'Soneta VPN'"
   ps7_elev config.vm, "Copy-GitRepositories #{cfg_file} #{key_file}"
   ps7_nonp config.vm, "Set-QuickAccessFromCfg #{cfg_file}"
 
