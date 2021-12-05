@@ -13,6 +13,7 @@
 	d = diff
 	dc = diff --cached
 	ds = diff --staged
+	diff-upstream = diff @{upstream}
 	fa = fetch --all --prune
 	fo = fetch --prune origin
 	fl = flow
@@ -22,11 +23,13 @@
 	flr = flow release
 	last = log -1 --stat
 	lo = log --oneline --decorate
+	lo-upstream = log --oneline --decorate @{upstream}
 	lol = log --graph --pretty='%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	m = merge
 	ma = merge --abort
 	gpull = !git pull --rebase origin $(git symbolic-ref --short HEAD)
 	gpush = !git push --prune origin $(git symbolic-ref --short HEAD)
+	gpush-force = !git push --prune origin $(git symbolic-ref --short HEAD) --force-with-lease
 	rb = rebase
 	rba = rebase --abort
 	rbc = rebase --continue
@@ -48,3 +51,5 @@
 	path = C:\\Program Files\\TortoiseGit\\bin\\TortoiseGitMerge.exe
 [merge]
 	tool = tortoisemerge
+[commit]
+	template = ..\\.gittemplate
