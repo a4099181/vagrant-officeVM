@@ -183,7 +183,6 @@ Vagrant.configure(2) do |config|
       --no-progress --yes'
     ps7_elev vs22.vm, "FORFILES /P provision\\registry /M *.reg /S /C 'cmd /c regedit /S @path'"
     ps7_elev vs22.vm, 'Add-WindowsDefenderExclusions'
-    ps7_elev vs22.vm, 'Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase'
 
   end
 
