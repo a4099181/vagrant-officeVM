@@ -3,8 +3,9 @@
         "packages": [
             { "id": "poshgit" }
             , { "id": "firacode-ttf" }
+            , { "id": "jetbrainsmono" }
             , { "id": "skype", "disabled": true }
-            , { "id": "sourcecodepro" }
+            , { "id": "sourcecodepro", "disabled": true }
             , { "id": "tomighty" }
             , { "id": "unzip" }
             , { "id": "mysql.workbench" }
@@ -12,14 +13,14 @@
             , { "id": "kubernetes-helm" }
             , { "id": "microsoft-teams" }
             , { "id": "mysql-cli" }
-            , { "id": "nodejs", "version": "14.6.0" }
+            , { "id": "nodejs", "version": "14.18.2" }
             , { "id": "docker-cli", "version": "18.09.6" }
             , { "id": "docker-compose" }
             , { "id": "dos2unix" }
             , { "id": "wsl2", "disabled": true, "comment": "nested virt. required. Not available for AMD CPUs." }
-            , { "id": "microsoft-windows-terminal" }
+            , { "id": "microsoft-windows-terminal", "version": "1.12.10334.0" }
             , { "id": "azure-cli"}
-            , { "id": "jetbrains-rider"}
+            , { "id": "jetbrains-rider", "disabled": true}
         ]},
     "vscode":  {
                    "extensions":  [
@@ -55,10 +56,5 @@
                      "packages": [
                          { "id": "resharper" }
                      ]}
-            },
-    "repos":  [
-                  {
-                      "url":  "git@ssh.dev.azure.com:v3/soneta/Soneta/soneta.git"
-                  }
-              ]
+            }
 }
