@@ -31,10 +31,13 @@
 	gpush = !git push --prune origin $(git symbolic-ref --short HEAD)
 	gpush-force = !git push --prune origin $(git symbolic-ref --short HEAD) --force-with-lease
 	rb = rebase
+	rb-upstream = rebase @{upstream}
 	rba = rebase --abort
 	rbc = rebase --continue
 	rbi = rebase --interactive
+	rbi-upstream = rebase --interactive @{upstream}
 	rhh = reset --hard HEAD
+	reset-upstream = reset --hard @{upstream}
 	sb = status --short --branch
 	st = stash
 	unstage = reset HEAD --
