@@ -21,6 +21,7 @@
             , { "id": "microsoft-windows-terminal", "version": "1.12.10334.0" }
             , { "id": "azure-cli"}
             , { "id": "jetbrains-rider", "disabled": true}
+            , { "id": "vmmap" }
         ]},
     "vscode":  {
                    "extensions":  [
