@@ -14,7 +14,7 @@
             , { "id": "microsoft-teams" }
             , { "id": "mysql-cli" }
             , { "id": "nodejs", "version": "14.18.2" }
-            , { "id": "docker-cli", "version": "18.09.6" }
+            , { "id": "docker-cli" }
             , { "id": "docker-compose" }
             , { "id": "dos2unix" }
             , { "id": "wsl2", "disabled": true, "comment": "nested virt. required. Not available for AMD CPUs." }
