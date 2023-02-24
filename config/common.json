@@ -20,7 +20,7 @@
             , { "id": "wsl2", "disabled": true, "comment": "nested virt. required. Not available for AMD CPUs." }
             , { "id": "microsoft-windows-terminal", "version": "1.12.10334.0" }
             , { "id": "azure-cli"}
-            , { "id": "jetbrains-rider", "disabled": true}
+            , { "id": "jetbrains-rider", "disabled":true, "version": "2021.2"}
             , { "id": "vmmap" }
         ]},
     "vscode":  {
